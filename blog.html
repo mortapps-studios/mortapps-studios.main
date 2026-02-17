@@ -59,7 +59,7 @@
       --muted: #64748b;
       --accent: #2563eb;
       --card: #ffffff;
-      --border: #e2e8f0;
+      --border: '#e2e8f0';
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -128,16 +128,19 @@
     }
     .btn-ghost:hover { gap: 0.75rem; }
 
-    /* Article Card Styles */
+    /* Article Card Styles - Performance Optimized */
     .article-card {
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
-      transition: all 0.3s ease;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
       display: flex;
       flex-direction: column;
       height: auto;
+      /* Hardware acceleration for smooth scrolling */
+      transform: translateZ(0);
+      will-change: transform;
     }
     
     .article-card:hover {
@@ -148,20 +151,23 @@
     .article-header-img {
       height: 200px;
       width: 100%;
-      object-fit: cover;
-      background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
       overflow: hidden;
+      background: #f1f5f9;
+      /* Reserve space to prevent layout shifts (CLS) */
+      aspect-ratio: 16/9;
     }
     
-    /* Abstract pattern for article images */
-    .pattern-overlay {
-      position: absolute; inset: 0; opacity: 0.1;
-      background-image: radial-gradient(#334155 1px, transparent 1px);
-      background-size: 20px 20px;
+    .article-header-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Optimized transitions */
+      transition: transform 0.5s ease;
+    }
+    
+    .article-card:hover .article-header-img img {
+      transform: scale(1.03);
     }
 
     .article-content { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
@@ -174,7 +180,7 @@
     }
     
     .article-full-text.open {
-      max-height: 5000px; /* Arbitrary large height */
+      max-height: 5000px;
       opacity: 1;
       margin-top: 1.5rem;
       padding-top: 1.5rem;
@@ -315,10 +321,15 @@
         
         <!-- Article 1 -->
         <article class="article-card" data-id="1">
-          <div class="article-header-img bg-gradient-to-br from-blue-500 to-indigo-600">
-            <div class="pattern-overlay"></div>
-            <!-- Icon Representative of Web vs Native -->
-            <svg class="w-16 h-16 text-white/80 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          <div class="article-header-img">
+            <!-- Optimized Image: Lazy loaded, async decoded, resized via URL params -->
+            <img 
+              src="https://images.pexels.com/photos/14553707/pexels-photo-14553707.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              alt="Web vs Native Apps" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600">
           </div>
           <div class="article-content">
             <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
@@ -391,9 +402,14 @@
 
         <!-- Article 2 -->
         <article class="article-card" data-id="2">
-          <div class="article-header-img bg-gradient-to-br from-emerald-500 to-teal-600">
-            <div class="pattern-overlay"></div>
-            <svg class="w-16 h-16 text-white/80 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+          <div class="article-header-img">
+            <img 
+              src="https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              alt="Business Website" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600">
           </div>
           <div class="article-content">
             <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
@@ -463,9 +479,14 @@
 
         <!-- Article 3 -->
         <article class="article-card" data-id="3">
-          <div class="article-header-img bg-gradient-to-br from-amber-500 to-orange-600">
-            <div class="pattern-overlay"></div>
-            <svg class="w-16 h-16 text-white/80 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <div class="article-header-img">
+            <img 
+              src="https://images.pexels.com/photos/8072348/pexels-photo-8072348.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              alt="Website vs Web App" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600">
           </div>
           <div class="article-content">
             <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
@@ -535,9 +556,14 @@
 
         <!-- Article 4 -->
         <article class="article-card" data-id="4">
-          <div class="article-header-img bg-gradient-to-br from-rose-500 to-pink-600">
-            <div class="pattern-overlay"></div>
-            <svg class="w-16 h-16 text-white/80 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div class="article-header-img">
+            <img 
+              src="https://images.pexels.com/photos/11211053/pexels-photo-11211053.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              alt="Client Calls" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600">
           </div>
           <div class="article-content">
             <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
@@ -605,79 +631,168 @@
         </article>
 
         <!-- Article 5 -->
-        <div class="md:col-span-2">
-          <article class="article-card md:flex" data-id="5">
-            <div class="article-header-img md:w-2/5 h-auto md:min-h-[400px] bg-gradient-to-br from-purple-600 to-indigo-700">
-              <div class="pattern-overlay"></div>
-              <svg class="w-20 h-20 text-white/80 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <article class="article-card" data-id="5">
+          <div class="article-header-img">
+            <img 
+              src="https://images.pexels.com/photos/16053029/pexels-photo-16053029.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              alt="AI Integration" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600">
+          </div>
+          <div class="article-content">
+            <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
+              <span>Mort Ian</span>
+              <span>7 Min Read</span>
             </div>
-            <div class="article-content md:w-3/5">
-              <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
-                <span>Mort Ian</span>
-                <span>7 Min Read</span>
-              </div>
-              <h2 class="heading-md text-secondary mb-3">How AI Integration in Websites and Web Apps Is Crucial for Some Businesses (And Overkill for Others)</h2>
-              <p class="text-muted text-sm leading-relaxed mb-4">
-                I almost did not write this article. Not because I do not believe in what I am about to say, but because “AI” has become one of those words. Everyone is using it. Every software company suddenly claims to be AI-powered. Yet beneath the hype, something real exists...
-              </p>
+            <h2 class="heading-md text-secondary mb-3">How AI Integration in Websites and Web Apps Is Crucial for Some Businesses (And Overkill for Others)</h2>
+            <p class="text-muted text-sm leading-relaxed mb-4">
+              I almost did not write this article. Not because I do not believe in what I am about to say, but because “AI” has become one of those words. Everyone is using it. Every software company suddenly claims to be AI-powered. Yet beneath the hype, something real exists...
+            </p>
+            
+            <button onclick="toggleArticle(this)" class="btn-ghost text-sm mb-6">
+              Read Full Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            
+            <div class="article-full-text text-sm text-muted leading-relaxed">
+              <p>Something that genuinely helps businesses work faster, serve customers better and remove repetitive tasks that drain time and energy.</p>
               
-              <button onclick="toggleArticle(this)" class="btn-ghost text-sm mb-6">
-                Read Full Article
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              <h4 class="text-secondary">What AI Actually Is</h4>
+              <p>When I talk about AI, I am not talking about robots or science fiction. I am talking about software that performs tasks that once required human judgment, but does them faster and at scale. Traditional software follows strict rules. AI-driven systems recognise patterns.</p>
+              
+              <h4 class="text-secondary">Where AI Actually Helps</h4>
+              <p><strong>The Recruitment Agency:</strong> One client was spending nearly twenty hours each week reviewing CVs. We built Phein, our CV screening tool. It reads applications, identifies relevant skills and ranks candidates in seconds.</p>
+              <p><strong>The Insurance Agent:</strong> We introduced a conversational assistant trained on common questions. It handles routine responses instantly and escalates complex issues to a human.</p>
+              <p><strong>The Logistics Company:</strong> We created a system that tracks mileage, routes and service history to predict maintenance needs.</p>
+              
+              <h4 class="text-secondary">When AI Is Complete Overkill</h4>
+              <p>Most businesses do not need AI. A bakery displaying cake designs online does not need machine learning. A construction company listing services does not benefit from predictive analytics.</p>
+              <p>My rule is simple: AI makes sense when repetitive work consumes significant time, or when data volume makes patterns difficult for humans to see.</p>
+              
+              <h4 class="text-secondary">The Bottom Line</h4>
+              <p>AI is a tool. Powerful in the right context, unnecessary in others. Businesses succeed by solving real problems for real people. Sometimes AI accelerates that process. Sometimes it distracts from it.</p>
+              
+              <p class="italic mt-6">If you are wondering whether your business needs AI, start with one question: what problem are you actually trying to solve?</p>
+            </div>
+            
+            <!-- Action Bar -->
+            <div class="mt-auto pt-4 border-t border-border flex items-center justify-between relative">
+              <button onclick="toggleLike(this)" class="action-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                <span class="like-count">312</span>
               </button>
               
-              <div class="article-full-text text-sm text-muted leading-relaxed">
-                <p>Something that genuinely helps businesses work faster, serve customers better and remove repetitive tasks that drain time and energy.</p>
-                
-                <h4 class="text-secondary">What AI Actually Is</h4>
-                <p>When I talk about AI, I am not talking about robots or science fiction. I am talking about software that performs tasks that once required human judgment, but does them faster and at scale. Traditional software follows strict rules. AI-driven systems recognise patterns.</p>
-                
-                <h4 class="text-secondary">Where AI Actually Helps</h4>
-                <p><strong>The Recruitment Agency:</strong> One client was spending nearly twenty hours each week reviewing CVs. We built Phein, our CV screening tool. It reads applications, identifies relevant skills and ranks candidates in seconds.</p>
-                <p><strong>The Insurance Agent:</strong> We introduced a conversational assistant trained on common questions. It handles routine responses instantly and escalates complex issues to a human.</p>
-                <p><strong>The Logistics Company:</strong> We created a system that tracks mileage, routes and service history to predict maintenance needs.</p>
-                
-                <h4 class="text-secondary">When AI Is Complete Overkill</h4>
-                <p>Most businesses do not need AI. A bakery displaying cake designs online does not need machine learning. A construction company listing services does not benefit from predictive analytics.</p>
-                <p>My rule is simple: AI makes sense when repetitive work consumes significant time, or when data volume makes patterns difficult for humans to see.</p>
-                
-                <h4 class="text-secondary">The Bottom Line</h4>
-                <p>AI is a tool. Powerful in the right context, unnecessary in others. Businesses succeed by solving real problems for real people. Sometimes AI accelerates that process. Sometimes it distracts from it.</p>
-                
-                <p class="italic mt-6">If you are wondering whether your business needs AI, start with one question: what problem are you actually trying to solve?</p>
-              </div>
-              
-              <!-- Action Bar -->
-              <div class="mt-auto pt-4 border-t border-border flex items-center justify-between relative">
-                <button onclick="toggleLike(this)" class="action-btn">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                  <span class="like-count">312</span>
+              <div class="relative">
+                <button onclick="toggleSharePopup(this)" class="action-btn">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                  <span class="share-count">27</span> Shares
                 </button>
-                
-                <div class="relative">
-                  <button onclick="toggleSharePopup(this)" class="action-btn">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-                    <span class="share-count">27</span> Shares
+                <div class="share-popup">
+                  <button onclick="shareArticle('whatsapp', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share on WhatsApp">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                   </button>
-                  <div class="share-popup">
-                    <button onclick="shareArticle('whatsapp', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share on WhatsApp">
-                      <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    </button>
-                    <button onclick="shareArticle('twitter', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share on X">
-                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </button>
-                    <button onclick="shareArticle('linkedin', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share on LinkedIn">
-                      <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </button>
-                    <button onclick="shareArticle('email', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share via Email">
-                      <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </button>
-                  </div>
+                  <button onclick="shareArticle('twitter', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share on X">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </button>
+                  <button onclick="shareArticle('linkedin', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share on LinkedIn">
+                    <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  </button>
+                  <button onclick="shareArticle('email', 'How AI Integration Is Crucial for Some Businesses')" aria-label="Share via Email">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  </button>
                 </div>
               </div>
             </div>
-          </article>
-        </div>
+          </div>
+        </article>
+
+        <!-- Article 6 -->
+        <article class="article-card" data-id="6">
+          <div class="article-header-img">
+            <img 
+              src="https://images.pexels.com/photos/7054408/pexels-photo-7054408.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              alt="Website Costs in Kenya" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600">
+          </div>
+          <div class="article-content">
+            <div class="flex items-center gap-4 mb-3 text-xs text-muted font-medium uppercase tracking-wider">
+              <span>Mort Ian</span>
+              <span>8 Min Read</span>
+            </div>
+            <h2 class="heading-md text-secondary mb-3">What a Website Actually Costs in Kenya (And Why Cheap Sites End Up Expensive)</h2>
+            <p class="text-muted text-sm leading-relaxed mb-4">
+              A potential client sent an email recently about building a website for a hardware store. A few questions followed about goals, functionality and expectations. The reply arrived quickly and was familiar: he simply wanted the price, adding that someone else had quoted 15,000 shillings...
+            </p>
+            
+            <button onclick="toggleArticle(this)" class="btn-ghost text-sm mb-6">
+              Read Full Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            
+            <div class="article-full-text text-sm text-muted leading-relaxed">
+              <p>It is a conversation that happens often. Business owners operate under constant financial pressure, and every shilling matters. Wanting the best deal is natural. Yet when it comes to websites, the number attached to the invoice is rarely the most important part of the discussion.</p>
+              
+              <h4 class="text-secondary">The Pricing Spectrum</h4>
+              <p>In Kenya, the cost of a website can range from as little as five thousand shillings to well over half a million. Both buyers may walk away convinced they made the right decision, and in many cases they are correct — because a website is not a single, standard product.</p>
+              
+              <h4 class="text-secondary">Entry Level: 5,000 to 20,000 Shillings</h4>
+              <p>At the lowest end of the market, most sites are built from ready-made templates. The structure already exists; the developer changes the logo, edits text, swaps images and launches the site quickly using drag-and-drop tools.</p>
+              <p>The problem often appears later. The design is rarely owned outright, moving the site elsewhere becomes difficult, and updates depend entirely on the original builder. When that person disappears — something that happens more often than many expect — the business is forced to start again from zero.</p>
+              
+              <h4 class="text-secondary">Small Business Standard: 25,000 to 60,000 Shillings</h4>
+              <p>This range represents where serious small businesses begin to invest properly. These sites may still start from templates but are customised significantly and built on recognised platforms such as WordPress or Webflow. Ownership is clearer, another developer can step in if needed, and the site is designed to function properly on mobile devices.</p>
+              
+              <h4 class="text-secondary">Professional Tier: 70,000 to 150,000 Shillings</h4>
+              <p>As budgets rise, the website stops being a digital brochure and becomes an operational tool. Designs are created specifically for the brand rather than adapted from existing layouts. Businesses begin integrating customer accounts, payment systems, or booking platforms that reduce manual work.</p>
+              
+              <h4 class="text-secondary">Enterprise Level: Beyond 200,000 Shillings</h4>
+              <p>Projects here usually move into web application territory. These are custom-built systems with dashboards, databases, multiple user roles and integrations with internal business processes. Logistics firms tracking vehicles, recruitment agencies managing applicants or insurance brokers handling complex quotations rely on this level of development.</p>
+              
+              <h4 class="text-secondary">Hidden Costs of Cheap Websites</h4>
+              <p>Many inexpensive builds remain under the developer’s control rather than the client’s. Hosting accounts, domains and files may sit under private ownership, leaving businesses vulnerable if relationships break down.</p>
+              <p>Maintenance is another overlooked expense. A site that works perfectly today may fail tomorrow after routine system updates. Each repair attracts new charges, and over time the accumulated spending can exceed what a properly built site would have cost initially.</p>
+              
+              <h4 class="text-secondary">The Real Value</h4>
+              <p>When pricing a project responsibly, much of the cost reflects work that clients never see. Planning and understanding the business often consume more time than coding itself. Experience prevents costly mistakes. Reliability carries value.</p>
+              
+              <p class="italic mt-6">Ultimately, a website should not be viewed as a simple expense but as infrastructure. Like signage outside a shop, it works continuously, reaches audiences beyond physical location and continues operating long after closing hours.</p>
+            </div>
+            
+            <!-- Action Bar -->
+            <div class="mt-auto pt-4 border-t border-border flex items-center justify-between relative">
+              <button onclick="toggleLike(this)" class="action-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                <span class="like-count">137</span>
+              </button>
+              
+              <div class="relative">
+                <button onclick="toggleSharePopup(this)" class="action-btn">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                  <span class="share-count">6</span> Shares
+                </button>
+                <div class="share-popup">
+                  <button onclick="shareArticle('whatsapp', 'What a Website Actually Costs in Kenya')" aria-label="Share on WhatsApp">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  </button>
+                  <button onclick="shareArticle('twitter', 'What a Website Actually Costs in Kenya')" aria-label="Share on X">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </button>
+                  <button onclick="shareArticle('linkedin', 'What a Website Actually Costs in Kenya')" aria-label="Share on LinkedIn">
+                    <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  </button>
+                  <button onclick="shareArticle('email', 'What a Website Actually Costs in Kenya')" aria-label="Share via Email">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
 
       </div>
     </section>
@@ -726,12 +841,6 @@
       const content = btn.nextElementSibling;
       const isOpen = content.classList.contains('open');
       
-      // Close all other articles (optional, for accordion behavior)
-      document.querySelectorAll('.article-full-text.open').forEach(el => {
-        el.classList.remove('open');
-        el.previousElementSibling.textContent = "Read Full Article";
-      });
-
       if (!isOpen) {
         content.classList.add('open');
         btn.textContent = "Close Article";
@@ -741,17 +850,58 @@
       }
     }
 
+    // --- LocalStorage Persistence Logic ---
+
+    // Helper: Load state on page load
+    function loadState() {
+      document.querySelectorAll('.article-card').forEach(card => {
+        const id = card.dataset.id;
+        
+        // Restore Like Count
+        const savedLikes = localStorage.getItem(`article_${id}_likes`);
+        if (savedLikes) {
+          card.querySelector('.like-count').textContent = savedLikes;
+        }
+        
+        // Restore Share Count
+        const savedShares = localStorage.getItem(`article_${id}_shares`);
+        if (savedShares) {
+          card.querySelector('.share-count').textContent = savedShares;
+        }
+        
+        // Restore Liked State (Red Heart)
+        const isLiked = localStorage.getItem(`article_${id}_liked`);
+        if (isLiked === 'true') {
+           const btn = card.querySelector('.action-btn'); // The like button
+           btn.classList.add('liked');
+        }
+      });
+    }
+
+    // Run on load
+    loadState();
+
     // Like Button Logic
     function toggleLike(btn) {
-      btn.classList.toggle('liked');
-      const countSpan = btn.querySelector('.like-count');
-      let count = parseInt(countSpan.textContent);
+      const card = btn.closest('article');
+      const id = card.dataset.id;
+      const countEl = btn.querySelector('.like-count');
+      let count = parseInt(countEl.textContent);
       
       if (btn.classList.contains('liked')) {
-        countSpan.textContent = count + 1;
+        // Unlike
+        count--;
+        btn.classList.remove('liked');
+        localStorage.setItem(`article_${id}_liked`, 'false');
       } else {
-        countSpan.textContent = count - 1;
+        // Like
+        count++;
+        btn.classList.add('liked');
+        localStorage.setItem(`article_${id}_liked`, 'true');
       }
+      
+      countEl.textContent = count;
+      localStorage.setItem(`article_${id}_likes`, count);
     }
 
     // Share Popup Logic
@@ -766,7 +916,7 @@
 
     // Close popups when clicking outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.action-btn')) {
+      if (!e.target.closest('.action-btn') && !e.target.closest('.share-popup')) {
         document.querySelectorAll('.share-popup.active').forEach(p => p.classList.remove('active'));
       }
     });
@@ -775,11 +925,15 @@
     const pageUrl = "https://www.mortappsstudios.com/blog";
     
     function shareArticle(platform, title) {
-      // Increment share count
+      // Increment share count & Save
       const articleCard = event.target.closest('article');
+      const id = articleCard.dataset.id;
       const shareCountSpan = articleCard.querySelector('.share-count');
       let count = parseInt(shareCountSpan.textContent);
-      shareCountSpan.textContent = count + 1;
+      
+      count++;
+      shareCountSpan.textContent = count;
+      localStorage.setItem(`article_${id}_shares`, count);
 
       // Close popup
       const popup = event.target.closest('.share-popup');
