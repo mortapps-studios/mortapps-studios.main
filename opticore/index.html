@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/SoftwareApplication">
+<head>
+    <!-- MortApps Studios 2026 SEO Boost Package - Optical Technology Edition -->
+    <meta name="generator" content="MortApps Studios v2026 - AI-Powered Web Solutions">
+    <meta name="author" content="MortApps Studios | Nairobi, Kenya | AI Development Experts">
+    <meta name="copyright" content="© 2026 MortApps Studios. Enterprise-grade optical technology development.">
+    <meta name="web_author" content="https://mortappsstudios.com/developers">
+    <meta name="creator" content="MortApps Studios Development Team">
+    <meta name="publisher" content="MortApps Studios">
+    <meta name="designer" content="MortApps Studios UI/UX Team">
+    <meta name="reply-to" content="info@mortappsstudios.com">
+    <meta name="classification" content="Optical Technology, Virtual Try-On, AI Face Recognition">
+    <meta name="rating" content="General">
+    <meta name="distribution" content="Global">
+    <meta name="language" content="English">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    
+    <!-- MortApps Studios Schema Markup -->
+    <link rel="author" href="https://mortappsstudios.com">
+    <link rel="publisher" href="https://mortappsstudios.com">
+    <link rel="canonical" href="https://www.ipsforum.com/">
+    <link rel="home" href="https://www.ipsforum.com/">
+    
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <meta name="theme-color" content="#0a192f">
+    
+    <!-- Title with MortApps Studios SEO Optimization -->
+    <title>Opticore ViPro | Professional Virtual Eyewear Analysis | MortApps Studios AI Technology</title>
+    
+    <!-- Meta Description with MortApps Studios Branding -->
+    <meta name="description" content="Opticore ViPro: Professional-grade virtual eyewear analysis powered by MortApps Studios AI. Real-time facial mapping, 100% local processing. Enterprise optical technology for clinics and retailers.">
+    
+    <!-- Keywords for MortApps Studios SEO -->
+    <meta name="keywords" content="Opticore ViPro, MortApps Studios, Virtual Eyewear Try-On, AI Face Recognition, Optical Technology, Eyewear Analysis, Virtual Try-On, Face API, Web Development Kenya, AI Development Nairobi, Optical Software">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Opticore ViPro | Professional Virtual Eyewear Analysis | MortApps Studios">
+    <meta property="og:description" content="Professional-grade virtual eyewear analysis powered by MortApps Studios AI technology. Real-time facial mapping, 100% local processing for optical professionals.">
+    <!-- FIXED: Absolute URL for social media preview -->
+    <meta property="og:image" content="https://www.ipsforum.com/icons/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://www.ipsforum.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Opticore ViPro">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@mortappsstudios">
+    <meta name="twitter:creator" content="@mortappsstudios">
+    <meta name="twitter:title" content="Opticore ViPro | MortApps Studios AI Optical Technology">
+    <meta name="twitter:description" content="Professional virtual eyewear analysis system by MortApps Studios. AI-powered facial mapping for optical clinics and retailers.">
+    <!-- FIXED: Absolute URL for social media preview -->
+    <meta name="twitter:image" content="https://www.ipsforum.com/icons/android-chrome-512x512.png">
+    <meta name="twitter:image:alt" content="Opticore ViPro Logo - MortApps Studios AI Technology">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="abstract" content="Professional virtual eyewear analysis system developed by MortApps Studios using advanced AI face recognition technology.">
+    <meta name="topic" content="Optical Technology and AI Development">
+    <meta name="summary" content="MortApps Studios presents Opticore ViPro - Enterprise virtual eyewear analysis platform for optical professionals.">
+    <meta name="coverage" content="Worldwide">
+    <meta name="target" content="all">
+    <meta name="audience" content="Optical Professionals, Eyewear Retailers, Healthcare Providers">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Face-API.js library with CDN models -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body oncontextmenu="return false;">
+    
+    <!-- MOBILE HARD BLOCK (Professional Modal) - PLACED FIRST IN BODY -->
+    <div id="mobileRestrictionOverlay" class="mobile-restriction-overlay">
+        <div class="restriction-modal">
+            <div class="modal-icon">
+                <i class="fas fa-desktop"></i>
+            </div>
+            <h2 class="modal-title">System Access Restricted</h2>
+            <p class="modal-message">
+                This system requires a larger screen (Tablet/Laptop) for precision calibration. Kindly visit us on a desktop/Tablet device.
+            </p>
+            <button class="modal-exit-btn" onclick="attemptExit()">
+                Exit
+            </button>
+        </div>
+    </div>
+
+    <!-- MortApps Studios Performance Tracking -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <meta itemprop="name" content="Opticore ViPro">
+        <meta itemprop="description" content="Professional virtual eyewear analysis system">
+        <meta itemprop="applicationCategory" content="BusinessApplication">
+        <meta itemprop="operatingSystem" content="Web">
+        <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer" itemprop="price" content="0">
+        <meta itemprop="priceCurrency" content="USD">
+        <meta itemprop="author" content="MortApps Studios">
+        <meta itemprop="softwareVersion" content="2.0">
+        <meta itemprop="datePublished" content="2026-01-01">
+        <meta itemprop="dateModified" content="2026-01-01">
+    </div>
+
+    <!-- Loading Screen (4.2 seconds) -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="pulse-ring"></div>
+                <i class="fas fa-eye"></i>
+                <div class="corner-dots">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            <h1 class="loading-title">Opticore <span class="vi-pro">ViPro</span></h1>
+            <p class="loading-subtitle">Powered By MortApps Studios</p>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loading-tagline">Initializing Visual Intelligence</div>
+        </div>
+    </div>
+
+    <!-- Popup Overlays -->
+    <div id="howItWorksPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3><i class="fas fa-info-circle"></i> How It Works</h3>
+                <button class="popup-close">&times;</button>
+            </div>
+            <div class="popup-body">
+                <!-- Professional SmartMode Instructions -->
+                <div class="engineer-note">
+                    <i class="fas fa-microchip"></i>
+                    <span><strong>PRO TIP:</strong> Activate our proprietary <span style="color: var(--accent-teal);">Neural Calibration Layer</span> by pressing <code>Ctrl + D</code> (Windows) or <code>Cmd + D</code> (Mac) to view real-time biometric tracking data.</span>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Camera Activation</h4>
+                        <p>Click "Start Visual Analysis" to enable your camera. Access is required for real-time facial mapping.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Frame Selection</h4>
+                        <p>Choose from our curated collection of precision eyewear. Each selection updates in real-time.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Precision Adjustment</h4>
+                        <div class="adjustment-instructions">
+                            <div class="adjustment-item">
+                                <span class="key">+</span>
+                                <span>Increase frame dimensions</span>
+                            </div>
+                            <div class="adjustment-item">
+                                <span class="key">-</span>
+                                <span>Decrease frame dimensions</span>
+                            </div>
+                            <div class="adjustment-item">
+                                <span class="key">↑/↓</span>
+                                <span>Vertical positioning</span>
+                            </div>
+                            <div class="adjustment-item">
+                                <span class="key">←/→</span>
+                                <span>Horizontal positioning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Results Delivery</h4>
+                        <p>Select "Send Analysis" to securely transmit your personalized eyewear assessment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn-primary start-try-on-btn">
+                    <i class="fas fa-play"></i> Begin Analysis
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacyPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3><i class="fas fa-shield-alt"></i> Privacy & Security Protocol</h3>
+                <button class="popup-close">&times;</button>
+            </div>
+            <div class="popup-body">
+                <div class="security-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>100% Device-Local Processing</span>
+                </div>
+                <p class="privacy-statement">
+                    The Opticore ViPro system operates under strict privacy protocols. All facial recognition, frame mapping, and visual analysis occur exclusively within your device's secure environment.
+                </p>
+                <div class="privacy-points">
+                    <div class="privacy-point">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Zero image transmission to external servers</span>
+                    </div>
+                    <div class="privacy-point">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No facial data storage or retention</span>
+                    </div>
+                    <div class="privacy-point">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Real-time processing with immediate memory clearance</span>
+                    </div>
+                    <div class="privacy-point">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Military-grade local encryption protocols</span>
+                    </div>
+                </div>
+                <p class="security-note">
+                    Your visual privacy is paramount. The system is designed for healthcare and eyewear professionals who require absolute client confidentiality.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3><i class="fas fa-headset"></i> Professional Consultation</h3>
+                <button class="popup-close">&times;</button>
+            </div>
+            <div class="popup-body">
+                <p>Connect with our optical technology specialists:</p>
+                <div class="contact-options">
+                    <button id="directCallBtn" class="contact-option-btn call-option">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Direct Call</strong>
+                            <small>+254 113 400 063</small>
+                        </div>
+                    </button>
+                    <button id="whatsappConsultBtn" class="contact-option-btn whatsapp-option">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp Consultation</strong>
+                            <small>+254 113 400 063</small>
+                        </div>
+                    </button>
+                </div>
+                <p class="contact-note">
+                    <i class="fas fa-clock"></i> Available: Mon-Fri 8:00-18:00 EAT
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-eye"></i>
+                <span>Opticore <strong>ViPro</strong></span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Visual Analysis</a>
+                <a href="#" id="framesLink">Frames</a>
+                <a href="#" id="howItWorksLink">How It Works</a>
+                <a href="#" id="privacyLink">Privacy</a>
+                <button class="btn-contact" id="contactLink">Consultation</button>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Left Panel: Try-On Area -->
+        <div class="try-on-container">
+            <div class="section-header">
+                <h1><i class="fas fa-atom"></i> Visual Analysis Studio</h1>
+                <p class="subtitle">Precision eyewear fitting with advanced facial mapping technology</p>
+            </div>
+
+            <!-- Camera/Canvas Area -->
+            <div class="camera-section">
+                <!-- Video Feed -->
+                <video id="videoElement" class="video-feed" autoplay playsinline muted></video>
+                
+                <!-- Canvas where magic happens -->
+                <canvas id="canvasElement" class="canvas-overlay"></canvas>
+                
+                <!-- Fallback Static Image -->
+                <div id="staticContainer" class="static-fallback">
+                    <img src="assets/static-model.jpg" alt="Reference facial structure for analysis" id="staticModel">
+                    <!-- Draggable glasses will appear here in static mode -->
+                    <img src="assets/glasses/frame1.png" alt="Selected eyewear frame" id="staticGlasses" class="draggable-glasses">
+                </div>
+
+                <!-- Status Overlays -->
+                <div id="loadingOverlay" class="overlay">
+                    <div class="loading-spinner"></div>
+                    <p>Initializing Visual Intelligence <span id="loadingText">Standby</span></p>
+                </div>
+
+                <div id="permissionOverlay" class="overlay permission-prompt">
+                    <i class="fas fa-camera fa-3x"></i>
+                    <h3>Camera Access Required</h3>
+                    <p>For precise facial mapping, camera access is necessary.</p>
+                    <p class="small-text"><i class="fas fa-shield-alt"></i> 100% local processing - No data leaves your device</p>
+                    <button id="startCameraBtn" class="btn-primary btn-large">
+                        <i class="fas fa-play-circle"></i> Start Visual Analysis
+                    </button>
+                    <button id="useStaticModeBtn" class="btn-secondary">
+                        <i class="fas fa-image"></i> Use Reference Image
+                    </button>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel desktop-only">
+                <div class="controls-grid">
+                    <button id="toggleCameraBtn" class="btn-control">
+                        <i class="fas fa-video"></i> <span>Camera: <span id="cameraStatus">Standby</span></span>
+                    </button>
+                    <button id="captureBtn" class="btn-control btn-success">
+                        <i class="fas fa-camera-retro"></i> Capture Analysis
+                    </button>
+                    <button id="downloadBtn" class="btn-control">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button id="shareBtn" class="btn-control" disabled>
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                    <button id="resetBtn" class="btn-control">
+                        <i class="fas fa-sync-alt"></i> Reset
+                    </button>
+                    <!-- NEW: Ava AI Assistant Button -->
+                    <button id="avaToggleBtn" class="btn-control" style="background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; border: none;">
+                        <i class="fas fa-robot"></i> <span>Ava: <span id="avaStatus">Off</span></span>
+                    </button>
+                </div>
+
+                <!-- Lighting Controls -->
+                <div class="lighting-controls">
+                    <h4><i class="fas fa-sun"></i> Lighting</h4>
+                    <div class="lighting-options">
+                        <button class="light-btn active" data-filter="none">Normal</button>
+                        <button class="light-btn" data-filter="brightness(1.2) contrast(1.1)">Bright</button>
+                        <button class="light-btn" data-filter="brightness(0.9) sepia(0.1)">Evening</button>
+                        <button class="light-btn" data-filter="saturate(1.3)">Vibrant</button>
+                    </div>
+                </div>
+
+                <!-- Adjustment Controls -->
+                <div class="adjustment-controls">
+                    <h4><i class="fas fa-sliders-h"></i> Frame Adjustments</h4>
+                    
+                    <!-- Size Controls -->
+                    <div class="adjustment-section">
+                        <label class="adjustment-label">Size Adjustment</label>
+                        <div class="adjustment-row">
+                            <button class="adjust-btn" data-adjust="size-up">
+                                <i class="fas fa-plus"></i> Increase Size
+                            </button>
+                            <button class="adjust-btn" data-adjust="size-down">
+                                <i class="fas fa-minus"></i> Decrease Size
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Position Controls -->
+                    <div class="adjustment-section">
+                        <label class="adjustment-label">Position Adjustment</label>
+                        <div class="position-controls">
+                            <div class="position-row">
+                                <button class="adjust-btn position-btn" data-adjust="position-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                            </div>
+                            <div class="position-row">
+                                <button class="adjust-btn position-btn" data-adjust="position-left">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <button class="adjust-btn position-btn" data-adjust="position-down">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <button class="adjust-btn position-btn" data-adjust="position-right">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyboard Hint -->
+                    <div class="keyboard-hint">
+                        <i class="fas fa-keyboard"></i>
+                        <small>Use + / - keys for size, Arrow keys for position.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Frame Selection -->
+        <div class="selection-panel" id="framesSection">
+            <div class="panel-header">
+                <h2><i class="fas fa-glasses"></i> Select Precision Frames</h2>
+                <div class="frame-count">12 professional models</div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-btn active">All Collections</button>
+                <button class="filter-btn">Professional</button>
+                <button class="filter-btn">Contemporary</button>
+                <button class="filter-btn">Classic Design</button>
+            </div>
+
+            <!-- Glasses Grid -->
+            <div class="glasses-grid" id="glassesGrid">
+                <!-- Glasses cards will be generated by JavaScript -->
+            </div>
+
+            <!-- NEW: CLINICAL ANALYSIS UPGRADE -->
+            <div id="biometricsPanel" class="biometrics-panel">
+                <h3><i class="fas fa-heartbeat"></i> Clinical Analysis</h3>
+                <div class="biometrics-readout">
+                    <div class="metric-item">
+                        <span class="metric-label">Pupillary Distance (PD)</span>
+                        <span class="metric-value" id="pdValue">-- mm</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Face Width</span>
+                        <span class="metric-value" id="faceWidthValue">-- mm</span>
+                    </div>
+                    <div class="metric-status" id="biometricStatus">
+                        <i class="fas fa-circle-notch fa-spin"></i> Awaiting Face Scan
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selection Summary -->
+            <div class="selection-summary">
+                <h3><i class="fas fa-clipboard-check"></i> Analysis Summary</h3>
+                <div id="selectedFrameDisplay" class="selected-frame">
+                    <img id="selectedFrameImg" src="assets/glasses/frame1.png" alt="Selected Frame">
+                    <div>
+                        <h4 id="selectedFrameName">Classic Thick-Rim Rectangular</h4>
+                        <p id="selectedFramePrice">Professional Grade</p>
+                    </div>
+                </div>
+                <button id="sendToWhatsAppBtn" class="btn-primary btn-full-width">
+                    <i class="fab fa-whatsapp"></i> Send Analysis for Consultation
+                </button>
+                <p class="privacy-note">
+                    <i class="fas fa-shield-alt"></i> 
+                    <strong>Secure Transmission:</strong> Analysis data is encrypted end-to-end via WhatsApp.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- NEW: Ava AI Assistant Interface -->
+    <div id="avaInterface" class="ava-interface">
+        <div class="ava-header">
+            <div class="ava-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="ava-info">
+                <h3>Ava <span class="ava-status-indicator">●</span></h3>
+                <p>Your Optical Intelligence Assistant</p>
+            </div>
+            <button class="ava-close-btn" id="avaCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="ava-messages" id="avaMessages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="ava-controls">
+            <button class="ava-quick-btn" data-action="neural">
+                <i class="fas fa-brain"></i> Neural Calibration
+            </button>
+            <button class="ava-quick-btn" data-action="pupil">
+                <i class="fas fa-eye"></i> Pupil Distance
+            </button>
+            <button class="ava-quick-btn" data-action="frames">
+                <i class="fas fa-glasses"></i> Select Frames
+            </button>
+            <button class="ava-quick-btn" data-action="help">
+                <i class="fas fa-question-circle"></i> Help
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-eye"></i> Opticore ViPro</h4>
+                <p>Advanced optical analysis platform for precision eyewear fitting and visual health assessment.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Capabilities</h4>
+                <ul>
+                    <li>Real-time facial biometric mapping</li>
+                    <li>100% client-side visual processing</li>
+                    <li>Professional-grade frame analysis</li>
+                    <li>Secure encrypted consultation system</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>For Professionals</h4>
+                <p class="professional-note">
+                    Used by optical clinics, eyewear retailers, and healthcare providers for precise client consultations.
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Engineered with <span class="heartbeat"><a href="home.html"><i class="fas fa-heart"></i></a></span> by <a href="https://www.mortappsstudios.com" target="_blank">MortApps Studios</a></p>
+            <p class="copyright">©2026 Opticore ViPro. Advanced Optical Technology.</p>
+        </div>
+    </footer>
+
+    <!-- MortApps Studios Structured Data for Enhanced SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Opticore ViPro",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Professional virtual eyewear analysis system using AI face recognition technology for optical clinics and eyewear retailers.",
+      "url": "https://www.ipsforum.com/",
+      "author": {
+        "@type": "Organization",
+        "name": "MortApps Studios",
+        "url": "https://mortappsstudios.com",
+        "sameAs": [
+          "https://github.com/mortapps-studios",
+          "https://twitter.com/mortappsstudios",
+          "https://linkedin.com/company/mortappsstudios"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MortApps Studios",
+        "founder": "MortApps Studios Team",
+        "foundingDate": "2024",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nairobi",
+          "addressRegion": "Nairobi County",
+          "addressCountry": "Kenya"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "softwareVersion": "2.0",
+      "featureList": [
+        "Real-time facial recognition",
+        "Virtual eyewear try-on",
+        "Frame dimension analysis",
+        "Biometric facial mapping",
+        "100% local processing",
+        "Secure data encryption"
+      ],
+      "keywords": "virtual try-on, eyewear analysis, AI face recognition, optical technology, MortApps Studios"
+    }
+    </script>
+
+    <!-- Additional Schema for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MortApps Studios",
+      "url": "https://mortappsstudios.com",
+      "logo": "https://mortappsstudios.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+254-113-400-063",
+        "contactType": "technical support",
+        "areaServed": "KE",
+        "availableLanguage": ["English", "Swahili"]
+      },
+      "sameAs": [
+        "https://github.com/mortapps-studios",
+        "https://twitter.com/mortappsstudios",
+        "https://linkedin.com/company/mortappsstudios",
+        "https://facebook.com/mortappsstudios"
+      ]
+    }
+    </script>
+
+    <!-- MortApps Studios Performance Analytics (Hidden) -->
+    <div style="display: none;">
+        <!-- Google Analytics Tracking Code -->
+        <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview', {
+            'page': '/opticore-vipro',
+            'title': 'Opticore ViPro - MortApps Studios',
+            'dimension1': 'mortapps_studios',
+            'dimension2': 'ai_optical_technology'
+        });
+        </script>
+        <script async src='https://www.google-analytics.com/analytics.js'></script>
+        
+        <!-- MortApps Studios Custom Tracking -->
+        <script>
+        (function() {
+            var msTracker = document.createElement('script');
+            msTracker.src = 'https://tracking.mortappsstudios.com/v1/optica.js';
+            msTracker.async = true;
+            msTracker.setAttribute('data-site-id', 'OPTICORE_VIPRO_2026');
+            msTracker.setAttribute('data-version', '2.0');
+            document.head.appendChild(msTracker);
+            
+            // Performance monitoring
+            window.addEventListener('load', function() {
+                var perfData = window.performance.timing;
+                var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                var domReadyTime = perfData.domComplete - perfData.domLoading;
+                
+                console.log('MortApps Studios Performance Metrics:');
+                console.log('Page Load Time:', pageLoadTime + 'ms');
+                console.log('DOM Ready Time:', domReadyTime + 'ms');
+                console.log('Application: Opticore ViPro v2.0');
+                console.log('Developer: MortApps Studios Nairobi');
+                console.log('Website: https://www.ipsforum.com/');
+                
+                // Send to analytics if enabled
+                if (window.ga) {
+                    ga('send', 'timing', 'Performance', 'pageLoad', pageLoadTime);
+                    ga('send', 'timing', 'Performance', 'domReady', domReadyTime);
+                }
+            });
+        })();
+        </script>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
