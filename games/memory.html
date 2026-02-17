@@ -545,6 +545,12 @@
         
         document.getElementById('againBtn').onclick = init;
         init();
+
+        // Right-click protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+        
     </script>
 </body>
 </html>
+
