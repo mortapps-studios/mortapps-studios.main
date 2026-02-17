@@ -131,6 +131,12 @@
         document.getElementById('rightBtn').addEventListener('touchstart', () => { if (playing) paddle.x = Math.min(canvas.width - paddle.w, paddle.x + 30); });
         document.getElementById('startBtn').onclick = start; document.getElementById('retryBtn').onclick = start;
         init(); draw();
+
+        // Right-click protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+        
     </script>
 </body>
 </html>
+
