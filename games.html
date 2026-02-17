@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play free browser games from MortApps Studios. No downloads, no installs. Pure code, pure fun.">
+    <title>Gaming Hub | MortApps Studios</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="mas-icons/favicon-32x32.png">
+
+    <style>
+        :root {
+            --bg: #020617;
+            --surface: #0f172a;
+            --surface-light: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --border: #334155;
+            --font-display: 'Sora', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .brand img { height: 32px; width: 32px; border-radius: 6px; }
+        .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 60%);
+        }
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0 1.5rem 2rem;
+        }
+        .cat-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cat-btn:hover { border-color: var(--accent); color: var(--text); }
+        .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        /* Games Grid */
+        .games-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Card */
+        .game-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: var(--accent);
+        }
+        .card-header {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        .card-icon svg { width: 32px; height: 32px; stroke-width: 1.5; }
+        
+        /* Icon Background Variations */
+        .icon-neon { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .icon-arcade { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        .icon-puzzle { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .icon-brain { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        
+        .card-body { padding: 1.25rem; }
+        .card-title { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .card-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; }
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background: var(--surface-light);
+            color: var(--text-muted);
+        }
+        .play-text {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="mas-icons/favicon-32x32.png" alt="Logo">
+                <span class="brand-text">MortApps Studios</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="software.html">Software</a>
+                <a href="games.html" class="active">Games</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Gaming Hub</h1>
+        <p>No downloads, no installs. Just click and play. All games work on PC and mobile. Built with pure front-end code.</p>
+    </section>
+
+    <!-- Categories -->
+    <div class="categories">
+        <button class="cat-btn active" data-filter="all">All Games</button>
+        <button class="cat-btn" data-filter="arcade">Arcade</button>
+        <button class="cat-btn" data-filter="puzzle">Puzzle</button>
+        <button class="cat-btn" data-filter="brain">Brain</button>
+    </div>
+
+    <!-- Games Grid -->
+    <section class="games-section">
+        <div class="grid" id="gameGrid">
+            <!-- Snake -->
+            <a href="games/snake.html" class="game-card" data-category="arcade">
+                <div class="card-header" style="background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);">
+                    <div class="card-icon icon-neon">
+                        <!-- Snake Icon -->
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Snake Classic</h3>
+                    <p class="card-desc">Eat food, grow longer, avoid walls! The timeless arcade game with modern neon graphics.</p>
+                    <div class="card-footer">
+                        <span class="badge">Arcade</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Breakout -->
+            <a href="games/breakout.html" class="game-card" data-category="arcade">
+                <div class="card-header" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
+                    <div class="card-icon icon-arcade">
+                        <!-- Breakout Icon -->
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3.036c.235.083.487.128.75.128A2.25 2.25 0 0121 9v.878m0 0a2.246 2.246 0 00-.75-.128H3.75c-.263 0-.515.045-.75.128m15 0v6.876a2.25 2.25 0 01-2.25 2.25h-1.5"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Breakout</h3>
+                    <p class="card-desc">Smash bricks with your paddle! Classic brick breaker action with power-ups.</p>
+                    <div class="card-footer">
+                        <span class="badge">Arcade</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 2048 -->
+            <a href="games/2048.html" class="game-card" data-category="puzzle">
+                <div class="card-header" style="background: linear-gradient(135deg, #1a2e05 0%, #365314 100%);">
+                    <div class="card-icon icon-neon" style="background:rgba(163,230,53,0.1); color:#a3e635;">
+                        <!-- 2048 Icon -->
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">2048</h3>
+                    <p class="card-desc">Slide and merge tiles to reach 2048! Addictive number puzzle that's easy to learn.</p>
+                    <div class="card-footer">
+                        <span class="badge">Puzzle</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tetris -->
+            <a href="games/tetris.html" class="game-card" data-category="puzzle">
+                <div class="card-header" style="background: linear-gradient(135deg, #0c0a09 0%, #1c1917 100%);">
+                    <div class="card-icon icon-arcade">
+                        <!-- Tetris Icon -->
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.651 1.651 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.42 3.89c-.06.39.14.78.5.94.39.17.84.04 1.08-.32.27-.39.5-.82.67-1.28.18-.46.31-.96.36-1.5.05-.53.05-1.08-.05-1.65-.1-.57-.27-1.11-.51-1.62-.24-.52-.55-.99-.91-1.42-.35-.43-.75-.8-1.17-1.09-.43-.29-.87-.5-1.29-.62-.21-.06-.42-.1-.61-.12"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Tetris</h3>
+                    <p class="card-desc">Stack falling blocks, clear lines, don't top out! The legendary puzzle game.</p>
+                    <div class="card-footer">
+                        <span class="badge">Puzzle</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Memory -->
+            <a href="games/memory.html" class="game-card" data-category="brain">
+                <div class="card-header" style="background: linear-gradient(135deg, #042f2e 0%, #083344 100%);">
+                    <div class="card-icon icon-puzzle">
+                        <!-- Memory Icon -->
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Memory Match</h3>
+                    <p class="card-desc">Flip cards and find matching pairs! Test your memory with increasing difficulty.</p>
+                    <div class="card-footer">
+                        <span class="badge">Brain</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Wordle -->
+            <a href="games/wordle.html" class="game-card" data-category="brain">
+                <div class="card-header" style="background: linear-gradient(135deg, #052e16 0%, #14532d 100%);">
+                    <div class="card-icon" style="background: rgba(74, 222, 128, 0.1); color: #4ade80;">
+                        <!-- Wordle Icon -->
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Wordle Clone</h3>
+                    <p class="card-desc">Guess the 5-letter word in 6 tries! Color hints guide you to the answer.</p>
+                    <div class="card-footer">
+                        <span class="badge">Brain</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Flappy -->
+            <a href="games/flappy.html" class="game-card" data-category="arcade">
+                <div class="card-header" style="background: linear-gradient(135deg, #164e63 0%, #115e59 100%);">
+                    <div class="card-icon icon-puzzle">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Flappy Ball</h3>
+                    <p class="card-desc">Tap to fly through obstacles! Simple one-button gameplay that's addictive.</p>
+                    <div class="card-footer">
+                        <span class="badge">Arcade</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Space Dodger -->
+            <a href="games/spacedodger.html" class="game-card" data-category="arcade">
+                <div class="card-header" style="background: linear-gradient(135deg, #1e1b4b 0%, #0c4a6e 100%);">
+                    <div class="card-icon icon-arcade">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Space Dodger</h3>
+                    <p class="card-desc">Dodge asteroids in deep space! Survive as long as you can in endless mode.</p>
+                    <div class="card-footer">
+                        <span class="badge">Arcade</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Whack-a-Mole -->
+            <a href="games/whackamole.html" class="game-card" data-category="arcade">
+                <div class="card-header" style="background: linear-gradient(135deg, #422006 0%, #713f12 100%);">
+                    <div class="card-icon" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24;">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Whack-a-Mole</h3>
+                    <p class="card-desc">Tap moles before they hide! Test your reaction speed in this fast-paced game.</p>
+                    <div class="card-footer">
+                        <span class="badge">Arcade</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Quick Math -->
+            <a href="games/quickmath.html" class="game-card" data-category="brain">
+                <div class="card-header" style="background: linear-gradient(135deg, #3f3f46 0%, #27272a 100%);">
+                    <div class="card-icon icon-brain">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4 4.09 4 5.693v12.236c0 1.602 1.307 2.993 2.907 3.171 1.835.211 3.7.322 5.593.322s3.758-.11 5.593-.322c1.6-.178 2.907-1.569 2.907-3.171V5.693c0-1.602-1.307-2.993-2.907-3.171A48.507 48.507 0 0012 2.25z"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Quick Math</h3>
+                    <p class="card-desc">Solve equations against the clock! Train your brain with arithmetic.</p>
+                    <div class="card-footer">
+                        <span class="badge">Brain</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Color Match -->
+            <a href="games/colormatch.html" class="game-card" data-category="brain">
+                <div class="card-header" style="background: linear-gradient(135deg, #581c87 0%, #701a75 100%);">
+                    <div class="card-icon" style="background: rgba(232, 121, 249, 0.1); color: #e879f9;">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Color Match</h3>
+                    <p class="card-desc">Match colors or words faster than your brain can process!</p>
+                    <div class="card-footer">
+                        <span class="badge">Brain</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Clicker -->
+            <a href="games/clicker.html" class="game-card" data-category="arcade">
+                <div class="card-header" style="background: linear-gradient(135deg, #431407 0%, #7c2d12 100%);">
+                    <div class="card-icon icon-brain">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59"/></svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Clicker Empire</h3>
+                    <p class="card-desc">Click to build points, unlock upgrades, and automate your empire!</p>
+                    <div class="card-footer">
+                        <span class="badge">Arcade</span>
+                        <span class="play-text">Play Now &rarr;</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 MortApps Studios. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const btns = document.querySelectorAll('.cat-btn');
+        const cards = document.querySelectorAll('.game-card');
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
