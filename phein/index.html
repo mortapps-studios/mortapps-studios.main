@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/SoftwareApplication">
+<head>
+    <!-- MortApps Studios 2026 SEO Boost Package - Enterprise HR Edition -->
+    <meta name="generator" content="MortApps Studios v2026 - AI-Powered Web Solutions">
+    <meta name="author" content="MortApps Studios | Nairobi, Kenya | AI Development Experts">
+    <meta name="copyright" content="© 2026 MortApps Studios. Enterprise-grade CV screening technology.">
+    <meta name="web_author" content="https://mortappsstudios.com/developers">
+    <meta name="creator" content="MortApps Studios Development Team">
+    <meta name="publisher" content="MortApps Studios">
+    <meta name="designer" content="MortApps Studios UI/UX Team">
+    <meta name="reply-to" content="info@mortappsstudios.com">
+    <meta name="classification" content="CV Screening, AI Recruitment, HR Technology, Smart Resume Analysis">
+    <meta name="rating" content="General">
+    <meta name="distribution" content="Global">
+    <meta name="language" content="English">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    
+    <!-- MortApps Studios Schema Markup -->
+    <link rel="author" href="https://mortappsstudios.com">
+    <link rel="publisher" href="https://mortappsstudios.com">
+    <!-- 🔁 UPDATED: Canonical now points to the new /phein/ subfolder -->
+    <link rel="canonical" href="https://www.ipsforum.com/phein/">
+    <link rel="home" href="https://www.ipsforum.com/">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- FAVICON CONFIGURATION - now points to /phein/phein-icons/ -->
+    <link rel="icon" type="image/x-icon" href="/phein/phein-icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/phein/phein-icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/phein/phein-icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/phein/phein-icons/apple-touch-icon.png">
+    
+    <!-- ✦✅ PWA MANIFEST – correct scope, start_url, mandatory wide screenshot, and local icons -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{
+        "name":"Phein Screener",
+        "short_name":"Phein",
+        "start_url":"/phein/",
+        "scope":"/phein/",
+        "display":"standalone",
+        "background_color":"%23f1f5f9",
+        "theme_color":"%232563eb",
+        "icons":[
+            {"src":"/phein/phein-icons/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},
+            {"src":"/phein/phein-icons/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}
+        ],
+        "screenshots":[
+            {
+                "src":"/phein/screenshot-wide.png",
+                "sizes":"1280x720",
+                "type":"image/png",
+                "form_factor":"wide",
+                "label":"Phein Smart CV Screener - Job criteria and CV upload"
+            }
+        ]
+    }'>
+    
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Title with MortApps Studios SEO Optimization -->
+    <title>Phein | Smart CV Screener | AI-Powered Recruitment by MortApps Studios</title>
+    
+    <!-- Meta Description with MortApps Studios Branding -->
+    <meta name="description" content="Phein Smart CV Screener: Enterprise-grade AI recruitment tool powered by MortApps Studios. 100% local processing, PDF analysis, and intelligent candidate ranking.">
+    
+    <!-- Keywords for MortApps Studios SEO -->
+    <meta name="keywords" content="Phein, MortApps Studios, CV Screener, Smart Recruitment, AI Resume Analysis, PDF CV Parsing, HR Technology, Candidate Ranking, AI Development Nairobi">
+    
+    <!-- Open Graph / Social Media Meta Tags - now use local icons -->
+    <meta property="og:title" content="Phein | Smart CV Screener | MortApps Studios AI Technology">
+    <meta property="og:description" content="Enterprise-grade AI recruitment tool for intelligent CV screening and candidate ranking. 100% local processing by MortApps Studios.">
+    <meta property="og:image" content="/phein/phein-icons/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://www.ipsforum.com/phein/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Phein Screener">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@mortappsstudios">
+    <meta name="twitter:creator" content="@mortappsstudios">
+    <meta name="twitter:title" content="Phein Smart CV Screener | MortApps Studios AI Technology">
+    <meta name="twitter:description" content="Enterprise AI recruitment tool for intelligent CV screening and candidate ranking. Powered by MortApps Studios.">
+    <meta name="twitter:image" content="/phein/phein-icons/android-chrome-512x512.png">
+    <meta name="twitter:image:alt" content="Phein Logo - Smart CV Screener by MortApps Studios">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="abstract" content="Enterprise CV screening system developed by MortApps Studios using advanced AI text analysis technology.">
+    <meta name="topic" content="HR Technology and AI Development">
+    <meta name="summary" content="MortApps Studios presents Phein - Enterprise smart CV screening platform for HR professionals.">
+    <meta name="coverage" content="Worldwide">
+    <meta name="target" content="all">
+    <meta name="audience" content="HR Professionals, Recruitment Agencies, Talent Acquisition Teams, Enterprise HR Departments">
+    
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+
+    <!-- COMPLETE STYLES - YOUR ORIGINAL CSS + ADDED STYLES FOR CONTACT BUTTON & INSTALL POPUP -->
+    <style>
+        /* === YOUR ORIGINAL STYLES - COMPLETELY INTACT (removed install-button specific styles) === */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        /* Security: Block Text Selection */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-card);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease-out;
+        }
+        
+        .loader-logo { font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; animation: fadeInScale 1s ease-out; }
+        .loader-brand { font-size: 1rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; animation: fadeIn 1.5s ease-out; }
+        .loader-bar { width: 200px; height: 4px; background: #e2e8f0; margin-top: 2rem; border-radius: 2px; overflow: hidden; }
+        .loader-progress { width: 100%; height: 100%; background: var(--primary); transform-origin: left; animation: slideRight 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideRight { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+        /* Header */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+        .logo span { color: var(--text-main); }
+
+        /* Main Layout */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) { main { grid-template-columns: 1fr; } }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-main); border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-muted); }
+        
+        input[type="text"], input[type="number"], textarea, input[type="password"] {
+            width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; transition: border-color 0.2s;
+            user-select: text; 
+            -webkit-user-select: text;
+            -moz-user-select: text;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.75rem 1.5rem; border: none; border-radius: 8px;
+            font-weight: 600; cursor: pointer; transition: all 0.2s;
+            font-size: 0.95rem; gap: 0.5rem;
+        }
+
+        .btn-primary { background-color: var(--primary); color: white; width: 100%; }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-1px); }
+        .btn-primary:disabled { background-color: var(--secondary); cursor: not-allowed; transform: none; }
+
+        .btn-outline { background: transparent; border: 1px solid #cbd5e1; color: var(--text-muted); padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-outline:hover { background: #f8fafc; color: var(--text-main); }
+
+        /* Keywords */
+        .keywords-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+        .keyword-tag { background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed #cbd5e1; border-radius: var(--border-radius); padding: 2rem;
+            text-align: center; cursor: pointer; transition: all 0.2s; background: #f8fafc;
+        }
+        .drop-zone:hover, .drop-zone.dragover { border-color: var(--primary); background: #eff6ff; }
+
+        .cv-list { list-style: none; margin-top: 1rem; }
+        .cv-item {
+            background: #f8fafc; padding: 0.75rem; border-radius: 8px;
+            margin-bottom: 0.5rem; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.9rem;
+        }
+        .cv-item button { color: var(--accent-red); background: none; border: none; cursor: pointer; font-weight: 600; }
+
+        /* Results */
+        .results-container { display: none; }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        
+        .candidate-card {
+            background: white; border: 1px solid #e2e8f0; border-radius: var(--border-radius);
+            padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column;
+            gap: 0.5rem; transition: transform 0.2s; position: relative; overflow: hidden;
+        }
+        .candidate-card:hover { transform: translateX(4px); border-color: var(--primary); }
+        .candidate-card::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--secondary);
+        }
+        .candidate-card.rank-1::before { background: #fbbf24; }
+        .candidate-card.rank-2::before { background: #94a3b8; }
+        .candidate-card.rank-3::before { background: #b45309; }
+
+        .candidate-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .candidate-name { font-weight: 700; font-size: 1.1rem; }
+        .candidate-score { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+
+        .match-details { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 1rem; flex-wrap: wrap; }
+        .match-pill { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; }
+        .missing-pill { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 4px; }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+        .modal-content {
+            background: white; padding: 2rem; border-radius: var(--border-radius);
+            width: 90%; max-width: 500px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .modal-step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .step-number {
+            background: var(--primary); color: white; width: 30px; height: 30px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; flex-shrink: 0;
+        }
+        .step-text h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .step-text p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Footer */
+        footer {
+            background: white; border-top: 1px solid #e2e8f0;
+            padding: 1.5rem; text-align: center;
+            margin-top: auto;
+            font-size: 0.9rem; color: var(--text-muted);
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 2rem; right: 2rem; background: #1f2937; color: white;
+            padding: 0.75rem 1.5rem; border-radius: 8px; opacity: 0; transform: translateY(20px);
+            transition: all 0.3s; pointer-events: none; z-index: 100;
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        /* File Processing Spinner */
+        .loading-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.8); display: none; justify-content: center;
+            align-items: center; border-radius: 12px; z-index: 10;
+        }
+        .spinner {
+            width: 30px; height: 30px; border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary); border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* ✦ PROFESSIONAL MOBILE BLOCKING POPUP (unchanged) */
+        #mobile-block-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+
+        .mobile-block-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: blockModalFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes blockModalFadeIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .mobile-block-icon {
+            background: #fee2e2;
+            width: 72px;
+            height: 72px;
+            border-radius: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .mobile-block-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: #dc2626;
+        }
+
+        .mobile-block-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .mobile-block-subtitle {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .mobile-block-device {
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 0.75rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .mobile-block-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.2);
+        }
+
+        .mobile-block-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -3px rgba(220, 38, 38, 0.3);
+        }
+
+        .mobile-block-footer {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* VISUAL POLISH — YOUR STRUCTURE UNTOUCHED */
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .candidate-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #find-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
+        }
+
+        .drop-zone {
+            transition: all 0.25s;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ✦ INSTALL GATE STYLES (unchanged) */
+        #install-gate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a;
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: white;
+        }
+
+        .install-card {
+            background: white;
+            color: #0f172a;
+            padding: 3rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .install-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .install-subtitle {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .install-input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .install-input-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            display: block;
+            user-select: none; 
+        }
+
+        #password-input {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            width: 100%;
+            transition: border-color 0.2s;
+            user-select: text;
+        }
+        #password-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        #error-msg {
+            color: var(--accent-red);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        #launch-btn {
+            background: var(--text-main);
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        #launch-btn:hover {
+            background: black;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+        }
+
+        .install-footer {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+        }
+
+        /* Animation for invalid password */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* +++++ ADDED FOR REQUEST: Install Guide Popup Styles +++++ */
+        #install-guide-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+        }
+        .install-guide-card {
+            background: white;
+            max-width: 560px;
+            width: 90%;
+            border-radius: 28px;
+            padding: 2.25rem 2rem;
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .install-guide-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .install-guide-header svg {
+            width: 32px;
+            height: 32px;
+            color: var(--primary);
+            stroke-width: 1.8;
+        }
+        .install-guide-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.01em;
+        }
+        .install-guide-steps {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.75rem;
+            border-left: 4px solid var(--primary);
+        }
+        .step-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.9rem;
+            font-size: 0.98rem;
+            color: #1e293b;
+            align-items: baseline;
+        }
+        .step-marker {
+            background: var(--primary);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+        .step-text {
+            line-height: 1.5;
+        }
+        .step-text strong {
+            color: var(--primary-dark);
+        }
+        .guide-note {
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #92400e;
+            font-size: 0.9rem;
+            border: 1px solid #fcd34d;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .install-done-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 6px 14px rgba(37,99,235,0.3);
+        }
+        .install-done-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -5px rgba(37,99,235,0.4);
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <!-- MortApps Studios Performance Tracking (Hidden) -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <meta itemprop="name" content="Phein Smart CV Screener">
+        <meta itemprop="description" content="Enterprise AI recruitment tool for intelligent CV screening and candidate ranking">
+        <meta itemprop="applicationCategory" content="BusinessApplication, HRApplication">
+        <meta itemprop="operatingSystem" content="Web">
+        <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer" itemprop="price" content="0">
+        <meta itemprop="priceCurrency" content="USD">
+        <meta itemprop="author" content="MortApps Studios">
+        <meta itemprop="softwareVersion" content="1.5">
+        <meta itemprop="datePublished" content="2026-01-01">
+        <meta itemprop="dateModified" content="2026-01-01">
+    </div>
+
+    <!-- ✦ INSTALL GATE — LICENSE KEY PROTECTED ✦ -->
+    <div id="install-gate">
+        <div class="install-card">
+            <div class="install-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+                Phein
+            </div>
+            <p class="install-subtitle" id="gate-message">Software Activation Required</p>
+            
+            <div class="install-input-group">
+                <label for="password-input">License Key</label>
+                <input type="password" id="password-input" placeholder="Enter License Key" autocomplete="off">
+                <div id="error-msg">Invalid License Key</div>
+            </div>
+
+            <button id="launch-btn">
+                <span id="btn-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+                <span id="btn-text">Activate System</span>
+            </button>
+
+            <div class="install-footer">
+                Secure Software by MortApps Studios
+            </div>
+        </div>
+    </div>
+
+    <!-- === ✦ MOBILE BLOCK MODAL — ADDED, DOES NOT TOUCH YOUR CODE ✦ === -->
+    <div id="mobile-block-modal">
+        <div class="mobile-block-card">
+            <div class="mobile-block-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+            </div>
+            <h1 class="mobile-block-title">PC Only</h1>
+            <p class="mobile-block-subtitle">
+                Phein Screener is a professional enterprise tool optimized for desktop workstations.
+            </p>
+            <div class="mobile-block-device">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <span>Requires desktop / laptop</span>
+            </div>
+            <button class="mobile-block-btn" id="mobile-exit-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Exit Application
+            </button>
+            <div class="mobile-block-footer">
+                © Phein • Enterprise CV Screening • Powered by MortApps Studios
+            </div>
+        </div>
+    </div>
+    <!-- === END MOBILE BLOCK MODAL === -->
+
+    <!-- +++++ ADDED FOR REQUEST: Install Guide Popup Modal +++++ -->
+    <div id="install-guide-modal">
+        <div class="install-guide-card">
+            <div class="install-guide-header">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span class="install-guide-title">Install Phein as App</span>
+            </div>
+            <div class="install-guide-steps">
+                <div class="step-item">
+                    <span class="step-marker">1</span>
+                    <span class="step-text">Click the <strong>three dots (⋮)</strong> at the top‑left of your browser.</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-marker">2</span>
+                    <span class="step-text">Select <strong>Cast, save, and share</strong> → then <strong>Install page as app</strong>.</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-marker">3</span>
+                    <span class="step-text">A pop‑up appears at the top: click <strong>Install</strong>.</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-marker">✓</span>
+                    <span class="step-text"><strong>Done.</strong> Phein will now launch like a native application.</span>
+                </div>
+            </div>
+            <div class="guide-note">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>Installing gives you a dedicated window, offline access, and a cleaner experience.</span>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="dont-remind-install">
+                <label for="dont-remind-install">Do not remind me again</label>
+            </div>
+            <button class="install-done-btn" id="install-guide-done">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-logo">Phein Screener</div>
+        <div class="loader-brand">Powered By MortApps Studios</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="modal-overlay" id="privacy-modal">
+        <div class="modal-content">
+            <h2 style="border:none; margin-bottom:1.5rem;">Data Privacy & Security</h2>
+            <p style="margin-bottom:1.5rem; color:var(--text-muted);">
+                Phein operates entirely within your browser. We do not use external servers to process your data. 
+                Once you close application, all extracted text and candidate information is permanently deleted from your browser's memory. 
+                Your candidate data never leaves your computer.
+            </p>
+            <button class="btn btn-primary" onclick="closePrivacyModal()" style="margin-top:1rem;">I Understand</button>
+        </div>
+    </div>
+
+    <!-- How It Works Modal -->
+    <div class="modal-overlay" id="help-modal">
+        <div class="modal-content">
+            <h2 style="border:none; margin-bottom:1.5rem;">How It Works</h2>
+            
+            <div class="modal-step">
+                <div class="step-number">1</div>
+                <div class="step-text">
+                    <h4>Define Job Criteria</h4>
+                    <p>Enter the job role and the key skills required (e.g. "React, CSS").</p>
+                </div>
+            </div>
+
+            <div class="modal-step">
+                <div class="step-number">2</div>
+                <div class="step-text">
+                    <h4>Add Candidates</h4>
+                    <p>Drag & Drop CV PDFs into the box. Phein will extract the text automatically.</p>
+                </div>
+            </div>
+
+            <div class="modal-step">
+                <div class="step-number">3</div>
+                <div class="step-text">
+                    <h4>Analyze & Export</h4>
+                    <p>Click "Find Top Candidates" to rank them by skill match. Export the results to Excel.</p>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="closeHelpModal()" style="margin-top:1rem;">Got it, let's start</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            Phein <span>Screener</span>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+            <!-- +++++ ADDED FOR REQUEST: Contact Button +++++ -->
+            <button class="btn btn-outline" onclick="window.location.href='mailto:mortapps.studios@gmail.com'">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Contact
+            </button>
+            <button class="btn btn-outline" onclick="openHelpModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                How It Works
+            </button>
+            <button class="btn btn-outline" onclick="openPrivacyModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Privacy
+            </button>
+            
+            <!-- ✦ INSTALL BUTTON REMOVED - using native browser install prompt ✦ -->
+
+            <button class="btn btn-outline" id="export-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export Report
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Left Column: Configuration & Input -->
+        <section id="config-panel">
+            <div class="card">
+                <h2>1. Job Criteria</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Define what makes a candidate ideal.</p>
+                
+                <div class="form-group">
+                    <label for="job-title">Job Role</label>
+                    <input type="text" id="job-title" placeholder="e.g. Senior Frontend Developer">
+                </div>
+
+                <div class="form-group">
+                    <label for="must-have-skills">Must-Have Skills (Comma separated)</label>
+                    <input type="text" id="must-have-skills" placeholder="React, CSS, JavaScript, HTML">
+                    <div class="keywords-container" id="must-have-list"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="limit-to">Number of Candidates to Pick</label>
+                    <input type="number" id="limit-to" value="5" min="1" max="50">
+                </div>
+            </div>
+
+            <div class="card" style="position: relative;">
+                <div class="loading-overlay" id="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <h2>2. Upload CVs</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Drag & Drop PDFs or Text files. Phein will extract text automatically.</p>
+                
+                <div class="drop-zone" id="drop-zone">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <p>Drag & Drop PDF or .txt files here</p>
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="cv-name-input">Candidate Name</label>
+                    <input type="text" id="cv-name-input" placeholder="Auto-filled or enter manually...">
+                </div>
+
+                <div class="form-group">
+                    <label for="cv-text-input">CV Content</label>
+                    <textarea id="cv-text-input" rows="4" placeholder="Auto-extracted or paste text here..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="addCvManually()">Add Candidate</button>
+
+                <div class="cv-list" id="cv-list">
+                    <!-- Added CVs appear here -->
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="find-btn" style="background-color: var(--text-main);" onclick="runScreeningProcess()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Find Top Candidates
+            </button>
+        </section>
+
+        <!-- Right Column: Results -->
+        <section id="results-panel">
+            <div id="empty-state" style="text-align: center; padding-top: 4rem; color: var(--text-muted);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <h3 style="margin-top: 1rem; color: var(--secondary);">Ready to Screen</h3>
+                <p>Drag PDFs into box to start.</p>
+            </div>
+
+            <div class="results-container" id="results-container">
+                <div class="results-header">
+                    <h2>Top Candidates</h2>
+                    <span class="keyword-tag" style="background: #f1f5f9; color: var(--text-main);">Sorted by Score</span>
+                </div>
+                <div id="candidates-output">
+                    <!-- Ranked candidates go here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>©2026 Phein Screener. CV Selection Technology.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Powered By <a href="https://mortappsstudios.com" target="_blank">MortApps Studios</a> • Nairobi, Kenya</p>
+        <p style="margin-top: 0.3rem; font-size: 0.75rem; opacity: 0.7;">AI-Powered HR Solutions • Enterprise Recruitment Technology</p>
+    </footer>
+
+    <div class="toast" id="toast">Message here</div>
+
+    <!-- MortApps Studios Structured Data for Enhanced SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Phein Smart CV Screener",
+      "applicationCategory": "BusinessApplication, HRApplication",
+      "operatingSystem": "Web",
+      "description": "Enterprise AI recruitment tool for intelligent CV screening and candidate ranking. 100% local processing by MortApps Studios.",
+      "url": "https://www.ipsforum.com/phein/",
+      "author": {
+        "@type": "Organization",
+        "name": "MortApps Studios",
+        "url": "https://mortappsstudios.com",
+        "sameAs": [
+          "https://github.com/mortapps-studios",
+          "https://twitter.com/mortappsstudios",
+          "https://linkedin.com/company/mortappsstudios"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MortApps Studios",
+        "founder": "MortApps Studios Team",
+        "foundingDate": "2024",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nairobi",
+          "addressRegion": "Nairobi County",
+          "addressCountry": "Kenya"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "softwareVersion": "1.5",
+      "featureList": [
+        "PDF CV parsing",
+        "AI skill matching",
+        "Candidate ranking algorithm",
+        "100% local processing",
+        "Excel export",
+        "Privacy-first architecture"
+      ],
+      "keywords": "CV screening, AI recruitment, resume parser, candidate ranking, MortApps Studios"
+    }
+    </script>
+
+    <!-- Additional Schema for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MortApps Studios",
+      "url": "https://mortappsstudios.com",
+      "logo": "/phein/phein-icons/android-chrome-512x512.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+254-113-400-063",
+        "contactType": "technical support",
+        "areaServed": "KE",
+        "availableLanguage": ["English", "Swahili"]
+      },
+      "sameAs": [
+        "https://github.com/mortapps-studios",
+        "https://twitter.com/mortappsstudios",
+        "https://linkedin.com/company/mortappsstudios",
+        "https://facebook.com/mortappsstudios"
+      ]
+    }
+    </script>
+
+    <script>
+        // === ✦ LICENSE & SERVICE WORKER REGISTRATION ✦ ===
+        (function() {
+            // =======================================================
+            // CONFIGURATION — EXCLUSIVE LICENSE KEY
+            // =======================================================
+            const VALID_LICENSES = [
+                'CV-MAS-002K' 
+            ];
+            // =======================================================
+
+            // --- ✅ UNCONDITIONAL SERVICE WORKER REGISTRATION (ALWAYS RUNS) ---
+            function registerServiceWorker() {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/phein/sw.js')
+                        .then(reg => console.log('✅ SW registered for Phein:', reg.scope))
+                        .catch(err => console.log('❌ SW registration failed:', err));
+                }
+            }
+            // Register immediately – no license dependency
+            registerServiceWorker();
+
+            const gate = document.getElementById('install-gate');
+            const input = document.getElementById('password-input');
+            const btn = document.getElementById('launch-btn');
+            const btnText = document.getElementById('btn-text');
+            const errorMsg = document.getElementById('error-msg');
+            const loader = document.getElementById('loading-screen');
+
+            // --- Helper Functions ---
+            function dismissLoader() {
+                if(loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 600); 
+                }
+            }
+
+            function ensureLoaderVisible() {
+                loader.style.display = 'flex';
+                loader.style.opacity = '1';
+            }
+
+            // --- 10-DAY EXPIRATION LOGIC ---
+            function isLicenseValid() {
+                const savedKey = localStorage.getItem('phein_license_key');
+                const savedTimestamp = localStorage.getItem('phein_license_timestamp');
+                const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
+
+                const isKeyCorrect = VALID_LICENSES.includes(savedKey);
+                if (!savedTimestamp) return false;
+                const isRecent = (Date.now() - parseInt(savedTimestamp)) < tenDaysInMs;
+                return isKeyCorrect && isRecent;
+            }
+
+            // --- Initial Load Logic ---
+            if (isLicenseValid()) {
+                gate.style.display = 'none';
+                ensureLoaderVisible();
+            } else {
+                gate.style.display = 'flex';
+                loader.style.display = 'none';
+            }
+
+            // --- Window Load Event ---
+            window.addEventListener('load', () => {
+                if (gate.style.display !== 'flex') {
+                    setTimeout(() => {
+                        dismissLoader();
+                        // +++++ ADDED: schedule install guide popup after loader disappears +++++
+                        scheduleInstallGuidePopup();
+                    }, 3200);
+                }
+            });
+
+            // --- Activation Button Handler ---
+            btn.addEventListener('click', () => {
+                const val = input.value.trim();
+                
+                if (VALID_LICENSES.includes(val)) {
+                    localStorage.setItem('phein_license_key', val);
+                    localStorage.setItem('phein_license_timestamp', Date.now());
+                    
+                    errorMsg.style.display = 'none';
+                    input.style.borderColor = '#e2e8f0';
+                    input.disabled = true;
+                    btnText.textContent = "System Activating...";
+                    
+                    gate.style.transition = 'opacity 0.5s ease-out';
+                    gate.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        gate.style.display = 'none';
+                        ensureLoaderVisible();
+
+                        setTimeout(() => {
+                            dismissLoader();
+                            // +++++ ADDED: schedule install guide popup after loader disappears +++++
+                            scheduleInstallGuidePopup();
+                        }, 3200);
+                        
+                    }, 500);
+
+                } else {
+                    errorMsg.style.display = 'block';
+                    input.style.borderColor = 'var(--accent-red)';
+                    input.classList.add('shake');
+                    input.value = ''; 
+                    setTimeout(() => input.classList.remove('shake'), 500);
+                }
+            });
+
+            // Allow Enter key
+            input.addEventListener('keydown', (e) => {
+                if(e.key === 'Enter') btn.click();
+            });
+
+            // Toast function (unchanged)
+            function showToast(msg) {
+                const toast = document.getElementById('toast');
+                if (toast) {
+                    toast.textContent = msg;
+                    toast.classList.add('show');
+                    setTimeout(() => { 
+                        toast.classList.remove('show'); 
+                    }, 4000);
+                } else {
+                    alert(msg);
+                }
+            }
+
+            // +++++ ADDED FOR REQUEST: Install guide popup logic +++++
+            // Check if app is installed (standalone mode)
+            function isRunningStandalone() {
+                return window.matchMedia('(display-mode: standalone)').matches ||
+                       window.matchMedia('(display-mode: fullscreen)').matches ||
+                       window.navigator.standalone === true; // iOS Safari
+            }
+
+            // Show the popup only if not installed and not permanently dismissed
+            function showInstallGuidePopupIfNeeded() {
+                const modal = document.getElementById('install-guide-modal');
+                const hidePopupFlag = localStorage.getItem('phein_hide_install_popup');
+                
+                // Never show if already installed as an app, or user chose "Do not remind"
+                if (isRunningStandalone() || hidePopupFlag === 'true') {
+                    return;
+                }
+                modal.style.display = 'flex';
+            }
+
+            // Schedule popup 6 seconds after loader is hidden
+            function scheduleInstallGuidePopup() {
+                setTimeout(() => {
+                    showInstallGuidePopupIfNeeded();
+                }, 6000); // 6 seconds
+            }
+
+            // Event listener for Done button + checkbox
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('install-guide-modal');
+                const doneBtn = document.getElementById('install-guide-done');
+                const dontRemindCheckbox = document.getElementById('dont-remind-install');
+
+                if (doneBtn) {
+                    doneBtn.addEventListener('click', function() {
+                        if (dontRemindCheckbox && dontRemindCheckbox.checked) {
+                            localStorage.setItem('phein_hide_install_popup', 'true');
+                        }
+                        modal.style.display = 'none';
+                    });
+                }
+
+                // Close modal if user clicks outside the card (nice UX)
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        })();
+        // === END LICENSE & SERVICE WORKER REGISTRATION + INSTALL GUIDE POPUP ===
+
+        // === YOUR ORIGINAL JAVASCRIPT — 100% UNTOUCHED ===
+        // --- Security: Disable Right Click & Source Viewing ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        }
+
+        // --- Modal Logic ---
+        const privacyModal = document.getElementById('privacy-modal');
+        const helpModal = document.getElementById('help-modal');
+
+        function openPrivacyModal() { privacyModal.style.display = 'flex'; }
+        function closePrivacyModal() { privacyModal.style.display = 'none'; }
+        
+        function openHelpModal() { helpModal.style.display = 'flex'; }
+        function closeHelpModal() { helpModal.style.display = 'none'; }
+        
+        window.onclick = function(event) {
+            if (event.target == privacyModal) closePrivacyModal();
+            if (event.target == helpModal) closeHelpModal();
+        }
+
+        // --- State Management ---
+        const state = {
+            criteria: { title: '', keywords: [] },
+            cvs: [], 
+            limit: 5
+        };
+
+        // --- DOM Elements ---
+        const mustHaveInput = document.getElementById('must-have-skills');
+        const mustHaveList = document.getElementById('must-have-list');
+        const cvNameInput = document.getElementById('cv-name-input');
+        const cvTextInput = document.getElementById('cv-text-input');
+        const cvListEl = document.getElementById('cv-list');
+        const limitInput = document.getElementById('limit-to');
+        const dropZone = document.getElementById('drop-zone');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const findBtn = document.getElementById('find-btn');
+
+        // --- Event Listeners ---
+        mustHaveInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            const keywords = val.split(',').map(k => k.trim()).filter(k => k.length > 0);
+            state.criteria.keywords = keywords;
+            renderKeywords();
+        });
+
+        limitInput.addEventListener('change', (e) => {
+            state.limit = parseInt(e.target.value) || 5;
+        });
+
+        // Drag and Drop Logic
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        // --- Core Functions ---
+        async function handleFiles(files) {
+            Array.from(files).forEach(async (file) => {
+                loadingSpinner.style.display = 'flex';
+                try {
+                    let extractedText = "";
+                    let candidateName = file.name;
+
+                    if (file.type === "application/pdf") {
+                        extractedText = await extractTextFromPDF(file);
+                    } else if (file.type === "text/plain") {
+                        extractedText = await readFileAsText(file);
+                    } else {
+                        showToast("Unsupported file type.", "error");
+                        loadingSpinner.style.display = 'none';
+                        return;
+                    }
+
+                    const lines = extractedText.split('\n').filter(l => l.trim().length > 0);
+                    if (lines.length > 0) {
+                        if (lines[0].split(' ').length >= 2 && lines[0].split(' ').length <= 4) {
+                            candidateName = lines[0];
+                        }
+                    }
+
+                    cvNameInput.value = candidateName;
+                    cvTextInput.value = extractedText;
+                    showToast(`Parsed: ${file.name}. Click 'Add Candidate' to confirm.`);
+                } catch (error) {
+                    console.error(error);
+                    showToast("Error parsing file.", "error");
+                } finally {
+                    loadingSpinner.style.display = 'none';
+                }
+            });
+        }
+
+        function readFileAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = reject;
+                reader.readAsText(file);
+            });
+        }
+
+        async function extractTextFromPDF(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            let fullText = "";
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + "\n";
+            }
+            return fullText;
+        }
+
+        function addCvManually() {
+            const name = cvNameInput.value.trim();
+            const content = cvTextInput.value.trim();
+            if (!name || !content) {
+                showToast("Please enter both a name and CV content.");
+                return;
+            }
+            addCvToState(name, content);
+            cvNameInput.value = '';
+            cvTextInput.value = '';
+        }
+
+        function addCvToState(name, content) {
+            const newCv = {
+                id: Date.now() + Math.random().toString(36).substr(2, 9),
+                name: name,
+                content: content
+            };
+            state.cvs.push(newCv);
+            renderCvList();
+            showToast(`Added CV for ${name}`);
+        }
+
+        function removeCv(id) {
+            state.cvs = state.cvs.filter(cv => cv.id !== id);
+            renderCvList();
+        }
+
+        function renderKeywords() {
+            mustHaveList.innerHTML = state.criteria.keywords.map(k => `<div class="keyword-tag">${k}</div>`).join('');
+        }
+
+        function renderCvList() {
+            cvListEl.innerHTML = state.cvs.map(cv => `
+                <li class="cv-item">
+                    <strong>${cv.name}</strong>
+                    <button onclick="removeCv('${cv.id}')">Remove</button>
+                </li>
+            `).join('');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        // --- The Phein Algorithm ---
+        function runScreeningProcess() {
+            if (state.cvs.length === 0) {
+                showToast("Please add at least one CV.");
+                return;
+            }
+            if (state.criteria.keywords.length === 0) {
+                showToast("Please define at least one skill/keyword.");
+                mustHaveInput.focus();
+                return;
+            }
+
+            findBtn.innerHTML = 'Analyzing...';
+            findBtn.disabled = true;
+            findBtn.style.backgroundColor = 'var(--secondary)';
+
+            setTimeout(() => {
+                const results = state.cvs.map(cv => calculateScore(cv));
+                results.sort((a, b) => b.score - a.score);
+                const topCandidates = results.slice(0, state.limit);
+                
+                renderResults(topCandidates);
+
+                findBtn.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Candidates Found
+                `;
+                findBtn.style.backgroundColor = 'var(--accent-green)';
+                findBtn.disabled = false;
+
+                setTimeout(() => {
+                    findBtn.innerHTML = `
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Find Top Candidates
+                    `;
+                    findBtn.style.backgroundColor = 'var(--text-main)';
+                }, 3000);
+
+            }, 800);
+        }
+
+        function calculateScore(cv) {
+            const textLower = cv.content.toLowerCase();
+            const keywords = state.criteria.keywords.map(k => k.toLowerCase());
+            let matches = [];
+            let score = 0;
+
+            keywords.forEach(kw => {
+                const regex = new RegExp(`\\b${kw}\\b`, 'i');
+                const found = regex.test(textLower);
+                if (found) {
+                    score += 10;
+                    matches.push(kw);
+                }
+            });
+
+            const expPattern = /(\d+|\w+)\s+years?\s+(of)?\s?(experience)?/gi;
+            const expMatches = cv.content.match(expPattern);
+            let experienceBonus = 0;
+            if (expMatches) {
+                experienceBonus = Math.min(expMatches.length * 2, 20); 
+            }
+
+            score += experienceBonus;
+
+            return {
+                id: cv.id,
+                name: cv.name,
+                score: score,
+                matches: matches,
+                totalKeywords: keywords.length,
+                expBonus: experienceBonus
+            };
+        }
+
+        function renderResults(candidates) {
+            const container = document.getElementById('results-container');
+            const output = document.getElementById('candidates-output');
+            const emptyState = document.getElementById('empty-state');
+
+            emptyState.style.display = 'none';
+            container.style.display = 'block';
+
+            if (candidates.length === 0) {
+                output.innerHTML = '<p style="text-align:center; color:var(--text-muted)">No candidates matched your criteria.</p>';
+                return;
+            }
+
+            output.innerHTML = candidates.map((c, index) => {
+                const rankClass = index < 3 ? `rank-${index + 1}` : '';
+                const missingCount = c.totalKeywords - c.matches.length;
+
+                return `
+                <div class="candidate-card ${rankClass}">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">#${index + 1} ${c.name}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">
+                                ${c.matches.length}/${c.totalKeywords} skills matched
+                                ${c.expBonus > 0 ? ` • +Experience bonus` : ''}
+                            </div>
+                        </div>
+                        <div class="candidate-score">${c.score} pts</div>
+                    </div>
+                    
+                    <div class="match-details">
+                        <span>Matched Skills:</span>
+                        ${c.matches.length > 0 
+                            ? c.matches.map(m => `<span class="match-pill">${capitalize(m)}</span>`).join('') 
+                            : '<span>None</span>'}
+                        
+                        ${missingCount > 0 
+                            ? `<span>Missing: <span class="missing-pill">${missingCount} skills</span></span>` 
+                            : ''}
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            if(window.innerWidth < 768) {
+                document.getElementById('results-panel').scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        function capitalize(s) {
+            return s.charAt(0).toUpperCase() + s.slice(1);
+        }
+
+        // --- Export to CSV ---
+        const exportBtn = document.getElementById('export-btn');
+        exportBtn.addEventListener('click', () => {
+            if (state.cvs.length === 0) {
+                showToast("No data to export.");
+                return;
+            }
+            const criteria = state.criteria.keywords.map(k => k.toLowerCase());
+            let scoredData = state.cvs.map(cv => {
+                const textLower = cv.content.toLowerCase();
+                let score = 0;
+                let matchedSkills = [];
+                criteria.forEach(kw => {
+                    const regex = new RegExp(`\\b${kw}\\b`, 'i');
+                    if (regex.test(textLower)) {
+                        score += 10;
+                        matchedSkills.push(kw);
+                    }
+                });
+                return { name: cv.name, score: score, skills: matchedSkills.join(', ') };
+            });
+
+            scoredData.sort((a, b) => b.score - a.score);
+
+            const headers = ['Rank', 'Candidate Name', 'Score (Points)', 'Matched Skills'];
+            const csvRows = [headers.join(',')];
+
+            scoredData.forEach((row, index) => {
+                const values = [
+                    index + 1,
+                    `"${row.name.replace(/"/g, '""')}"`,
+                    row.score,
+                    `"${row.skills}"`
+                ];
+                csvRows.push(values.join(','));
+            });
+
+            const csvString = csvRows.join('\n');
+            const blob = new Blob([csvString], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'Phein_Top_Candidates.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            showToast("Report downloaded to Excel!");
+        });
+
+        // === ✦ MOBILE BLOCK SCRIPT (unchanged) ===
+        (function() {
+            'use strict';
+            
+            const mobileModal = document.getElementById('mobile-block-modal');
+            const exitBtn = document.getElementById('mobile-exit-btn');
+            
+            function isMobileDevice() {
+                const isScreenSmall = window.innerWidth <= 1024;
+                const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                const ua = navigator.userAgent.toLowerCase();
+                const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|windows phone|opera mini|iemobile|mobile/i.test(ua);
+                const isTablet = /ipad|tablet|kindle|silk|playbook|(android(?!.*mobile))/i.test(ua);
+                return (isScreenSmall && hasTouch) || isMobileUA || isTablet;
+            }
+
+            function blockIfMobile() {
+                if (isMobileDevice()) {
+                    mobileModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                } else {
+                    mobileModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                }
+            }
+
+            exitBtn.addEventListener('click', function() {
+                const exitConfirm = confirm('Phein Screener is designed exclusively for desktop workstations.\n\nPlease access this application from a PC or laptop.');
+                if (exitConfirm) {
+                    window.close();
+                    document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#0f172a;color:white;"><h1 style="margin-bottom:1rem;">PC Only</h1><p>Please return on a desktop computer.</p><button onclick="history.back()" style="margin-top:2rem;padding:0.75rem 2rem;background:#2563eb;color:white;border:none;border-radius:8px;">Go Back</button></div>';
+                }
+            });
+
+            window.addEventListener('resize', blockIfMobile);
+            window.addEventListener('orientationchange', function() { setTimeout(blockIfMobile, 50); });
+            window.addEventListener('fullscreenchange', blockIfMobile);
+            window.addEventListener('webkitfullscreenchange', blockIfMobile);
+            window.addEventListener('load', blockIfMobile);
+            blockIfMobile();
+        })();
+
+        // === END OF ADDITIONS ===
+        
+        // MortApps Studios Performance Monitoring
+        window.addEventListener('load', function() {
+            var perfData = window.performance.timing;
+            var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+            
+            console.log('MortApps Studios Performance Metrics:');
+            console.log('Page Load Time:', pageLoadTime + 'ms');
+            console.log('Application: Phein Smart CV Screener v1.5');
+            console.log('Developer: MortApps Studios Nairobi');
+            console.log('Website: https://www.ipsforum.com/phein/');
+        });
+    </script>
+    
+    <!-- MortApps Studios Performance Analytics (Hidden) -->
+    <div style="display: none;">
+        <script>
+        (function() {
+            var msTracker = document.createElement('script');
+            msTracker.src = 'https://tracking.mortappsstudios.com/v1/phein.js';
+            msTracker.async = true;
+            msTracker.setAttribute('data-site-id', 'PHEIN_SCREENER_2026');
+            msTracker.setAttribute('data-version', '1.5');
+            document.head.appendChild(msTracker);
+        })();
+        </script>
+    </div>
+</body>
+</html>
+
