@@ -600,6 +600,11 @@
         // Initial draw
         init();
         draw();
+
+        // Right-click protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+        
     </script>
 </body>
 </html>
+
