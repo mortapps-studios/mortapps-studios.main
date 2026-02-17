@@ -3,40 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bioattex Demo | Professional Biometric Attendance</title>
+    <title>Bioattex DEMO | Try Before You Buy</title>
     
-    <!-- FAVICON CONFIGURATION (same as main) -->
+    <!-- FAVICON CONFIGURATION (using same icons) -->
     <link rel="icon" type="image/x-icon" href="bioattex-icons/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="bioattex-icons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="bioattex-icons/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="bioattex-icons/apple-touch-icon.png">
-    <link rel="manifest" href="bioattex-icons/site.webmanifest"> <!-- optional, but keep -->
     
-    <!-- NO PWA MANIFEST for demo (optional) – we can keep but not necessary -->
-    
-    <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Bioattex Demo">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Bioattex Demo">
-
-    <!-- Open Graph for Social Media -->
-    <meta property="og:title" content="Bioattex Demo | Professional Biometric Attendance">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="bioattex-icons/android-chrome-512x512.png">
-    <meta property="og:url" content="https://www.ipsforum.com/bioattex-demo.html">
-    <meta property="og:description" content="Demo version of enterprise-grade biometric attendance tracking">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bioattex Demo | Professional Biometric Attendance">
-    <meta name="twitter:image" content="bioattex-icons/android-chrome-512x512.png">
+    <!-- NO MANIFEST for demo - prevents PWA installation -->
+    <!-- NO service worker registration - prevents PWA -->
     
     <!-- Face-API.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     
-    <!-- PDF Generation (still loaded but disabled in demo) -->
+    <!-- PDF Generation (DISABLED in demo) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     
@@ -51,6 +32,9 @@
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --demo: #f59e0b;
+            --demo-bg: #fffbeb;
+            --demo-border: #fcd34d;
             --font-main: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
@@ -64,175 +48,220 @@
             display: flex; 
             flex-direction: column; 
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* --- DEMO BADGE STYLES --- */
+        /* DEMO WATERMARK - appears on all screens */
+        .demo-watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.03;
+            font-size: 8vw;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            transform: rotate(-30deg);
+            white-space: nowrap;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .demo-watermark span {
+            animation: watermarkPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes watermarkPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* DEMO BADGES - scattered throughout UI */
         .demo-badge {
-            background: #fbbf24;
-            color: #0f172a;
-            font-size: 0.7rem;
+            background: linear-gradient(135deg, var(--demo) 0%, #d97706 100%);
+            color: white;
+            font-size: 0.6rem;
             font-weight: 700;
-            padding: 0.25rem 0.75rem;
+            padding: 2px 8px;
             border-radius: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-left: 0.75rem;
-            border: 1px solid #f59e0b;
-            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .demo-badge-small {
+            font-size: 0.5rem;
+            padding: 1px 4px;
+            border-radius: 10px;
+        }
+        
+        .demo-badge svg {
+            width: 10px;
+            height: 10px;
         }
 
-        .demo-ribbon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #fbbf24;
-            color: #0f172a;
+        /* DEMO HEADER BANNER */
+        .demo-header-banner {
+            background: linear-gradient(90deg, var(--demo) 0%, #d97706 100%);
+            color: white;
+            text-align: center;
+            padding: 4px 0;
             font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.25rem 1rem;
-            border-radius: 0 var(--border-radius) 0 var(--border-radius);
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .demo-header-banner svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        /* DEMO FOOTER */
+        .demo-footer-badge {
+            background: var(--demo-bg);
+            border: 1px solid var(--demo-border);
+            color: var(--demo);
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        /* FEATURE LIMITATION OVERLAY */
+        .limitation-overlay {
+            position: relative;
+        }
+        
+        .limitation-overlay::after {
+            content: 'DEMO';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--demo);
+            color: white;
+            font-size: 0.5rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0.7;
+            pointer-events: none;
             z-index: 10;
         }
 
-        .demo-footer-note {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            background: #fef9c3;
-            display: inline-block;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            color: #854d0e;
-        }
-
-        /* --- LICENSE SCREEN (removed for demo) --- */
-
-        /* --- INSTALL POPUP (optional, can be kept but may confuse) --- */
-        #install-popup-overlay {
+        /* REST OF ORIGINAL STYLES (adapted) */
+        /* --- LICENSE SCREEN --- */
+        #license-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.85);
-            z-index: 10001;
-            display: none; justify-content: center; align-items: center;
-            padding: 1rem;
-            animation: fadeIn 0.3s ease;
+            background: var(--primary);
+            z-index: 10000;
+            display: none; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 1.5rem;
         }
-        
-        .install-popup {
-            background: white;
-            width: 100%; max-width: 420px;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        .license-card {
+            background: white; width: 100%; max-width: 400px;
+            border-radius: 16px; padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
-            animation: slideUp 0.4s ease;
+            animation: fadeIn 0.5s ease;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .license-logo { 
+            font-size: 2rem; 
+            font-weight: 800; 
+            color: var(--primary); 
+            margin-bottom: 0.5rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
+        .license-logo svg { width: 36px; height: 36px; }
+        .license-sub { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem; }
         
-        .install-popup-icon {
-            width: 70px; height: 70px;
-            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 1.25rem;
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
-        }
-        .install-popup-icon svg { width: 40px; height: 40px; color: white; }
-        
-        .install-popup h3 {
-            font-size: 1.3rem; color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .install-popup p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
+        .demo-banner-large {
+            background: var(--demo-bg);
+            border: 2px solid var(--demo-border);
+            border-radius: 8px;
+            padding: 1rem;
             margin-bottom: 1.5rem;
         }
         
-        .install-buttons {
-            display: flex; flex-direction: column; gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        
-        .install-btn {
-            display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-            padding: 0.9rem 1.2rem; border-radius: 10px;
-            font-weight: 600; font-size: 0.95rem; cursor: pointer;
-            border: none; transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        
-        .install-btn-desktop {
-            background: var(--primary); color: white;
-        }
-        .install-btn-desktop:hover { background: #1e293b; transform: translateY(-2px); }
-        
-        .install-btn-mobile {
-            background: var(--accent); color: white;
-        }
-        .install-btn-mobile:hover { background: #2563eb; transform: translateY(-2px); }
-        
-        .install-btn-done {
-            background: var(--success); color: white;
-        }
-        .install-btn-done:hover { background: #059669; }
-        
-        .install-btn svg { width: 20px; height: 20px; }
-        
-        .install-checkbox-wrapper {
-            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border);
-        }
-        
-        .install-checkbox-wrapper input[type="checkbox"] {
-            width: 18px; height: 18px;
-            accent-color: var(--primary);
-            cursor: pointer;
-        }
-        
-        .install-checkbox-wrapper label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-        
-        .install-divider {
-            display: flex; align-items: center; gap: 0.75rem;
-            margin: 1rem 0;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-        .install-divider::before, .install-divider::after {
-            content: ''; flex: 1; height: 1px; background: var(--border);
-        }
-        
-        /* iOS Install Instructions */
-        .ios-instructions {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 0.75rem;
-            text-align: left;
-        }
-        .ios-instructions h4 {
-            font-size: 0.9rem; color: var(--primary);
+        .demo-banner-large h3 {
+            color: var(--demo);
+            font-size: 1rem;
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
-        .ios-instructions ol {
-            margin-left: 1.2rem;
+        
+        .demo-banner-large p {
             font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            margin-bottom: 0.75rem;
         }
+        
+        .demo-feature-list {
+            text-align: left;
+            font-size: 0.8rem;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+        
+        .demo-feature-list li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .demo-feature-list .disabled {
+            color: var(--text-muted);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .btn-launch {
+            width: 100%; padding: 1rem; background: var(--primary); color: white;
+            border: none; border-radius: 8px; font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+        .btn-launch:hover { background: #1e293b; transform: translateY(-2px); }
+        .btn-launch:active { transform: translateY(0); }
+        
+        .license-footer { margin-top: 1.5rem; font-size: 0.8rem; color: #64748b; }
+        .license-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
 
-        /* --- LOADING SCREEN (simplified, no license) --- */
+        /* --- LOADING SCREEN --- */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--primary);
@@ -251,7 +280,7 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- HEADER with DEMO badge --- */
+        /* --- HEADER --- */
         header {
             background: rgba(255,255,255, 0.98);
             backdrop-filter: blur(10px);
@@ -262,14 +291,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             flex-shrink: 0;
         }
-        .brand { 
-            font-size: 1.3rem; 
-            font-weight: 800; 
-            color: var(--primary); 
-            display: flex; 
-            align-items: center; 
-            gap: 0.4rem; 
-        }
+        .brand { font-size: 1.3rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 0.4rem; }
         .brand svg { width: 28px; height: 28px; flex-shrink: 0; }
         
         .nav-group { display: flex; gap: 0.4rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -326,6 +348,18 @@
         }
         .warning-box svg { flex-shrink: 0; }
 
+        /* --- REGISTRATION MODE OVERLAY --- */
+        .registration-mode-overlay {
+            position: absolute; top: 0; left: 0; right: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: white; padding: 0.75rem 1rem;
+            display: none; align-items: center; justify-content: center; gap: 0.5rem;
+            z-index: 20;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .registration-mode-overlay.show { display: flex; }
+
         /* --- CONTROLS --- */
         .control-panel { 
             display: flex; gap: 0.6rem; flex-wrap: wrap; 
@@ -344,6 +378,8 @@
         .btn-accent { background: var(--accent); color: white; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-lg { width: 100%; padding: 1rem; font-size: 1rem; }
+        .btn-demo { background: var(--demo); color: white; }
+        .btn-demo:hover { background: #d97706; }
 
         #status-msg {
             margin-top: 0.8rem; min-height: 24px; 
@@ -352,13 +388,39 @@
             transition: all 0.3s ease;
         }
 
-        /* --- ADMIN PANELS with demo labels --- */
+        /* --- ADMIN PANELS --- */
         .panel { 
             background: var(--surface); width: 100%; max-width: 900px; 
             border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
             padding: 1.25rem; margin-bottom: 1rem; border: 1px solid var(--border); 
             position: relative;
         }
+        
+        .demo-panel-badge {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: var(--demo);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 10;
+        }
+        
+        .demo-panel-badge svg {
+            width: 10px;
+            height: 10px;
+        }
+        
         .panel-header { 
             display: flex; justify-content: space-between; align-items: center; 
             margin-bottom: 1rem; padding-bottom: 0.75rem; 
@@ -383,8 +445,14 @@
         .settings-box {
             border: 1px solid var(--border); padding: 1rem; 
             border-radius: 10px; background: #fafbfc;
+            position: relative;
         }
-        .settings-box h3 { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--primary); }
+        
+        .settings-box .demo-badge-small {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
 
         /* Contact Button Style */
         .contact-link {
@@ -423,25 +491,11 @@
             background: var(--surface); width: 100%; max-width: 420px;
             border-radius: 16px; padding: 1.5rem; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             animation: slideUp 0.3s ease;
+            position: relative;
         }
         .modal h3 { margin-bottom: 1rem; font-size: 1.1rem; }
 
-        /* Premium upgrade modal (simple) */
-        .premium-modal .modal {
-            border-top: 4px solid var(--accent);
-            text-align: center;
-        }
-        .premium-modal h3 { color: var(--accent); }
-        .premium-modal .premium-icon {
-            width: 60px; height: 60px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 1rem;
-        }
-        .premium-modal .premium-icon svg { width: 36px; height: 36px; color: white; }
-
-        /* --- FOOTER with demo note --- */
+        /* --- FOOTER --- */
         footer {
             padding: 0.8rem 1rem; text-align: center;
             border-top: 1px solid var(--border); background: var(--surface);
@@ -456,19 +510,8 @@
             font-size: 0.7rem; color: var(--text-muted);
         }
         .footer-powered a { color: var(--accent); text-decoration: none; font-weight: 600; }
-        .footer-tagline {
-            font-size: 0.65rem; color: var(--text-muted); opacity: 0.8;
-            margin-top: 0.2rem;
-        }
 
         .hidden { display: none !important; }
-        
-        body.station-mode header, body.station-mode footer, body.station-mode .warning-box { display: none; }
-        body.station-mode main { padding: 0; }
-        body.station-mode .scanner-wrapper { 
-            max-width: 100%; height: 100vh; aspect-ratio: auto;
-            border-radius: 0; border: none; margin: 0;
-        }
         
         /* --- TOAST --- */
         #toast {
@@ -480,7 +523,39 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         #toast.show { transform: translateX(-50%) translateY(0); }
-        #toast.premium { background: var(--accent); }
+        
+        /* DEMO LIMITATION INDICATORS */
+        .import-export-blocked {
+            position: relative;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .import-export-blocked::after {
+            content: 'DEMO - No Import/Export';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(245, 158, 11, 0.9);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        .employee-limit-badge {
+            background: var(--demo);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-left: 8px;
+        }
         
         @media (max-width: 600px) {
             .brand span { display: none; }
@@ -490,80 +565,47 @@
             .btn { padding: 0.65rem 1rem; font-size: 0.85rem; }
             .settings-grid { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            
-            .install-popup { padding: 1.5rem; }
-            .install-popup h3 { font-size: 1.15rem; }
-            .install-btn { padding: 0.8rem 1rem; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- NO LICENSE SCREEN - demo auto-loads -->
-
-    <!-- INSTALL POPUP (optional, kept but may be hidden or shown with demo note) -->
-    <div id="install-popup-overlay">
-        <div class="install-popup">
-            <div class="install-popup-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
-                    <path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/>
-                </svg>
-            </div>
-            <h3>Bioattex Demo</h3>
-            <p>This is a demo version. Some features are limited. Install the full version for complete access.</p>
-            
-            <div class="install-buttons">
-                <button id="btn-install-desktop" class="install-btn install-btn-desktop">
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    Install Full Version
-                </button>
-                <button id="btn-install-mobile" class="install-btn install-btn-mobile">
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                    Mobile Install
-                </button>
-            </div>
-            
-            <div id="ios-instructions" class="ios-instructions" style="display:none;">
-                <h4>📱 Install on iOS:</h4>
-                <ol>
-                    <li>Tap the <strong>Share</strong> button (square with arrow)</li>
-                    <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
-                    <li>Tap <strong>"Add"</strong></li>
-                </ol>
-            </div>
-            
-            <div class="install-divider">or</div>
-            
-            <button id="btn-install-done" class="install-btn install-btn-done">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                Continue to Demo
-            </button>
-            
-            <div class="install-checkbox-wrapper">
-                <input type="checkbox" id="chk-never-remind">
-                <label for="chk-never-remind">Don't show this again</label>
-            </div>
-        </div>
+    <!-- DEMO WATERMARK (appears on all screens) -->
+    <div class="demo-watermark">
+        <span>DEMO VERSION • DEMO VERSION • DEMO VERSION •</span>
     </div>
 
-    <!-- LOADING SCREEN (simplified, no license) -->
+    <!-- DEMO HEADER BANNER -->
+    <div class="demo-header-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        BIOATTEX DEMO - Try Before You Buy - Limited Features
+    </div>
+
+    <!-- LICENSE SCREEN (simplified for demo - no license required) -->
+    <div id="license-screen" style="display: none;">
+        <!-- This screen is bypassed in demo -->
+    </div>
+
+    <!-- LOADING SCREEN -->
     <div id="loading-screen">
         <div class="loader-logo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><circle cx="8.5" cy="8.5" r="0.5"/><circle cx="16" cy="15.5" r="0.5"/><circle cx="12" cy="12" r="0.5"/></svg>
-            Bioattex Demo
+            Bioattex DEMO
         </div>
-        <div class="loader-tag">Powered By MortApps Studios</div>
+        <div class="loader-tag">Try Before You Buy Edition</div>
         <div class="spinner"></div>
         <div id="loading-status" style="color: rgba(255,255,255,0.8); margin-top: 1rem; font-size: 0.9rem;">Initializing Demo...</div>
     </div>
 
-    <!-- HEADER with DEMO badge -->
+    <!-- HEADER -->
     <header id="main-header" style="display: none;">
         <div class="brand">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/></svg>
             <span>Bioattex</span>
-            <span class="demo-badge">DEMO</span>
+            <span class="demo-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                DEMO
+            </span>
         </div>
         <nav class="nav-group" id="main-nav">
             <button class="nav-btn active" data-screen="home">Home</button>
@@ -575,10 +617,19 @@
     <main id="main-content" style="display: none;">
         <!-- HOME SCREEN -->
         <div id="home" class="screen active">
-            <div class="warning-box">
+            <div class="warning-box" id="warning-box">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                <span>Demo: Max 2 employees, some features locked</span>
+                <span>DEMO: Failure to check in will be recorded as unexcused absence.</span>
+                <span class="demo-badge demo-badge-small">DEMO</span>
             </div>
+            
+            <!-- Registration Mode Banner -->
+            <div class="registration-mode-overlay" id="registration-banner">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <span>REGISTRATION MODE - Capturing Face Data</span>
+                <span class="demo-badge demo-badge-small">DEMO</span>
+            </div>
+            
             <div class="scanner-wrapper">
                 <video id="video-feed" autoplay playsinline muted></video>
                 <canvas id="hud-canvas"></canvas>
@@ -587,6 +638,7 @@
                     <span class="cam-title">Camera Inactive</span>
                     <span class="cam-sub">Tap "Turn Camera On" to start</span>
                 </div>
+                <span class="demo-badge" style="position: absolute; top: 5px; left: 5px; z-index: 15;">DEMO</span>
             </div>
             <div class="control-panel">
                 <button id="btn-cam-toggle" class="btn btn-primary">Turn Camera On</button>
@@ -598,58 +650,76 @@
 
         <!-- ADMIN LOGIN -->
         <div id="admin-login" class="screen">
-            <div class="panel" style="max-width: 380px; text-align: center;">
+            <div class="panel" style="max-width: 380px; text-align: center; position: relative;">
+                <span class="demo-panel-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    DEMO MODE
+                </span>
                 <div style="margin-bottom: 1.5rem;">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" style="margin: 0 auto;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                 </div>
-                <h2 style="margin-bottom: 1.25rem; color: var(--primary);">Admin Access (Demo)</h2>
-                <input type="password" id="pin-input" placeholder="Enter Security PIN (default: 1234)" inputmode="numeric" maxlength="10">
+                <h2 style="margin-bottom: 1.25rem; color: var(--primary);">Admin Access (DEMO)</h2>
+                <div class="demo-banner-large" style="margin-bottom: 1rem;">
+                    <p>Demo Password: <strong>1234</strong></p>
+                    <div class="demo-feature-list">
+                        <li>✓ Up to 2 employees only</li>
+                        <li class="disabled">✗ No Import/Export</li>
+                        <li class="disabled">✗ No PDF Downloads</li>
+                        <li class="disabled">✗ No PWA Installation</li>
+                    </div>
+                </div>
+                <input type="password" id="pin-input" placeholder="Enter Password (1234)" autocomplete="off">
                 <button id="btn-admin-login" class="btn btn-primary btn-lg" style="margin-top: 1rem;">Authenticate</button>
                 <p id="back-to-home" style="margin-top: 1rem; color: var(--text-muted); cursor: pointer; font-size: 0.9rem;">← Back to Home</p>
             </div>
         </div>
 
-        <!-- DASHBOARD (with demo limits) -->
+        <!-- DASHBOARD -->
         <div id="dashboard" class="screen">
             <div class="panel">
-                <div class="demo-ribbon">DEMO</div>
+                <span class="demo-panel-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    DEMO - LIMITED
+                </span>
                 <div class="panel-header">
-                    <h2>Admin Dashboard</h2>
+                    <h2>Admin Dashboard <span class="employee-limit-badge">Max 2 Employees</span></h2>
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <button id="btn-station-mode" class="btn btn-secondary" disabled style="opacity:0.5; cursor:not-allowed;">Station Mode (Premium)</button>
                         <button id="btn-admin-logout" class="btn btn-primary">Logout</button>
                     </div>
                 </div>
                 
                 <div class="settings-grid">
-                    <!-- Settings (locked) -->
+                    <!-- Settings -->
                     <div class="settings-box">
-                        <h3>Settings <span class="demo-badge" style="margin-left:0.5rem;">Premium</span></h3>
+                        <span class="demo-badge-small">DEMO</span>
+                        <h3>Settings</h3>
                         <div class="input-group">
-                            <label>Update Security PIN</label>
-                            <input type="password" id="new-pin" placeholder="Premium feature" disabled>
+                            <label>Update Password</label>
+                            <input type="text" id="new-pin" placeholder="New Password" autocomplete="off">
                         </div>
                         <div class="input-group">
                             <label>Late Arrival Threshold</label>
-                            <input type="time" id="late-threshold" value="09:00" disabled>
+                            <input type="time" id="late-threshold" value="09:00">
                         </div>
-                        <button id="btn-save-settings" class="btn btn-primary btn-lg" disabled>Save Settings (Premium)</button>
+                        <button id="btn-save-settings" class="btn btn-primary btn-lg">Save Settings</button>
                     </div>
                     
-                    <!-- Data Management (locked) -->
-                    <div class="settings-box">
-                        <h3>Data Management <span class="demo-badge" style="margin-left:0.5rem;">Premium</span></h3>
+                    <!-- Data Management - DISABLED for demo -->
+                    <div class="settings-box import-export-blocked">
+                        <span class="demo-badge-small">DEMO - DISABLED</span>
+                        <h3>Data Management</h3>
                         <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
-                            <button id="btn-export" class="btn btn-success" style="flex: 1;" disabled>Export (Premium)</button>
-                            <button id="btn-import-trigger" class="btn btn-secondary" style="flex: 1;" disabled>Import (Premium)</button>
+                            <button id="btn-export" class="btn btn-success" style="flex: 1;" disabled>Export</button>
+                            <button id="btn-import-trigger" class="btn btn-secondary" style="flex: 1;" disabled>Import</button>
                         </div>
                         <input type="file" id="import-file" style="display:none" accept=".json">
-                        <button id="btn-clear-all-data" class="btn btn-danger btn-lg" disabled>Clear All Data (Premium)</button>
+                        <button id="btn-clear-all-data" class="btn btn-danger btn-lg">Clear All Data</button>
                     </div>
                     
-                    <!-- Registration (capped at 2) -->
+                    <!-- Registration - LIMITED to 2 employees -->
                     <div class="settings-box">
-                        <h3>Register Staff <span class="demo-badge">Max 2</span></h3>
+                        <span class="demo-badge-small">DEMO</span>
+                        <h3>Register Staff <span id="emp-count-badge" class="employee-limit-badge">0/2</span></h3>
                         <div class="input-group">
                             <input type="text" id="reg-name" placeholder="Full Name" maxlength="100">
                         </div>
@@ -661,21 +731,20 @@
                         <p id="reg-status" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--accent); min-height: 1.2em;"></p>
                     </div>
                     
-                    <!-- Contact Support (unchanged) -->
+                    <!-- Contact Support -->
                     <div class="settings-box">
                         <h3>Need Help?</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Contact our support team for assistance with Bioattex.</p>
-                        <a href="mailto:mortapps.studios@gmail.com?subject=Bioattex%20Support%20Request" class="contact-link" style="display: flex; justify-content: center;">
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Upgrade to premium for full features.</p>
+                        <a href="mailto:mortapps.studios@gmail.com?subject=Bioattex%20Premium%20Inquiry" class="contact-link" style="display: flex; justify-content: center;">
                             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            Contact Support
+                            Contact Sales
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="panel">
-                <div class="demo-ribbon">DEMO</div>
-                <h3 style="margin-bottom: 0.75rem; font-size: 1rem;">Manage Employees (Max 2)</h3>
+                <h3 style="margin-bottom: 0.75rem; font-size: 1rem;">Manage Employees <span class="employee-limit-badge" id="emp-count-badge2">0/2</span></h3>
                 <div class="table-wrapper">
                     <table id="emp-table">
                         <thead><tr><th>ID</th><th>Name</th><th>Biometrics</th><th>Action</th></tr></thead>
@@ -685,15 +754,18 @@
             </div>
         </div>
 
-        <!-- RECORDS (locked) -->
+        <!-- RECORDS -->
         <div id="records" class="screen">
             <div class="panel">
-                <div class="demo-ribbon">DEMO</div>
+                <span class="demo-panel-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    DEMO
+                </span>
                 <div class="panel-header">
-                    <h2>Attendance Records <span class="demo-badge">View Only</span></h2>
+                    <h2>Attendance Records</h2>
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <button id="btn-clear-records" class="btn btn-danger" disabled>Clear All (Premium)</button>
-                        <button id="btn-download-pdf" class="btn btn-primary" disabled>Download PDF (Premium)</button>
+                        <button id="btn-clear-records" class="btn btn-danger">Clear All</button>
+                        <button id="btn-download-pdf" class="btn btn-primary" disabled>PDF (Demo Disabled)</button>
                     </div>
                 </div>
                 <div class="stats-grid">
@@ -711,15 +783,18 @@
     </main>
 
     <footer id="main-footer" style="display: none;">
-        <div class="footer-main">&copy; 2026 BioAttex. Attendance Tracker</div>
+        <div class="footer-main">&copy; 2026 BioAttex Demo</div>
         <div class="footer-powered">Powered by <a href="https://mortappsstudios.com" target="_blank">MortApps Studios</a></div>
-        <div class="footer-tagline">Advanced AI-Powered Technology</div>
-        <div class="demo-footer-note">DEMO VERSION – Max 2 employees, premium features locked</div>
+        <div class="demo-footer-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            DEMO VERSION - Max 2 Employees, No Import/Export
+        </div>
     </footer>
 
     <!-- MODALS -->
     <div id="modal-verify" class="modal-overlay">
         <div class="modal">
+            <span class="demo-badge" style="position: absolute; top: 10px; right: 10px;">DEMO</span>
             <h3 style="text-align: center;">Confirm Identity</h3>
             <img id="verify-img" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); display: block; margin: 1rem auto;">
             <p style="margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.85rem;">Select your name:</p>
@@ -731,22 +806,9 @@
         </div>
     </div>
     
-    <!-- Premium upgrade modal -->
-    <div id="modal-premium" class="modal-overlay premium-modal">
-        <div class="modal">
-            <div class="premium-icon">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.5 9.5L12 6l3.5 3.5L12 13l-3.5-3.5z"/><path d="M8.5 14.5L12 11l3.5 3.5L12 18l-3.5-3.5z"/></svg>
-            </div>
-            <h3>Premium Feature</h3>
-            <p style="margin: 1rem 0; color: var(--text-muted);">This feature is available only in the full version of Bioattex.</p>
-            <p style="font-weight: 600; margin-bottom: 1.5rem;">Contact MortApps Studios to upgrade.</p>
-            <a href="mailto:mortapps.studios@gmail.com?subject=Bioattex%20Upgrade%20Inquiry" class="btn btn-primary btn-lg" style="text-decoration:none; display:block; text-align:center;">Request Upgrade</a>
-            <button id="btn-close-premium" class="btn btn-secondary btn-lg" style="margin-top:0.5rem;">Close</button>
-        </div>
-    </div>
-    
     <div id="modal-delete" class="modal-overlay">
         <div class="modal" style="border-top: 4px solid var(--danger);">
+            <span class="demo-badge" style="position: absolute; top: 10px; right: 10px;">DEMO</span>
             <h3 style="color: var(--danger);">⚠️ Warning</h3>
             <p style="margin-bottom: 1rem; color: var(--text-main);">You are about to permanently delete all attendance records.</p>
             <p style="margin-bottom: 1.5rem; font-weight: 600;">This action cannot be undone. Continue?</p>
@@ -759,6 +821,7 @@
     
     <div id="modal-clear-data" class="modal-overlay">
         <div class="modal" style="border-top: 4px solid var(--danger);">
+            <span class="demo-badge" style="position: absolute; top: 10px; right: 10px;">DEMO</span>
             <h3 style="color: var(--danger);">⚠️ Critical Warning</h3>
             <p style="margin-bottom: 1rem; color: var(--text-main);">This will delete ALL data including employees and records.</p>
             <p style="margin-bottom: 1.5rem; font-weight: 600;">This action cannot be undone. Continue?</p>
@@ -773,40 +836,36 @@
 
     <script>
         // =====================================================
-        // BIOATTEX DEMO - Locked Version
-        // Max 2 employees, premium features disabled
+        // BIOATTEX DEMO - Try Before You Buy Edition
+        // Version: DEMO 1.0
+        // Features: Limited to 2 employees, no import/export,
+        //           no PWA, demo tags throughout
         // =====================================================
 
         'use strict';
 
+        // DEMO CONFIGURATION
+        const DEMO_CONFIG = {
+            MAX_EMPLOYEES: 2,
+            DISABLE_IMPORT_EXPORT: true,
+            DISABLE_PDF: true,
+            DISABLE_PWA: true,
+            DEMO_MODE: true
+        };
+
         // --- CONSTANTS ---
-        const DB_KEY = 'bioattex_demo_db_v2'; // separate DB key for demo
-        const INSTALL_DISMISSED_KEY = 'bioattex_demo_install_dismissed';
-        const MAX_EMPLOYEES = 2;
+        const DB_KEY = 'bioattex_demo_db_v1'; // Separate DB for demo
 
         // --- UTILITY FUNCTIONS ---
         const utils = {
-            showToast: function(message, duration, isPremium = false) {
+            showToast: function(message, duration) {
                 const toast = document.getElementById('toast');
                 if (!toast) return;
                 toast.textContent = message;
                 toast.classList.add('show');
-                if (isPremium) {
-                    toast.classList.add('premium');
-                } else {
-                    toast.classList.remove('premium');
-                }
                 setTimeout(() => {
                     toast.classList.remove('show');
                 }, duration || 3000);
-            },
-            
-            showPremiumModal: function() {
-                document.getElementById('modal-premium').style.display = 'flex';
-            },
-            
-            closePremiumModal: function() {
-                document.getElementById('modal-premium').style.display = 'none';
             },
             
             formatDate: function(date) {
@@ -815,24 +874,10 @@
             
             formatTime: function(date) {
                 return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            },
-            
-            isStandalone: function() {
-                return window.matchMedia('(display-mode: standalone)').matches ||
-                       window.navigator.standalone === true ||
-                       document.referrer.includes('android-app://');
-            },
-            
-            isIOS: function() {
-                return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            },
-            
-            isMobile: function() {
-                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             }
         };
 
-        // --- DATABASE MODULE (separate demo storage) ---
+        // --- DATABASE MODULE (separate for demo) ---
         const db = {
             data: {
                 pin: '1234',
@@ -873,9 +918,20 @@
                     if (thresholdInput) {
                         thresholdInput.value = this.data.lateThreshold || '09:00';
                     }
+                    
+                    // Update employee count badges
+                    this.updateEmployeeCountBadges();
                 } catch (e) {
                     console.error('Database init error:', e);
                 }
+            },
+            
+            updateEmployeeCountBadges: function() {
+                const count = this.data.employees.length;
+                const badges = document.querySelectorAll('#emp-count-badge, #emp-count-badge2');
+                badges.forEach(badge => {
+                    if (badge) badge.textContent = `${count}/${DEMO_CONFIG.MAX_EMPLOYEES}`;
+                });
             },
 
             save: function() {
@@ -887,6 +943,7 @@
                         return value;
                     }));
                     localStorage.setItem(DB_KEY, JSON.stringify(saveData));
+                    this.updateEmployeeCountBadges();
                 } catch (e) {
                     console.error('Database save error:', e);
                 }
@@ -914,107 +971,14 @@
                     lateThreshold: '09:00'
                 };
                 this.save();
+            },
+            
+            canAddEmployee: function() {
+                return this.data.employees.length < DEMO_CONFIG.MAX_EMPLOYEES;
             }
         };
 
-        // --- INSTALL MANAGER (optional, but kept with demo note) ---
-        const installManager = {
-            deferredPrompt: null,
-            
-            init: function() {
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    e.preventDefault();
-                    this.deferredPrompt = e;
-                });
-            },
-            
-            canInstall: function() {
-                return this.deferredPrompt !== null;
-            },
-            
-            install: async function() {
-                if (!this.deferredPrompt) return false;
-                
-                this.deferredPrompt.prompt();
-                const { outcome } = await this.deferredPrompt.userChoice;
-                this.deferredPrompt = null;
-                
-                return outcome === 'accepted';
-            },
-            
-            showPopup: function() {
-                if (utils.isStandalone()) {
-                    return false;
-                }
-                
-                if (localStorage.getItem(INSTALL_DISMISSED_KEY) === 'never') {
-                    return false;
-                }
-                
-                const popup = document.getElementById('install-popup-overlay');
-                const iosInstructions = document.getElementById('ios-instructions');
-                
-                if (utils.isIOS()) {
-                    iosInstructions.style.display = 'block';
-                } else {
-                    iosInstructions.style.display = 'none';
-                }
-                
-                popup.style.display = 'flex';
-                return true;
-            },
-            
-            hidePopup: function(neverRemind) {
-                const popup = document.getElementById('install-popup-overlay');
-                popup.style.display = 'none';
-                
-                if (neverRemind) {
-                    localStorage.setItem(INSTALL_DISMISSED_KEY, 'never');
-                }
-            },
-            
-            handleDesktopInstall: async function() {
-                if (utils.isIOS()) {
-                    document.getElementById('ios-instructions').style.display = 'block';
-                    utils.showToast('Follow the instructions above to install');
-                    return;
-                }
-                
-                if (this.canInstall()) {
-                    const installed = await this.install();
-                    if (installed) {
-                        utils.showToast('Bioattex installed successfully!');
-                        this.hidePopup(false);
-                    } else {
-                        utils.showToast('Installation cancelled');
-                    }
-                } else {
-                    utils.showToast('Use browser menu: "Install App" or "Add to Home Screen"');
-                }
-            },
-            
-            handleMobileInstall: async function() {
-                if (utils.isIOS()) {
-                    document.getElementById('ios-instructions').style.display = 'block';
-                    utils.showToast('Follow the instructions above');
-                    return;
-                }
-                
-                if (this.canInstall()) {
-                    const installed = await this.install();
-                    if (installed) {
-                        utils.showToast('Bioattex installed successfully!');
-                        this.hidePopup(false);
-                    }
-                } else {
-                    utils.showToast('Use browser menu: "Add to Home Screen"');
-                }
-            }
-        };
-
-        // --- NO LICENSE MODULE - demo auto-boots
-
-        // --- NEURAL ENGINE MODULE (unchanged) ---
+        // --- NEURAL ENGINE MODULE ---
         const neuralEngine = {
             modelsLoaded: false,
             canvas: null,
@@ -1111,16 +1075,15 @@
             drawHUD: function(ctx, detection) {
                 const landmarks = detection.landmarks;
                 const box = detection.detection.box;
-                const positions = landmarks.positions;
                 const now = Date.now();
                 
                 ctx.save();
                 
                 const scanY = box.y + (Math.sin(now * 0.002) * 0.5 + 0.5) * box.height;
                 const gradient = ctx.createLinearGradient(0, scanY - 20, 0, scanY + 20);
-                gradient.addColorStop(0, 'rgba(0, 255, 255, 0)');
-                gradient.addColorStop(0.5, 'rgba(0, 255, 255, 0.7)');
-                gradient.addColorStop(1, 'rgba(0, 255, 255, 0)');
+                gradient.addColorStop(0, 'rgba(245, 158, 11, 0)'); // Demo orange
+                gradient.addColorStop(0.5, 'rgba(245, 158, 11, 0.7)'); // Demo orange
+                gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
                 
                 ctx.fillStyle = gradient;
                 ctx.fillRect(box.x, scanY - 20, box.width, 40);
@@ -1128,66 +1091,29 @@
                 ctx.beginPath();
                 ctx.moveTo(box.x, scanY);
                 ctx.lineTo(box.x + box.width, scanY);
-                ctx.strokeStyle = '#fff';
+                ctx.strokeStyle = '#f59e0b'; // Demo orange
                 ctx.lineWidth = 2;
-                ctx.shadowColor = '#00ffff';
+                ctx.shadowColor = '#f59e0b';
                 ctx.shadowBlur = 10;
                 ctx.stroke();
                 ctx.shadowBlur = 0;
                 
-                const rot = Math.sin(now * 0.005) * 0.1;
-                ctx.strokeStyle = '#00ff41';
-                ctx.lineWidth = 3;
-                
-                const drawBracket = (x, y, angle) => {
-                    ctx.save();
-                    ctx.translate(x, y);
-                    ctx.rotate(angle + rot);
-                    ctx.beginPath();
-                    ctx.moveTo(-15, 0);
-                    ctx.lineTo(0, 0);
-                    ctx.lineTo(0, 15);
-                    ctx.stroke();
-                    ctx.restore();
-                };
-                
-                drawBracket(box.x, box.y, 0);
-                drawBracket(box.x + box.width, box.y, Math.PI / 2);
-                drawBracket(box.x + box.width, box.y + box.height, Math.PI);
-                drawBracket(box.x, box.y + box.height, -Math.PI / 2);
-                
-                const pulse = Math.sin(now * 0.005) * 0.3 + 0.5;
-                ctx.strokeStyle = '#00ffff';
-                ctx.lineWidth = 1;
-                ctx.globalAlpha = pulse;
-                
-                ctx.beginPath();
-                for (let i = 0; i < positions.length - 1; i++) {
-                    ctx.moveTo(positions[i].x, positions[i].y);
-                    ctx.lineTo(positions[i + 1].x, positions[i + 1].y);
-                }
-                ctx.moveTo(positions[positions.length - 1].x, positions[positions.length - 1].y);
-                ctx.lineTo(positions[0].x, positions[0].y);
-                ctx.stroke();
-                ctx.globalAlpha = 1.0;
-                
                 ctx.save();
                 ctx.translate(25, 30);
                 ctx.scale(-1, 1);
-                ctx.fillStyle = '#00ff41';
+                ctx.fillStyle = '#f59e0b';
                 ctx.font = '13px monospace';
-                ctx.fillText('NEURAL CALIBRATION: ACTIVE', 0, 0);
+                ctx.fillText('DEMO MODE: ACTIVE', 0, 0);
                 
-                const pct = Math.floor((Math.sin(now * 0.003) * 0.5 + 0.5) * 100);
-                ctx.fillStyle = '#00ffff';
-                ctx.fillText('ANALYZING... ' + pct + '%', 0, 18);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillText('UPGRADE FOR FULL FEATURES', 0, 18);
                 ctx.restore();
                 
                 ctx.restore();
             }
         };
 
-        // --- CAMERA MODULE (unchanged) ---
+        // --- CAMERA MODULE ---
         const camera = {
             stream: null,
 
@@ -1213,7 +1139,11 @@
                     camOffMsg.style.display = 'none';
                     btn.textContent = 'Camera Active';
                     btn.style.backgroundColor = '#ef4444';
-                    scanBtn.disabled = false;
+                    
+                    // Only enable scan button if NOT in registration mode
+                    if (!admin.isRegistering) {
+                        scanBtn.disabled = false;
+                    }
                     
                 } catch (e) {
                     console.error('Camera error:', e);
@@ -1257,11 +1187,17 @@
             }
         };
 
-        // --- SCANNER MODULE (unchanged) ---
+        // --- SCANNER MODULE ---
         const scanner = {
             isScanning: false,
 
             initiateScan: async function() {
+                // CRITICAL: Do NOT trigger check-in if we're in registration mode
+                if (admin.isRegistering) {
+                    console.log('Registration mode active - scan blocked');
+                    return;
+                }
+                
                 if (!camera.stream) {
                     utils.showToast('Please turn on camera first');
                     return;
@@ -1404,13 +1340,13 @@
                 });
                 
                 this.cancelVerify();
-                utils.showToast(`Welcome, ${emp.name}! (${status})`);
+                utils.showToast(`Welcome, ${emp.name}! (${status}) - DEMO MODE`);
                 
                 setTimeout(() => camera.stop(), 500);
             }
         };
 
-        // --- ADMIN MODULE (with demo limits) ---
+        // --- ADMIN MODULE with DEMO LIMITATIONS ---
         const admin = {
             isLoggedIn: false,
             isRegistering: false,
@@ -1420,15 +1356,16 @@
 
             login: function() {
                 const pinInput = document.getElementById('pin-input');
+                const inputValue = pinInput.value;
                 
-                if (pinInput.value === db.data.pin) {
+                if (inputValue === db.data.pin) {
                     pinInput.value = '';
                     this.isLoggedIn = true;
                     document.getElementById('nav-records').classList.remove('hidden');
                     app.nav('dashboard');
-                    utils.showToast('Admin access granted (Demo)');
+                    utils.showToast('Admin access granted (DEMO)');
                 } else {
-                    utils.showToast('Incorrect PIN');
+                    utils.showToast('Incorrect password (use 1234)');
                     pinInput.value = '';
                     pinInput.focus();
                 }
@@ -1448,6 +1385,14 @@
                 this.tempName = '';
                 this.tempId = '';
                 
+                // Hide registration banner
+                const banner = document.getElementById('registration-banner');
+                if (banner) banner.classList.remove('show');
+                
+                // Show warning box again
+                const warningBox = document.getElementById('warning-box');
+                if (warningBox) warningBox.style.display = 'flex';
+                
                 const statusMsg = document.getElementById('status-msg');
                 if (statusMsg) statusMsg.textContent = '';
                 
@@ -1456,40 +1401,53 @@
                 
                 const saveBtn = document.getElementById('btn-reg-save');
                 if (saveBtn) saveBtn.disabled = true;
+                
+                // Re-enable scan button if camera is on
+                const scanBtn = document.getElementById('btn-scan');
+                if (scanBtn && camera.stream) {
+                    scanBtn.disabled = false;
+                }
             },
 
-            // Station mode is locked
-            toggleStationMode: function() {
-                utils.showPremiumModal();
-            },
-
-            // Settings are locked
             saveSettings: function() {
-                utils.showPremiumModal();
+                const pinInput = document.getElementById('new-pin');
+                const timeInput = document.getElementById('late-threshold');
+                
+                // Password can be letters, numbers, or both - minimum 4 characters
+                if (pinInput.value && pinInput.value.length >= 4) {
+                    db.data.pin = pinInput.value;
+                    pinInput.value = '';
+                    utils.showToast('Password updated successfully (DEMO)');
+                } else if (pinInput.value && pinInput.value.length < 4) {
+                    utils.showToast('Password must be at least 4 characters');
+                    return;
+                }
+                
+                if (timeInput.value) {
+                    db.data.lateThreshold = timeInput.value;
+                }
+                
+                db.save();
+                utils.showToast('Settings saved (DEMO)');
             },
 
-            // Export locked
+            // DEMO: Disabled import/export
             downloadBackup: function() {
-                utils.showPremiumModal();
+                utils.showToast('Import/Export disabled in DEMO version');
             },
 
-            // Import locked
             importBackup: function(input) {
-                utils.showPremiumModal();
-            },
-
-            // Clear all data locked
-            clearAllData: function() {
-                utils.showPremiumModal();
+                utils.showToast('Import/Export disabled in DEMO version');
+                input.value = '';
             },
 
             startFaceRegistration: function() {
-                // Check employee count
-                if (db.data.employees.length >= MAX_EMPLOYEES) {
-                    utils.showToast(`Demo limit: Maximum ${MAX_EMPLOYEES} employees allowed. Upgrade to premium.`, 3000, true);
+                // Check employee limit
+                if (!db.canAddEmployee()) {
+                    utils.showToast(`DEMO LIMIT: Maximum ${DEMO_CONFIG.MAX_EMPLOYEES} employees allowed`);
                     return;
                 }
-
+                
                 const nameInput = document.getElementById('reg-name');
                 const idInput = document.getElementById('reg-id');
                 const name = nameInput.value.trim();
@@ -1510,20 +1468,40 @@
                 this.tempId = id;
                 this.tempDescriptors = [];
                 
+                // Show registration banner
+                const banner = document.getElementById('registration-banner');
+                if (banner) banner.classList.add('show');
+                
+                // Hide warning box during registration
+                const warningBox = document.getElementById('warning-box');
+                if (warningBox) warningBox.style.display = 'none';
+                
+                // Disable scan button during registration
+                const scanBtn = document.getElementById('btn-scan');
+                if (scanBtn) scanBtn.disabled = true;
+                
                 app.nav('home');
                 
                 if (!camera.stream) {
-                    camera.start();
+                    camera.start().then(() => {
+                        // After camera starts, disable scan button again
+                        setTimeout(() => {
+                            if (this.isRegistering && scanBtn) {
+                                scanBtn.disabled = true;
+                            }
+                        }, 100);
+                    });
                 }
                 
                 const statusMsg = document.getElementById('status-msg');
-                statusMsg.textContent = 'Position face for capture...';
+                statusMsg.textContent = 'Position face for capture... (DEMO)';
                 statusMsg.style.color = 'var(--accent)';
                 
                 setTimeout(() => this.captureLoop(), 1000);
             },
 
             captureLoop: function() {
+                // Only continue if still in registration mode
                 if (!this.isRegistering) return;
                 
                 const statusMsg = document.getElementById('status-msg');
@@ -1535,19 +1513,29 @@
                         statusMsg.textContent = `Capturing... ${this.tempDescriptors.length}/3`;
                         setTimeout(() => this.captureLoop(), 800);
                     } else {
+                        // Done capturing - return to dashboard
+                        this.isRegistering = false;
+                        
+                        // Hide registration banner
+                        const banner = document.getElementById('registration-banner');
+                        if (banner) banner.classList.remove('show');
+                        
+                        // Show warning box again
+                        const warningBox = document.getElementById('warning-box');
+                        if (warningBox) warningBox.style.display = 'flex';
+                        
                         camera.stop();
                         app.nav('dashboard');
                         
-                        document.getElementById('reg-status').textContent = '✓ 3 face samples captured!';
+                        document.getElementById('reg-status').textContent = '✓ 3 face samples captured! Ready to save.';
                         document.getElementById('reg-status').style.color = 'var(--success)';
                         document.getElementById('btn-reg-save').disabled = false;
-                        this.isRegistering = false;
                         
                         statusMsg.textContent = '';
-                        utils.showToast('Face data captured');
+                        utils.showToast('Face data captured - click Save Employee');
                     }
                 } else {
-                    statusMsg.textContent = 'Position your face...';
+                    statusMsg.textContent = 'Position your face in the frame...';
                     setTimeout(() => this.captureLoop(), 500);
                 }
             },
@@ -1555,6 +1543,13 @@
             completeRegistration: function() {
                 if (this.tempDescriptors.length === 0) {
                     utils.showToast('No face data captured');
+                    return;
+                }
+                
+                // Double-check limit before saving
+                if (!db.canAddEmployee()) {
+                    utils.showToast(`DEMO LIMIT: Maximum ${DEMO_CONFIG.MAX_EMPLOYEES} employees allowed`);
+                    this.cancelRegistration();
                     return;
                 }
                 
@@ -1576,7 +1571,7 @@
                 this.tempId = '';
                 
                 this.renderEmpList();
-                utils.showToast('Employee registered successfully');
+                utils.showToast('Employee registered successfully (DEMO)');
             },
 
             renderEmpList: function() {
@@ -1586,7 +1581,7 @@
                 tbody.innerHTML = '';
                 
                 if (db.data.employees.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:1.5rem; color:var(--text-muted);">No employees registered</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:1.5rem; color:var(--text-muted);">No employees registered (DEMO: Max 2)</td></tr>';
                     return;
                 }
                 
@@ -1615,7 +1610,7 @@
             }
         };
 
-        // --- RECORDS MODULE (with locked actions) ---
+        // --- RECORDS MODULE with DEMO limitations ---
         const records = {
             load: function() {
                 const tbody = document.querySelector('#records-table tbody');
@@ -1682,7 +1677,7 @@
             },
 
             confirmDelete: function() {
-                utils.showPremiumModal(); // locked
+                document.getElementById('modal-delete').style.display = 'flex';
             },
 
             closeDeleteModal: function() {
@@ -1690,11 +1685,16 @@
             },
 
             executeDelete: function() {
-                // locked
+                db.data.logs = {};
+                db.save();
+                this.closeDeleteModal();
+                this.load();
+                utils.showToast('Records cleared (DEMO)');
             },
 
+            // DEMO: PDF download disabled
             downloadPDF: function() {
-                utils.showPremiumModal(); // locked
+                utils.showToast('PDF download disabled in DEMO version. Upgrade to premium.');
             }
         };
 
@@ -1722,7 +1722,7 @@
                 // Refresh
                 document.getElementById('btn-refresh').addEventListener('click', () => this.refreshSystem());
                 
-                // Admin login
+                // Admin login - Enter key support
                 document.getElementById('btn-admin-login').addEventListener('click', () => admin.login());
                 document.getElementById('pin-input').addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') admin.login();
@@ -1731,28 +1731,32 @@
                 // Back to home
                 document.getElementById('back-to-home').addEventListener('click', () => this.nav('home'));
                 
-                // Admin actions (locked)
-                document.getElementById('btn-station-mode').addEventListener('click', () => admin.toggleStationMode());
+                // Admin actions
                 document.getElementById('btn-admin-logout').addEventListener('click', () => admin.logout());
                 document.getElementById('btn-save-settings').addEventListener('click', () => admin.saveSettings());
+                
+                // DEMO: Import/Export buttons are disabled
                 document.getElementById('btn-export').addEventListener('click', () => admin.downloadBackup());
                 document.getElementById('btn-import-trigger').addEventListener('click', () => {
-                    admin.importBackup();
+                    // Trigger file input but import is disabled in handler
+                    document.getElementById('import-file').click();
                 });
                 document.getElementById('import-file').addEventListener('change', function() {
-                    // locked, ignore
+                    admin.importBackup(this);
                 });
                 
-                // Clear all data (locked)
+                // Clear all data
                 document.getElementById('btn-clear-all-data').addEventListener('click', () => {
-                    admin.clearAllData();
+                    document.getElementById('modal-clear-data').style.display = 'flex';
                 });
                 document.getElementById('btn-cancel-clear-data').addEventListener('click', () => {
                     document.getElementById('modal-clear-data').style.display = 'none';
                 });
                 document.getElementById('btn-confirm-clear-data').addEventListener('click', () => {
-                    // locked, just close
+                    db.clearAll();
                     document.getElementById('modal-clear-data').style.display = 'none';
+                    admin.renderEmpList();
+                    utils.showToast('All data cleared (DEMO)');
                 });
                 
                 // Registration
@@ -1767,7 +1771,7 @@
                     }
                 });
                 
-                // Records (locked)
+                // Records
                 document.getElementById('btn-clear-records').addEventListener('click', () => records.confirmDelete());
                 document.getElementById('btn-cancel-delete').addEventListener('click', () => records.closeDeleteModal());
                 document.getElementById('btn-confirm-delete').addEventListener('click', () => records.executeDelete());
@@ -1776,25 +1780,6 @@
                 // Verification modal
                 document.getElementById('btn-cancel-verify').addEventListener('click', () => scanner.cancelVerify());
                 document.getElementById('btn-confirm-identity').addEventListener('click', () => scanner.confirmIdentity());
-                
-                // Install popup
-                document.getElementById('btn-install-desktop').addEventListener('click', () => {
-                    installManager.handleDesktopInstall();
-                });
-                
-                document.getElementById('btn-install-mobile').addEventListener('click', () => {
-                    installManager.handleMobileInstall();
-                });
-                
-                document.getElementById('btn-install-done').addEventListener('click', () => {
-                    const neverRemind = document.getElementById('chk-never-remind').checked;
-                    installManager.hidePopup(neverRemind);
-                });
-
-                // Premium modal close
-                document.getElementById('btn-close-premium').addEventListener('click', () => {
-                    utils.closePremiumModal();
-                });
             },
 
             nav: function(screenId) {
@@ -1836,35 +1821,34 @@
                 camera.stop();
                 document.getElementById('status-msg').textContent = '';
                 this.nav('home');
-                utils.showToast('System refreshed');
+                utils.showToast('System refreshed (DEMO)');
             }
         };
 
         // =====================================================
-        // SERVICE WORKER NOT REGISTERED FOR DEMO
+        // DEMO INITIALIZATION - No service worker, no PWA
         // =====================================================
 
-        // --- INITIALIZATION ---
-        window.addEventListener('DOMContentLoaded', () => {
-            // Initialize install manager
-            installManager.init();
-            
-            // Init app
-            app.init();
-            
-            // Load database
-            db.init();
-            
-            // Show loading screen then boot
+        // --- BOOT SYSTEM ---
+        function bootSystem() {
             const loadingScreen = document.getElementById('loading-screen');
             const loadingStatus = document.getElementById('loading-status');
             
             loadingScreen.style.display = 'flex';
-            loadingScreen.style.opacity = '1';
+            loadingScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                loadingScreen.style.opacity = '1';
+            }, 10);
+
+            loadingStatus.textContent = 'Loading demo database...';
+            db.init();
             
             loadingStatus.textContent = 'Loading neural models...';
             neuralEngine.loadModels().then(() => {
                 loadingStatus.textContent = 'Preparing demo interface...';
+                
+                admin.renderEmpList();
                 
                 setTimeout(() => {
                     loadingScreen.style.opacity = '0';
@@ -1874,12 +1858,7 @@
                         document.getElementById('main-content').style.display = 'flex';
                         document.getElementById('main-footer').style.display = 'block';
                         
-                        // Show install popup after a delay
-                        setTimeout(() => {
-                            installManager.showPopup();
-                        }, 500);
-                        
-                        utils.showToast('Bioattex Demo - Max 2 employees', 4000);
+                        utils.showToast('BIOATTEX DEMO - Try all features with limitations');
                     }, 500);
                 }, 800);
             }).catch(err => {
@@ -1893,12 +1872,22 @@
                         document.getElementById('main-content').style.display = 'flex';
                         document.getElementById('main-footer').style.display = 'block';
                         
-                        setTimeout(() => {
-                            installManager.showPopup();
-                        }, 500);
+                        utils.showToast('BIOATTEX DEMO - Face detection may be limited');
                     }, 500);
                 }, 1000);
             });
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // Bypass license screen - go straight to boot
+            bootSystem();
+            
+            // Init app
+            app.init();
+            
+            // Show demo message
+            console.log('Bioattex DEMO - Try Before You Buy');
         });
     </script>
 </body>
