@@ -496,6 +496,12 @@
         speedSlider.oninput = () => { speedVal.textContent = speedSlider.value; localStorage.setItem('snake_speed', speedSlider.value); };
 
         init();
+
+        // Right-click protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+        
     </script>
 </body>
 </html>
+
