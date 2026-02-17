@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Control Experts | Professional Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Right-Click Block Script -->
+    <script>
+        // Block right-click functionality
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Additional protection for developer tools shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Disable F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+I (DevTools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+J (DevTools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+U (View Source)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+C (Inspect Element)
+            if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    
+    <style>
+        /* Performance Optimizations */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :root {
+            --primary-green: #2E7D32;
+            --primary-dark: #1B5E20;
+            --secondary-blue: #1976D2;
+            --accent-orange: #FF9800;
+            --accent-red: #D32F2F;
+            --text-dark: #263238;
+            --text-light: #546E7A;
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --shadow: 0 8px 25px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease; /* Faster transition for better performance */
+            --border-radius: 10px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,h2,h3,h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Optimized animations - using transform instead of layout properties */
+        .btn, .service-card, .product-card, .nav-link, .nav-cta {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            will-change: transform;
+        }
+
+        /* HEADER - Optimized */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .logo-text h1 {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            line-height: 1.1;
+        }
+
+        .logo-text span {
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(46,125,50,0.25);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(46,125,50,0.35);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* HERO SECTION - Optimized background */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1585494180392-58b6c5c5335d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 130px 0 60px;
+            will-change: transform;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-weight: 500;
+        }
+
+        .hero-badge i {
+            color: #FFEB3B;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-title span {
+            color: #FFEB3B;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-orange), #FF8C00);
+            color: white;
+            box-shadow: 0 6px 20px rgba(255,152,0,0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255,152,0,0.35);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background-color: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-green), var(--accent-orange));
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .feature-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* SERVICES SECTION */
+        .services {
+            background-color: var(--bg-white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary-green);
+            will-change: transform;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .service-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+
+        .service-list li i {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+        }
+
+        /* PRODUCTS SECTION */
+        .products {
+            background-color: var(--bg-light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            will-change: transform;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .product-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-green));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            margin: 0 auto 20px;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255,152,0,0.1);
+            color: var(--accent-orange);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* CONTACT SECTION */
+        .contact {
+            background-color: var(--bg-white);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .contact-info p {
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-text p,
+        .contact-text a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-text a:hover {
+            color: var(--primary-green);
+        }
+
+        .whatsapp-cta {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            color: white;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .whatsapp-cta h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .whatsapp-cta p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .btn-whatsapp {
+            background: white;
+            color: #25D366;
+            padding: 14px 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #1A237E;
+            color: white;
+            padding: 60px 0 25px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+            padding-left: 5px;
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo .logo-icon {
+            width: 45px;
+            height: 45px;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .footer-bottom {
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        .powered-by {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 6px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .powered-by:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .powered-by i {
+            color: var(--accent-orange);
+        }
+
+        /* Floating WhatsApp */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 25px rgba(37,211,102,0.3);
+            z-index: 999;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(37,211,102,0.4);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 30px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                gap: 25px;
+                z-index: 999;
+                transform: translateY(0);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-whatsapp {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .services-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+            
+            .logo-text span {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Performance optimization - reduce repaints on scroll */
+        .hero, .about, .services, .products, .contact {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fas fa-bug"></i></div>
+                <div class="logo-text">
+                    <h1>PEST CONTROL EXPERTS</h1>
+                    <span>Professional Pest Management</span>
+                </div>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="tel:+254XXXXX" class="nav-cta"><i class="fas fa-phone-alt"></i> Call Now</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-shield-alt"></i> <span>Professional Pest Control Services</span></div>
+                <h1 class="hero-title">Scientific Pest Elimination & <span>Prevention</span></h1>
+                <p class="hero-subtitle">Professional pest control solutions using environmentally friendly methods. From inspection to prevention, we offer complete pest management services.</p>
+                <div class="hero-cta">
+                    <a href="https://wa.me/254XXXXX" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Get Free Quote</a>
+                    <a href="#services" class="btn btn-secondary"><i class="fas fa-search"></i> Our Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about section-padding" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Our Pest Control Services</h2>
+                <p class="section-subtitle">We combine scientific methods with environmentally responsible practices for effective, long-term pest control solutions.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>The Scientific Approach to Pest Control</h3>
+                    <p>Our pest management process is a science-based approach that identifies and reduces risks from pests through inspection, identification, treatment, and prevention.</p>
+                    <p>We don't just eliminate pests—we implement preventive measures to ensure they don't return, using environmentally responsible methods.</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-microscope"></i></div>
+                            <div class="feature-content">
+                                <h4>Professional Inspection</h4>
+                                <p>Thorough identification of pests and conditions</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                            <div class="feature-content">
+                                <h4>Eco-Friendly Solutions</h4>
+                                <p>Safe treatments for families and pets</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="feature-content">
+                                <h4>Prevention Focused</h4>
+                                <p>Long-term preventive measures</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="feature-content">
+                                <h4>Expert Consultation</h4>
+                                <p>Professional pest management consulting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.pexels.com/photos/4176065/pexels-photo-4176065.jpeg" alt="Pest Control Expert" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services section-padding" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Pest Control Services</h2>
+                <p class="section-subtitle">Comprehensive pest management solutions for residential, commercial, and agricultural settings.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-search"></i></div>
+                    <h3>Pest Inspection & Identification</h3>
+                    <p>Comprehensive inspection to identify pests, conducive conditions, and infestation levels.</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Thorough Site Assessment</li>
+                        <li><i class="fas fa-check"></i> Pest Species Identification</li>
+                        <li><i class="fas fa-check"></i> Detailed Inspection Report</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-spray-can"></i></div>
+                    <h3>Infestation Treatment</h3>
+                    <p>Targeted treatment using environmentally responsible methods for complete elimination.</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Chemical & Non-Chemical Treatments</li>
+                        <li><i class="fas fa-check"></i> Rodent & Insect Control</li>
+                        <li><i class="fas fa-check"></i> Safe for Children & Pets</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Preventive Pest Control</h3>
+                    <p>Implementation of preventive measures to maintain pest-free environment long-term.</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Regular Monitoring</li>
+                        <li><i class="fas fa-check"></i> Structural Proofing</li>
+                        <li><i class="fas fa-check"></i> Sanitation Programs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products section-padding" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Pest Control Products</h2>
+                <p class="section-subtitle">High-quality equipment, baits, traps, and protective gear for effective pest management.</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-flask"></i></div>
+                    <h3>Botanical Biopesticides</h3>
+                    <p>Broad-spectrum insecticides from natural plant sources.</p>
+                    <span class="product-tag">Eco-Friendly</span>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-bug"></i></div>
+                    <h3>Gel Baits & Traps</h3>
+                    <p>Effective baits, fly traps, glue traps for insect control.</p>
+                    <span class="product-tag">Non-Toxic</span>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-home"></i></div>
+                    <h3>Rodent Bait Stations</h3>
+                    <p>Secure, tamper-resistant stations for rodent control.</p>
+                    <span class="product-tag">Safe Design</span>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-hard-hat"></i></div>
+                    <h3>Protective Equipment</h3>
+                    <p>Complete PPE for safe pest control operations.</p>
+                    <span class="product-tag">Safety Gear</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact Our Experts</h2>
+                <p class="section-subtitle">Get professional pest control consultation and solutions. Contact us today.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>Our experts are ready to help with inspection, treatment, and prevention of pest infestations.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="contact-text">
+                                <h4>Phone Number</h4>
+                                <a href="tel:+254XXXXX">+254XXXXX</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-text">
+                                <h4>Email Address</h4>
+                                <a href="mailto:info@pestcontrol.com">info@pestcontrol.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="contact-text">
+                                <h4>WhatsApp Business</h4>
+                                <a href="https://wa.me/254XXXXX">+254XXXXX</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-text">
+                                <h4>Service Areas</h4>
+                                <p>Nationwide Service<br>Residential & Commercial</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="whatsapp-cta">
+                    <h3>Get Instant Quote on WhatsApp!</h3>
+                    <p>Send us a message with your pest problem, and we'll respond within minutes with a solution.</p>
+                    <a href="https://wa.me/254XXXXX?text=Hello%20Pest%20Control%20Experts!%20I%20need%20pest%20control%20services." class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Message Us on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="logo-icon"><i class="fas fa-bug"></i></div>
+                        <h3>Pest Control Experts</h3>
+                    </div>
+                    <div class="footer-about">
+                        <p>Professional pest control solutions using integrated approaches for residential and commercial settings nationwide.</p>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Pest Inspection</a></li>
+                        <li><a href="#services">Infestation Treatment</a></li>
+                        <li><a href="#services">Preventive Control</a></li>
+                        <li><a href="#services">Agricultural Pest Management</a></li>
+                        <li><a href="#services">Consultation Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +254XXXXX</li>
+                        <li><i class="fas fa-envelope"></i> info@pestcontrol.com</li>
+                        <li><i class="fab fa-whatsapp"></i> +254XXXXX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Nationwide Service</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Pest Control Experts. All rights reserved.</p>
+                <a href="https://mortappsstudios.com" target="_blank" class="powered-by">
+                    <i class="fas fa-code"></i><span>Powered By MortApps Studios</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/254XXXXX?text=Hello%20Pest%20Control%20Experts!%20I%20saw%20your%20website%20and%20need%20pest%20control%20services." class="floating-whatsapp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Performance-optimized JavaScript with debounced scroll events
+        (function() {
+            'use strict';
+            
+            // DOM Elements
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            const header = document.querySelector('header');
+            
+            // Mobile menu toggle
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                    
+                    // Prevent body scroll when menu is open
+                    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+                });
+            }
+            
+            // Close menu on link click
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navMenu && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Smooth scroll with performance optimization
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === '#home' || href === '#') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    const targetId = href;
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Debounced scroll effect for header (performance optimization)
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        if (header) {
+                            header.style.boxShadow = window.scrollY > 100 ? 
+                                '0 4px 20px rgba(0,0,0,0.1)' : '0 4px 15px rgba(0,0,0,0.06)';
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Close mobile menu on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    document.body.style.overflow = '';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

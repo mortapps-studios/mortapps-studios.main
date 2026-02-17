@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Bakery">
+<head>
+    <!-- ============================================
+         MORTAPPS STUDIOS 2026 - PREMIUM BAKERY
+         PERFORMANCE OPTIMIZED PORTFOLIO PROJECT
+         ============================================ -->
+    <meta name="generator" content="MortApps Studios 2026 | Elite Web Solutions">
+    <meta name="author" content="MortApps Studios | Portfolio Project">
+    <meta name="copyright" content="© 2026 MortApps Studios. Premium bakery web design.">
+    <meta name="web_author" content="https://mortappsstudios.com">
+    <link rel="author" href="https://mortappsstudios.com">
+    
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Bakery | Artisan Cakes & Pastries</title>
+    <meta name="description" content="Premium bakery offering artisan cakes, wedding cakes, birthday cakes, and custom celebration cakes. Experience exceptional quality in every bite.">
+    
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Right-Click Block Script -->
+    <script>
+        // Block right-click functionality
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Additional protection for developer tools shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Disable F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+I (DevTools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+J (DevTools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+U (View Source)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+C (Inspect Element)
+            if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+S (Save)
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    
+    <style>
+        /* 
+        ============================================
+        PREMIUM BAKERY - BLUE & GOLD ELEGANCE
+        MortApps Studios 2026 Performance Edition
+        ============================================
+        */
+        
+        :root {
+            /* Premium Blue & Gold Palette */
+            --primary-blue: #1E3A8A;
+            --primary-blue-dark: #0F2C6B;
+            --primary-blue-light: #3B82F6;
+            --accent-gold: #D4AF37;
+            --accent-gold-light: #E6C158;
+            --accent-cream: #FFF8F0;
+            --pure-white: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            
+            /* Performance Optimized Design System */
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --shadow-float: 0 12px 32px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        /* CRITICAL: Performance First Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--pure-white);
+            overflow-x: hidden;
+            /* GPU Acceleration for smooth scrolling */
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            will-change: transform;
+            /* Optimize touch */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* Optimize image rendering */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--primary-blue-dark);
+        }
+
+        /* Performance: Containers */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* ===== ULTRA-SMOOTH HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(30, 58, 138, 0.1);
+            z-index: 1000;
+            transition: var(--transition);
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+            filter: brightness(0) invert(1); /* Make logo white on blue */
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            line-height: 1.1;
+        }
+
+        .logo-text span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: var(--pure-white);
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        /* ===== PERFORMANCE-OPTIMIZED HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, 
+                rgba(255, 248, 240, 0.95) 0%,
+                rgba(255, 248, 240, 0.98) 100%),
+                url('https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Changed from fixed for performance */
+            padding: 140px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.03) 0%,
+                rgba(212, 175, 55, 0.03) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin: 0 auto;
+            /* Prevent layout shifts */
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--primary-blue);
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+        }
+
+        .hero-badge i {
+            color: var(--accent-gold);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue-dark);
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-title span {
+            color: var(--accent-gold);
+            display: block;
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            /* GPU Acceleration for smooth animations */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: var(--pure-white);
+            box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(30, 58, 138, 0.35);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 58, 138, 0.05);
+            transform: translateY(-3px);
+        }
+
+        /* ===== OPTIMIZED CATEGORIES SECTION ===== */
+        .categories {
+            background-color: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .categories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--primary-blue), 
+                var(--accent-gold), 
+                transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            /* Prevent layout shifts */
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-gold));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Optimized Category Cards */
+        .category-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+        }
+
+        .category-card {
+            background: var(--pure-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            border: 1px solid rgba(30, 58, 138, 0.1);
+            position: relative;
+            /* Performance: Containment */
+            contain: layout style;
+            will-change: transform;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-float);
+            border-color: rgba(30, 58, 138, 0.2);
+        }
+
+        .category-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            /* Prevent layout shifts */
+            width: 100%;
+            background: var(--light-gray);
+        }
+
+        .category-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+        }
+
+        .category-card:hover .category-image img {
+            transform: scale(1.05);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-gold);
+            color: var(--pure-white);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 2;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .category-content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .category-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-blue-dark);
+        }
+
+        .category-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .category-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: var(--pure-white);
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .category-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        /* ===== HIGH-PERFORMANCE CAKES GALLERY ===== */
+        .featured-cakes {
+            background-color: var(--pure-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+        }
+
+        .cake-card {
+            background: var(--pure-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            border: 1px solid rgba(30, 58, 138, 0.1);
+            position: relative;
+            /* Performance Optimization */
+            contain: content;
+            will-change: transform;
+        }
+
+        .cake-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-float);
+            border-color: rgba(30, 58, 138, 0.2);
+        }
+
+        .cake-image {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+            background: var(--light-gray);
+            /* Prevent layout shifts */
+            width: 100%;
+        }
+
+        .cake-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            /* GPU Acceleration for smooth scaling */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .cake-card:hover .cake-image img {
+            transform: scale(1.05);
+        }
+
+        .cake-price {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-soft);
+            z-index: 2;
+        }
+
+        .cake-content {
+            padding: 25px;
+        }
+
+        .cake-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-blue-dark);
+        }
+
+        .cake-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cake-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: var(--pure-white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .cake-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        /* ===== SMOOTH ORDERING PROCESS ===== */
+        .ordering-process {
+            background-color: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px 25px;
+            background: var(--pure-white);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(30, 58, 138, 0.1);
+            transition: var(--transition);
+            position: relative;
+            will-change: transform;
+        }
+
+        .process-step:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pure-white);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 auto 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .process-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue-dark);
+        }
+
+        .process-step p {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* ===== ELEGANT CONTACT SECTION ===== */
+        .contact {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: var(--pure-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact .section-title {
+            color: var(--pure-white);
+        }
+
+        .contact .section-title::after {
+            background: linear-gradient(to right, var(--pure-white), var(--accent-gold));
+        }
+
+        .contact .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--pure-white);
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            font-family: 'Inter', sans-serif;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .contact-text p,
+        .contact-text a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-text a:hover {
+            color: var(--accent-gold);
+            text-decoration: underline;
+        }
+
+        .hours {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 30px;
+        }
+
+        .hours h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--pure-white);
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .hours-list span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== PREMIUM FOOTER ===== */
+        footer {
+            background-color: var(--primary-blue-dark);
+            color: var(--pure-white);
+            padding: 60px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--pure-white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo .logo-image {
+            width: 50px;
+            height: 50px;
+            background: var(--pure-white);
+        }
+
+        .footer-logo .logo-image img {
+            filter: brightness(0) saturate(100%) invert(15%) sepia(92%) saturate(1711%) hue-rotate(195deg) brightness(94%) contrast(94%);
+        }
+
+        .footer-logo h3 {
+            font-size: 1.4rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-logo h3::after {
+            display: none;
+        }
+
+        .footer-bottom {
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .powered-by {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+        }
+
+        .powered-by:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-gold);
+        }
+
+        .powered-by i {
+            color: var(--accent-gold);
+        }
+
+        /* ===== FLOATING WHATSAPP - OPTIMIZED ===== */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: var(--transition);
+            text-decoration: none;
+            /* GPU Acceleration */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* ===== CRITICAL: PERFORMANCE OPTIMIZATIONS ===== */
+        
+        /* 1. Remove lag on scroll - Use GPU Acceleration */
+        .smooth-element {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+        
+        /* 2. Optimize animations - Use transform/opacity only */
+        .performance-animation {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* 3. Prevent layout thrashing */
+        .layout-stable {
+            contain: layout style;
+        }
+        
+        /* 4. Optimize scrolling performance - CORRECTED */
+        .scroll-performance {
+            -webkit-overflow-scrolling: touch; /* iOS Safari */
+            scroll-behavior: smooth; /* Modern browsers */
+            overscroll-behavior: contain; /* Prevent scroll chaining */
+        }
+        
+        /* 5. Image loading optimization */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* ===== SCROLLBAR STYLING ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-blue), var(--accent-gold));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--primary-blue-dark), var(--accent-gold-light));
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-blue) var(--light-gray);
+        }
+
+        /* ===== RESPONSIVE DESIGN - OPTIMIZED ===== */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .category-cards {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .featured-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .process-steps {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 20px;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            /* Mobile performance optimization */
+            .hero {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-cta {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            
+            .category-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .floating-whatsapp {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+            
+            /* Mobile touch optimization */
+            .btn, .category-cta, .cake-cta {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Prevent pull-to-refresh on mobile */
+            body {
+                overscroll-behavior-y: contain;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .category-content {
+                padding: 20px;
+            }
+            
+            .cake-content {
+                padding: 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-whatsapp {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            /* Small screen performance */
+            .hero {
+                min-height: 90vh;
+            }
+        }
+
+        /* Accessibility */
+        *:focus {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="scroll-performance">
+    <!-- Header -->
+    <header class="smooth-element">
+        <div class="container nav-container">
+            <a href="#home" class="logo" itemprop="url">
+                <div class="logo-image" itemprop="logo">
+                    <!-- Generic placeholder logo - replaced with Font Awesome icon -->
+                    <i class="fas fa-cake-candles" style="font-size: 2rem; color: white;"></i>
+                </div>
+                <div class="logo-text">
+                    <h1 itemprop="name">Premium Bakery</h1>
+                    <span itemprop="description">Artisan Cakes & Pastries</span>
+                </div>
+            </a>
+            
+            <a href="https://wa.me/254XXXXX" class="nav-cta" itemprop="telephone">
+                <i class="fab fa-whatsapp"></i> Order Now
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Premium Artisan Bakery</span>
+                </div>
+                <h1 class="hero-title">Experience the Best <span>of Artisan Baking</span></h1>
+                <p class="hero-subtitle">
+                    We guarantee exceptional taste in every bite because we bake with passion. Happiness starts here at our premium bakery - where quality meets exquisite craftsmanship.
+                </p>
+                <div class="hero-cta">
+                    <a href="#featured" class="btn btn-primary">
+                        <i class="fas fa-eye"></i> View Premium Cakes
+                    </a>
+                    <a href="https://wa.me/254XXXXX" class="btn btn-secondary">
+                        <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories section-padding" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Specialities</h2>
+                <p class="section-subtitle">
+                    Premium cakes for every celebration. Crafted with passion, served with excellence.
+                </p>
+            </div>
+            
+            <div class="category-cards">
+                <!-- Wedding Cakes -->
+                <div class="category-card layout-stable">
+                    <div class="category-image">
+                        <img src="https://images.pexels.com/photos/7248037/pexels-photo-7248037.jpeg" 
+                             alt="Luxury Wedding Cake" 
+                             loading="lazy"
+                             class="lazy-load">
+                        <div class="category-badge">Most Popular</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Wedding Cakes</h3>
+                        <p>Elegant, multi-tiered masterpieces for your perfect day.</p>
+                        <a href="#featured" class="category-cta" data-category="wedding">
+                            <i class="fas fa-ring"></i> View Collection
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Birthday Cakes -->
+                <div class="category-card layout-stable">
+                    <div class="category-image">
+                        <img src="https://images.pexels.com/photos/5610322/pexels-photo-5610322.jpeg" 
+                             alt="Birthday Celebration Cake" 
+                             loading="lazy"
+                             class="lazy-load">
+                        <div class="category-badge">Custom Designs</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Birthday Cakes</h3>
+                        <p>Creative, themed cakes that make celebrations memorable.</p>
+                        <a href="#featured" class="category-cta" data-category="birthday">
+                            <i class="fas fa-birthday-cake"></i> View Collection
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Baby Shower Cakes -->
+                <div class="category-card layout-stable">
+                    <div class="category-image">
+                        <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&auto=format&fit=crop&w=1936&q=80" 
+                             alt="Baby Shower Cake" 
+                             loading="lazy"
+                             class="lazy-load">
+                        <div class="category-badge">Adorable Designs</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Baby Shower Cakes</h3>
+                        <p>Delicate designs celebrating new life with sweet flavors.</p>
+                        <a href="#featured" class="category-cta" data-category="babyshower">
+                            <i class="fas fa-baby"></i> View Collection
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Graduation Cakes -->
+                <div class="category-card layout-stable">
+                    <div class="category-image">
+                        <img src="https://images.unsplash.com/photo-1758682016284-78f5266d5743?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8R3JhZHVhdGlvbiUyMENha2VzfGVufDB8fDB8fHww" 
+                             alt="Graduation Cake" 
+                             loading="lazy"
+                             class="lazy-load">
+                        <div class="category-badge">Academic Excellence</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Graduation Cakes</h3>
+                        <p>Celebrate achievements with sophisticated cake designs.</p>
+                        <a href="#featured" class="category-cta" data-category="graduation">
+                            <i class="fas fa-graduation-cap"></i> View Collection
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Cakes -->
+    <section class="featured-cakes section-padding" id="featured">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Premium Cake Collection</h2>
+                <p class="section-subtitle">
+                    Our most exquisite designs. Click "Order This Cake" for instant WhatsApp ordering with pre-filled details.
+                </p>
+            </div>
+            
+            <div class="featured-grid" id="cakesContainer">
+                <!-- Cakes loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Ordering Process -->
+    <section class="ordering-process section-padding" id="process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How to Order</h2>
+                <p class="section-subtitle">
+                    Simple, fast, and convenient WhatsApp ordering process.
+                </p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step performance-animation">
+                    <div class="step-number">1</div>
+                    <h3>Browse & Select</h3>
+                    <p>Choose your favorite cake or describe your custom design idea.</p>
+                </div>
+                
+                <div class="process-step performance-animation">
+                    <div class="step-number">2</div>
+                    <h3>WhatsApp Order</h3>
+                    <p>Click "Order This Cake" - all details auto-filled in WhatsApp.</p>
+                </div>
+                
+                <div class="process-step performance-animation">
+                    <div class="step-number">3</div>
+                    <h3>Confirm & Pay</h3>
+                    <p>Confirm details, choose pickup/delivery, and arrange payment.</p>
+                </div>
+                
+                <div class="process-step performance-animation">
+                    <div class="step-number">4</div>
+                    <h3>Enjoy Excellence</h3>
+                    <p>Receive your premium cake and create beautiful memories.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact Our Bakery</h2>
+                <p class="section-subtitle">
+                    Always open for your sweet cravings. Get in touch today!
+                </p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Primary Phone</h4>
+                                <a href="tel:+254XXXXX">+254XXXXX</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>WhatsApp Ordering</h4>
+                                <a href="https://wa.me/254XXXXX">+254XXXXX</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>City Center, Kenya<br>Central Province</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:info@premiumbakery.com">info@premiumbakery.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hours">
+                        <h4>Business Hours</h4>
+                        <ul class="hours-list">
+                            <li><span>Always Open:</span> 24/7 Orders</li>
+                            <li><span>Bakery Hours:</span> 7:00 AM - 9:00 PM</li>
+                            <li><span>Delivery:</span> Within City Center</li>
+                            <li><span>Pickup:</span> Anytime by appointment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="logo-image">
+                            <i class="fas fa-cake-candles" style="font-size: 1.8rem; color: var(--primary-blue);"></i>
+                        </div>
+                        <h3>Premium Bakery</h3>
+                    </div>
+                    <div class="footer-about">
+                        <p>Experience the best of artisan baking. We guarantee exceptional taste in every bite because we bake with passion. Happiness starts here.</p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#categories"><i class="fas fa-chevron-right"></i> Specialities</a></li>
+                        <li><a href="#featured"><i class="fas fa-chevron-right"></i> Cake Collection</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+254XXXXX"><i class="fas fa-phone"></i> +254XXXXX</a></li>
+                        <li><a href="https://wa.me/254XXXXX"><i class="fab fa-whatsapp"></i> WhatsApp Order</a></li>
+                        <li><a href="#contact"><i class="fas fa-map-marker-alt"></i> City Center, Kenya</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Always Open</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Premium Bakery. All rights reserved. | Happiness Starts Here</p>
+                <a href="https://mortappsstudios.com" target="_blank" rel="noopener" class="powered-by" aria-label="Website developed by MortApps Studios">
+                    <i class="fas fa-code"></i>
+                    <span>Powered By MortApps Studios 2026</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/254XXXXX?text=Hello%20Premium%20Bakery!%20I%20saw%20your%20website%20and%20I'm%20interested%20in%20ordering%20a%20premium%20cake." 
+       class="floating-whatsapp" 
+       aria-label="Order cake on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // ⚡ PERFORMANCE-OPTIMIZED JAVASCRIPT ⚡
+        
+        // Right-click already blocked at top of document
+        
+        // Cake Data - Using royalty-free images
+        const cakesData = [
+            {
+                id: 1,
+                image: "https://images.pexels.com/photos/11585002/pexels-photo-11585002.jpeg",
+                title: "Royal Wedding Cake",
+                description: "Four-tiered masterpiece with gold leaf accents, fresh flowers, and premium vanilla bean sponge.",
+                category: "wedding",
+                price: "KES 15,000",
+                serves: "80-100 guests",
+                delivery: "City Center & Surrounding"
+            },
+            {
+                id: 2,
+                image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=2089&q=80",
+                title: "Chocolate Celebration Cake",
+                description: "Rich dark chocolate cake with Belgian chocolate ganache and gold drip decoration.",
+                category: "birthday",
+                price: "KES 5,500",
+                serves: "15-20 people",
+                delivery: "City Center Area"
+            },
+            {
+                id: 3,
+                image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&auto=format&fit=crop&w=1936&q=80",
+                title: "Baby Shower Delight",
+                description: "Adorable two-tier cake with pastel colors, fondant details, and strawberry filling.",
+                category: "babyshower",
+                price: "KES 6,200",
+                serves: "20-25 people",
+                delivery: "City Center Delivery"
+            },
+            {
+                id: 4,
+                image: "https://images.unsplash.com/photo-1596567836640-3c13eb102106?q=80&w=893&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                title: "Graduation Achievement Cake",
+                description: "Elegant cake with edible diploma scroll, book details, and academic colors.",
+                category: "graduation",
+                price: "KES 6,500",
+                serves: "20-25 people",
+                delivery: "City Center Area"
+            },
+            {
+                id: 5,
+                image: "https://images.pexels.com/photos/19869784/pexels-photo-19869784.jpeg",
+                title: "Naked Wedding Cake",
+                description: "Trendy naked cake with fresh berries, edible flowers, and light cream filling.",
+                category: "wedding",
+                price: "KES 11,800",
+                serves: "50-60 guests",
+                delivery: "City Center Area"
+            },
+            {
+                id: 6,
+                image: "https://images.pexels.com/photos/18004394/pexels-photo-18004394.jpeg",
+                title: "Princess Birthday Cake",
+                description: "Magical castle-themed cake with turrets, pink accents, and vanilla cream.",
+                category: "birthday",
+                price: "KES 7,200",
+                serves: "25-30 people",
+                delivery: "City Center Delivery"
+            },
+            {
+                id: 7,
+                image: "https://images.pexels.com/photos/12526539/pexels-photo-12526539.jpeg",
+                title: "Mini Cupcake Tower",
+                description: "Elegant display of assorted mini cupcakes - perfect for corporate events.",
+                category: "graduation",
+                price: "KES 9,500",
+                serves: "80-100 pieces",
+                delivery: "City Center & Surrounding"
+            },
+            {
+                id: 8,
+                image: "https://images.pexels.com/photos/6392782/pexels-photo-6392782.jpeg",
+                title: "Rustic Wedding Cake",
+                description: "Beautiful rustic design with textured buttercream and fresh greenery accents.",
+                category: "wedding",
+                price: "KES 13,200",
+                serves: "70-80 guests",
+                delivery: "City Center Area"
+            }
+        ];
+
+        // ⚡ PERFORMANCE VARIABLES ⚡
+        let cakesContainer, categoryCTAs, currentCategory = 'all';
+        let scrollTimeout, lastScrollTop = 0;
+        const scrollDelay = 16; // ~60fps
+
+        // 🚀 ULTRA-SMOOTH INITIALIZATION
+        function init() {
+            // Get DOM elements once
+            cakesContainer = document.getElementById('cakesContainer');
+            categoryCTAs = document.querySelectorAll('.category-cta');
+            
+            // Initial render
+            renderCakes();
+            
+            // Setup event listeners with performance optimization
+            setupOptimizedEventListeners();
+            
+            // Setup smooth scrolling
+            setupSmoothScrolling();
+            
+            // Initialize lazy loading
+            initLazyLoading();
+            
+            // Log initialization
+            console.log('🍰 Premium Bakery - Performance Optimized v2026.1');
+        }
+
+        // 🎯 OPTIMIZED CAKE RENDERING
+        function renderCakes() {
+            if (!cakesContainer) return;
+            
+            // Use DocumentFragment for batch DOM updates
+            const fragment = document.createDocumentFragment();
+            const filteredCakes = currentCategory === 'all' 
+                ? cakesData 
+                : cakesData.filter(cake => cake.category === currentCategory);
+            
+            filteredCakes.forEach(cake => {
+                const cakeCard = createCakeCard(cake);
+                fragment.appendChild(cakeCard);
+            });
+            
+            // Single DOM update
+            cakesContainer.innerHTML = '';
+            cakesContainer.appendChild(fragment);
+            
+            // Update lazy loading for new images
+            updateLazyLoading();
+            
+            // Show empty state if needed
+            if (filteredCakes.length === 0) {
+                cakesContainer.innerHTML = createEmptyState();
+            }
+        }
+
+        // 🏗️ CREATE CAKE CARD WITH PROFESSIONAL WHATSAPP MESSAGE
+        function createCakeCard(cake) {
+            const cakeCard = document.createElement('div');
+            cakeCard.className = 'cake-card layout-stable';
+            cakeCard.setAttribute('data-category', cake.category);
+            cakeCard.setAttribute('data-id', cake.id);
+            
+            // 🎯 PROFESSIONAL WHATSAPP MESSAGE FORMAT
+            const whatsappMessage = encodeURIComponent(
+`🍰 *PREMIUM BAKERY ORDER REQUEST* 🍰
+
+Hello! I would like to order the following cake:
+
+🎂 *CAKE DETAILS*
+• Cake Name: ${cake.title}
+• Price: ${cake.price}
+• Serves: ${cake.serves}
+• Category: ${cake.category.charAt(0).toUpperCase() + cake.category.slice(1)}
+
+📅 *ORDER INFORMATION*
+• Date Needed: [Please specify date]
+• Delivery/Pickup: [Pickup at bakery / Delivery in City Center]
+• Special Instructions: [Any special requests or allergies]
+
+💳 *PAYMENT & CONFIRMATION*
+• I understand payment confirmation is required
+• Please confirm availability and exact pricing
+• Send payment details (M-Pesa, bank transfer, etc.)
+
+📍 *LOCATION DETAILS*
+• Delivery Address: [If delivery]
+• Contact Phone: [My phone number]
+
+Please confirm if this cake is available and provide:
+1. Exact final price
+2. Payment options
+3. Estimated preparation time
+4. Delivery/Pickup arrangements
+
+Thank you!
+From: [Your Name]`
+            );
+            
+            cakeCard.innerHTML = `
+                <div class="cake-image">
+                    <img src="${cake.image}" 
+                         alt="${cake.title}" 
+                         loading="lazy"
+                         class="lazy-load">
+                    <div class="cake-price">${cake.price}</div>
+                </div>
+                <div class="cake-content">
+                    <h3>${cake.title}</h3>
+                    <p>${cake.description}</p>
+                    <a href="https://wa.me/254XXXXX?text=${whatsappMessage}" 
+                       class="cake-cta" 
+                       target="_blank"
+                       rel="noopener">
+                        <i class="fab fa-whatsapp"></i> Order This Cake
+                    </a>
+                </div>
+            `;
+            
+            return cakeCard;
+        }
+
+        // 📱 OPTIMIZED EVENT LISTENERS
+        function setupOptimizedEventListeners() {
+            // Category CTA buttons - debounced
+            categoryCTAs.forEach(cta => {
+                cta.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('data-category');
+                    
+                    // Debounce category switching
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        currentCategory = category;
+                        renderCakes();
+                        
+                        // Smooth scroll to cakes
+                        const cakesSection = document.getElementById('featured');
+                        if (cakesSection) {
+                            window.scrollTo({
+                                top: cakesSection.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 50);
+                });
+            });
+            
+            // Header scroll effect - optimized with requestAnimationFrame
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const header = document.querySelector('header');
+                        if (window.scrollY > 50) {
+                            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                            header.style.background = 'rgba(255, 255, 255, 0.98)';
+                        } else {
+                            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+                            header.style.background = 'rgba(255, 255, 255, 0.98)';
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+        // ⚡ ULTRA-SMOOTH SCROLLING
+        function setupSmoothScrolling() {
+            // Use passive event listeners for better performance
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === '#home') {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        return;
+                    }
+                    
+                    // Skip WhatsApp links and category CTAs
+                    if (this.classList.contains('category-cta') || 
+                        this.classList.contains('cake-cta') ||
+                        href.includes('whatsapp')) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    
+                    const targetId = href;
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Use smooth scroll with performance consideration
+                        const targetPosition = targetElement.offsetTop - 80;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, { passive: true });
+            });
+        }
+
+        // 🖼️ LAZY LOADING OPTIMIZATION
+        function initLazyLoading() {
+            const lazyImages = document.querySelectorAll('.lazy-load');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.classList.add('loaded');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px 0px',
+                    threshold: 0.01
+                });
+                
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // Fallback for older browsers
+                lazyImages.forEach(img => {
+                    img.classList.add('loaded');
+                });
+            }
+        }
+
+        function updateLazyLoading() {
+            // Re-initialize lazy loading after new content
+            setTimeout(initLazyLoading, 100);
+        }
+
+        // 📝 EMPTY STATE TEMPLATE
+        function createEmptyState() {
+            return `
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px; background: var(--pure-white); border-radius: var(--border-radius); border: 1px solid rgba(30, 58, 138, 0.1);">
+                    <i class="fas fa-search" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;"></i>
+                    <h3 style="color: var(--primary-blue-dark); margin-bottom: 15px;">New Designs Coming Soon</h3>
+                    <p style="color: var(--text-light); margin-bottom: 25px;">We're preparing fresh designs for this category. Meanwhile, message us for custom cake orders.</p>
+                    <a href="https://wa.me/254XXXXX" class="btn btn-primary" style="margin-top: 20px;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Custom Order
+                    </a>
+                </div>
+            `;
+        }
+
+        // 🚀 PERFORMANCE: Use requestIdleCallback for non-critical tasks
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(() => {
+                // Non-critical initialization here
+                console.log('⚡ Performance optimization complete');
+            });
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        // 🎯 ADDITIONAL PERFORMANCE OPTIMIZATIONS
+        
+        // 1. Preload critical resources
+        const preloadLinks = [
+            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+            'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap'
+        ];
+        
+        preloadLinks.forEach(href => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'style';
+            link.href = href;
+            link.onload = () => link.rel = 'stylesheet';
+            document.head.appendChild(link);
+        });
+        
+        // 2. Optimize animations with will-change
+        document.querySelectorAll('.btn, .category-cta, .cake-cta').forEach(el => {
+            if (el) el.style.willChange = 'transform';
+        });
+        
+        // 3. Remove will-change after animations complete
+        document.addEventListener('animationend', function(e) {
+            if (e.target.classList.contains('performance-animation')) {
+                e.target.style.willChange = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
