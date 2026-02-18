@@ -106,6 +106,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding-bottom: 2rem;
         }
 
         .game-container {
@@ -119,16 +120,13 @@
 
         #gameCanvas { display: block; border-radius: 12px; touch-action: none; }
 
+        /* Mobile Controls - Always visible and improved */
         .mobile-controls {
-            display: none;
+            display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.75rem;
             margin-top: 1.5rem;
             width: 200px;
-        }
-        @media (max-width: 768px) {
-            .mobile-controls { display: grid; }
-            .stats-bar { gap: 1rem; }
         }
 
         .ctrl-btn {
@@ -143,9 +141,22 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.15s;
+            -webkit-tap-highlight-color: transparent;
         }
-        .ctrl-btn:active { background: var(--accent); transform: scale(0.95); }
+        .ctrl-btn:active { 
+            background: var(--accent); 
+            transform: scale(0.95); 
+            border-color: var(--accent);
+        }
         .ctrl-btn:empty { visibility: hidden; }
+        .ctrl-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--text);
+        }
+        .ctrl-btn:active svg {
+            fill: white;
+        }
 
         .overlay {
             position: absolute;
@@ -201,10 +212,11 @@
             font-size: 0.9rem;
             text-decoration: none;
             display: inline-block;
+            cursor: pointer;
         }
         .btn-secondary:hover { border-color: var(--accent); color: var(--accent-light); }
 
-        .btn-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem; }
+        .btn-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
 
         .settings-panel { margin-top: 1.5rem; text-align: left; background: var(--surface-light); padding: 1.25rem; border-radius: 12px; border: 1px solid var(--border); }
         .settings-panel.hidden { display: none; }
@@ -226,38 +238,56 @@
         }
         .theme-btn.active { border-color: var(--accent); background: var(--accent); }
 
-        .speed-slider { width: 100%; height: 6px; border-radius: 3px; background: var(--surface); -webkit-appearance: none; appearance: none; cursor: pointer; }
-        .speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+        .speed-slider { 
+            width: 100%; 
+            height: 6px; 
+            border-radius: 3px; 
+            background: var(--surface); 
+            -webkit-appearance: none; 
+            appearance: none; 
+            cursor: pointer; 
+        }
+        .speed-slider::-webkit-slider-thumb { 
+            -webkit-appearance: none; 
+            width: 18px; 
+            height: 18px; 
+            border-radius: 50%; 
+            background: var(--accent); 
+            cursor: pointer; 
+        }
+        .speed-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: none;
+        }
 
         .score-large { font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: var(--accent-light); margin: 0.5rem 0; }
         .high-score-badge { display: inline-block; padding: 0.375rem 0.75rem; background: linear-gradient(135deg, var(--warning), #d97706); border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: #000; margin-bottom: 1rem; }
 
-        .landscape-warning {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem;
-        }
-        .landscape-warning.show { display: flex; }
-        .landscape-warning-icon { font-size: 4rem; margin-bottom: 1rem; }
-
         .game-footer { text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.8rem; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .stats-bar { gap: 1rem; }
+            .header { padding: 0.75rem 1rem; }
+            .game-wrapper { padding-top: 70px; }
+            .overlay-content { padding: 1.5rem; }
+            .overlay-title { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 400px) {
+            .brand-text { display: none; }
+            .stat-value { font-size: 1rem; }
+            .mobile-controls { width: 180px; gap: 0.5rem; }
+            .ctrl-btn { width: 54px; height: 54px; font-size: 1.25rem; }
+        }
     </style>
 </head>
 <body>
     <div class="bg-mesh"></div>
-
-    <div class="landscape-warning" id="landscapeWarning">
-        <div class="landscape-warning-icon">📱</div>
-        <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; margin-bottom: 0.5rem;">Rotate Your Device</p>
-        <p style="color: var(--text-muted);">This game works best in landscape mode</p>
-    </div>
 
     <header class="header">
         <a href="../games.html" class="back-btn">
@@ -305,13 +335,13 @@
                             </div>
                         </div>
                         <div class="settings-group">
-                            <label class="settings-label">Speed: <span id="speedVal">150</span>ms</label>
+                            <label class="settings-label">Speed: <span id="speedVal">150</span>ms (lower = faster)</label>
                             <input type="range" class="speed-slider" id="speedSlider" min="60" max="200" value="150">
                         </div>
                     </div>
 
                     <p style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
-                        PC: Arrow keys or WASD • Mobile: Swipe or buttons
+                        PC: Arrow keys or WASD • Mobile: Swipe or buttons below
                     </p>
                 </div>
             </div>
@@ -330,13 +360,22 @@
             </div>
         </div>
 
+        <!-- Mobile Controls - Always Visible -->
         <div class="mobile-controls">
             <div></div>
-            <button class="ctrl-btn" data-dir="UP">⬆️</button>
+            <button class="ctrl-btn" data-dir="UP" aria-label="Move Up">
+                <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+            </button>
             <div></div>
-            <button class="ctrl-btn" data-dir="LEFT">⬅️</button>
-            <button class="ctrl-btn" data-dir="DOWN">⬇️</button>
-            <button class="ctrl-btn" data-dir="RIGHT">➡️</button>
+            <button class="ctrl-btn" data-dir="LEFT" aria-label="Move Left">
+                <svg viewBox="0 0 24 24"><path d="M4 12l8-8v5h8v6h-8v5z"/></svg>
+            </button>
+            <button class="ctrl-btn" data-dir="DOWN" aria-label="Move Down">
+                <svg viewBox="0 0 24 24"><path d="M12 20l8-8h-5v-8h-6v8h-5z"/></svg>
+            </button>
+            <button class="ctrl-btn" data-dir="RIGHT" aria-label="Move Right">
+                <svg viewBox="0 0 24 24"><path d="M20 12l-8 8v-5h-8v-6h8v-5z"/></svg>
+            </button>
         </div>
     </div>
 
@@ -357,11 +396,12 @@
 
         function resize() {
             const maxW = Math.min(window.innerWidth - 48, 450);
-            const maxH = Math.min(window.innerHeight - 200, 450);
+            const maxH = Math.min(window.innerHeight - 280, 450);
             const size = Math.min(maxW, maxH);
             canvas.width = size;
             canvas.height = size;
             cellSize = size / GRID;
+            draw();
         }
         resize();
         window.addEventListener('resize', resize);
@@ -397,6 +437,7 @@
             ctx.fillStyle = '#0f172a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Draw grid
             ctx.strokeStyle = '#1e293b';
             ctx.lineWidth = 0.5;
             for (let i = 0; i <= GRID; i++) {
@@ -404,16 +445,19 @@
                 ctx.beginPath(); ctx.moveTo(0, i * cellSize); ctx.lineTo(canvas.width, i * cellSize); ctx.stroke();
             }
 
+            // Draw food with glow
             ctx.shadowColor = theme.foodGlow; ctx.shadowBlur = 12; ctx.fillStyle = theme.food;
             ctx.beginPath(); ctx.arc(food.x * cellSize + cellSize / 2, food.y * cellSize + cellSize / 2, cellSize / 2 - 3, 0, Math.PI * 2); ctx.fill();
             ctx.shadowBlur = 0;
 
+            // Draw snake
             snake.forEach((seg, i) => {
                 if (i === 0) { ctx.shadowColor = theme.snakeGlow; ctx.shadowBlur = 12; }
                 ctx.fillStyle = theme.snake;
                 ctx.beginPath(); ctx.roundRect(seg.x * cellSize + 1, seg.y * cellSize + 1, cellSize - 2, cellSize - 2, 5); ctx.fill();
                 ctx.shadowBlur = 0;
 
+                // Draw eyes on head
                 if (i === 0) {
                     ctx.fillStyle = '#0f172a';
                     const off = cellSize / 4;
@@ -432,76 +476,140 @@
             const head = { ...snake[0] };
             if (dir === 'UP') head.y--; else if (dir === 'DOWN') head.y++; else if (dir === 'LEFT') head.x--; else head.x++;
 
-            if (head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID || snake.some(s => s.x === head.x && s.y === head.y)) { gameOver(); return; }
+            // Check collisions
+            if (head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID || snake.some(s => s.x === head.x && s.y === head.y)) {
+                gameOver();
+                return;
+            }
 
             snake.unshift(head);
-            if (head.x === food.x && head.y === food.y) { score += 10; updateUI(); spawnFood(); } else snake.pop();
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                updateUI();
+                spawnFood();
+            } else {
+                snake.pop();
+            }
             draw();
         }
 
         function startGame() {
-            init(); playing = true;
+            // Get the current speed setting before starting
+            speed = parseInt(document.getElementById('speedSlider').value);
+            localStorage.setItem('snake_speed', speed);
+            
+            init();
+            playing = true;
             document.getElementById('startOverlay').classList.add('hidden');
             document.getElementById('gameOverOverlay').classList.add('hidden');
-            checkOrientation();
+            
+            // Clear any existing game loop
+            if (gameLoop) clearInterval(gameLoop);
             gameLoop = setInterval(update, speed);
         }
 
         function gameOver() {
-            playing = false; clearInterval(gameLoop);
+            playing = false;
+            clearInterval(gameLoop);
             document.getElementById('finalScore').textContent = score;
-            if (score > highScore) { highScore = score; localStorage.setItem('snake_high', highScore); updateUI(); document.getElementById('newHighScore').classList.remove('hidden'); }
-            else document.getElementById('newHighScore').classList.add('hidden');
+            
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('snake_high', highScore);
+                updateUI();
+                document.getElementById('newHighScore').classList.remove('hidden');
+            } else {
+                document.getElementById('newHighScore').classList.add('hidden');
+            }
             document.getElementById('gameOverOverlay').classList.remove('hidden');
         }
 
+        // Keyboard controls
         document.addEventListener('keydown', e => {
             if (!playing) return;
-            const map = { ArrowUp: 'UP', w: 'UP', W: 'UP', ArrowDown: 'DOWN', s: 'DOWN', S: 'DOWN', ArrowLeft: 'LEFT', a: 'LEFT', A: 'LEFT', ArrowRight: 'RIGHT', d: 'RIGHT', D: 'RIGHT' };
+            const map = {
+                ArrowUp: 'UP', w: 'UP', W: 'UP',
+                ArrowDown: 'DOWN', s: 'DOWN', S: 'DOWN',
+                ArrowLeft: 'LEFT', a: 'LEFT', A: 'LEFT',
+                ArrowRight: 'RIGHT', d: 'RIGHT', D: 'RIGHT'
+            };
             const opp = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' };
-            if (map[e.key] && dir !== opp[map[e.key]]) { nextDir = map[e.key]; e.preventDefault(); }
+            if (map[e.key] && dir !== opp[map[e.key]]) {
+                nextDir = map[e.key];
+                e.preventDefault();
+            }
         });
 
+        // Touch/swipe controls on canvas
         let touchStart = null;
-        canvas.addEventListener('touchstart', e => { touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }, { passive: true });
+        canvas.addEventListener('touchstart', e => {
+            touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }, { passive: true });
+        
         canvas.addEventListener('touchend', e => {
             if (!touchStart || !playing) return;
-            const dx = e.changedTouches[0].clientX - touchStart.x, dy = e.changedTouches[0].clientY - touchStart.y;
+            const dx = e.changedTouches[0].clientX - touchStart.x;
+            const dy = e.changedTouches[0].clientY - touchStart.y;
             const opp = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' };
-            if (Math.abs(dx) > Math.abs(dy)) { if (dx > 30 && dir !== opp['RIGHT']) nextDir = 'RIGHT'; else if (dx < -30 && dir !== opp['LEFT']) nextDir = 'LEFT'; }
-            else { if (dy > 30 && dir !== opp['DOWN']) nextDir = 'DOWN'; else if (dy < -30 && dir !== opp['UP']) nextDir = 'UP'; }
+            
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (dx > 30 && dir !== opp['RIGHT']) nextDir = 'RIGHT';
+                else if (dx < -30 && dir !== opp['LEFT']) nextDir = 'LEFT';
+            } else {
+                if (dy > 30 && dir !== opp['DOWN']) nextDir = 'DOWN';
+                else if (dy < -30 && dir !== opp['UP']) nextDir = 'UP';
+            }
             touchStart = null;
         }, { passive: true });
 
+        // Mobile button controls - Always work
         document.querySelectorAll('.ctrl-btn[data-dir]').forEach(btn => {
-            const handler = () => { if (!playing) return; const d = btn.dataset.dir; const opp = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' }; if (dir !== opp[d]) nextDir = d; };
-            btn.addEventListener('touchstart', e => { e.preventDefault(); handler(); });
+            const handler = (e) => {
+                e.preventDefault();
+                if (!playing) return;
+                const d = btn.dataset.dir;
+                const opp = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' };
+                if (dir !== opp[d]) nextDir = d;
+            };
+            btn.addEventListener('touchstart', handler, { passive: false });
             btn.addEventListener('mousedown', handler);
+            btn.addEventListener('click', handler);
         });
 
-        function checkOrientation() { document.getElementById('landscapeWarning').classList.toggle('show', window.innerWidth < window.innerHeight && playing); }
-        window.addEventListener('resize', checkOrientation); window.addEventListener('orientationchange', checkOrientation);
-
+        // Button handlers
         document.getElementById('startBtn').onclick = startGame;
         document.getElementById('retryBtn').onclick = startGame;
-        document.getElementById('settingsBtn').onclick = () => document.getElementById('settingsPanel').classList.toggle('hidden');
+        document.getElementById('settingsBtn').onclick = () => {
+            document.getElementById('settingsPanel').classList.toggle('hidden');
+        };
 
+        // Theme buttons
         document.querySelectorAll('.theme-btn').forEach(btn => {
-            btn.onclick = () => { document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentTheme = btn.dataset.theme; localStorage.setItem('snake_theme', currentTheme); draw(); };
+            btn.onclick = () => {
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTheme = btn.dataset.theme;
+                localStorage.setItem('snake_theme', currentTheme);
+                draw();
+            };
             if (btn.dataset.theme === currentTheme) btn.classList.add('active');
         });
 
-        const speedSlider = document.getElementById('speedSlider'), speedVal = document.getElementById('speedVal');
+        // Speed slider - Update label in real-time
+        const speedSlider = document.getElementById('speedSlider');
+        const speedVal = document.getElementById('speedVal');
         speedSlider.value = localStorage.getItem('snake_speed') || '150';
-        speedSlider.oninput = () => { speedVal.textContent = speedSlider.value; localStorage.setItem('snake_speed', speedSlider.value); };
+        speedVal.textContent = speedSlider.value;
+        
+        speedSlider.oninput = () => {
+            speedVal.textContent = speedSlider.value;
+        };
 
+        // Initialize
         init();
 
         // Right-click protection
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-        
+        document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
 </html>
-
