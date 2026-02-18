@@ -19,20 +19,19 @@
     <!-- MortApps Studios Schema Markup -->
     <link rel="author" href="https://mortappsstudios.com">
     <link rel="publisher" href="https://mortappsstudios.com">
-    <!-- 🔁 UPDATED: Canonical now points to the new /phein/ subfolder -->
     <link rel="canonical" href="https://www.ipsforum.com/phein/">
     <link rel="home" href="https://www.ipsforum.com/">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- FAVICON CONFIGURATION - now points to /phein/phein-icons/ -->
+    <!-- FAVICON CONFIGURATION -->
     <link rel="icon" type="image/x-icon" href="/phein/phein-icons/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/phein/phein-icons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/phein/phein-icons/favicon-32x32.png">
     <link rel="apple-touch-icon" href="/phein/phein-icons/apple-touch-icon.png">
     
-    <!-- ✦✅ PWA MANIFEST – correct scope, start_url, mandatory wide screenshot, and local icons -->
+    <!-- PWA MANIFEST -->
     <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{
         "name":"Phein Screener",
         "short_name":"Phein",
@@ -61,13 +60,13 @@
     <!-- Title with MortApps Studios SEO Optimization -->
     <title>Phein | Smart CV Screener | AI-Powered Recruitment by MortApps Studios</title>
     
-    <!-- Meta Description with MortApps Studios Branding -->
+    <!-- Meta Description -->
     <meta name="description" content="Phein Smart CV Screener: Enterprise-grade AI recruitment tool powered by MortApps Studios. 100% local processing, PDF analysis, and intelligent candidate ranking.">
     
-    <!-- Keywords for MortApps Studios SEO -->
+    <!-- Keywords -->
     <meta name="keywords" content="Phein, MortApps Studios, CV Screener, Smart Recruitment, AI Resume Analysis, PDF CV Parsing, HR Technology, Candidate Ranking, AI Development Nairobi">
     
-    <!-- Open Graph / Social Media Meta Tags - now use local icons -->
+    <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="Phein | Smart CV Screener | MortApps Studios AI Technology">
     <meta property="og:description" content="Enterprise-grade AI recruitment tool for intelligent CV screening and candidate ranking. 100% local processing by MortApps Studios.">
     <meta property="og:image" content="/phein/phein-icons/android-chrome-512x512.png">
@@ -101,9 +100,8 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
 
-    <!-- COMPLETE STYLES - YOUR ORIGINAL CSS + ADDED STYLES FOR CONTACT BUTTON & INSTALL POPUP -->
+    <!-- COMPLETE STYLES -->
     <style>
-        /* === YOUR ORIGINAL STYLES - COMPLETELY INTACT (removed install-button specific styles) === */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -118,7 +116,6 @@
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
 
-        /* Security: Block Text Selection */
         * { 
             box-sizing: border-box; 
             margin: 0; 
@@ -138,7 +135,7 @@
             flex-direction: column;
         }
 
-        /* Loading Screen Styles */
+        /* Loading Screen */
         #loading-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -173,6 +170,20 @@
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
         .logo span { color: var(--text-main); }
 
+        .license-badge {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .license-badge.expiring {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
         /* Main Layout */
         main {
             flex: 1;
@@ -194,6 +205,10 @@
             padding: 1.5rem;
             box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
         }
 
         h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-main); border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; }
@@ -217,9 +232,20 @@
             font-size: 0.95rem; gap: 0.5rem;
         }
 
-        .btn-primary { background-color: var(--primary); color: white; width: 100%; }
+        .btn-primary { background-color: var(--primary); color: white; width: 100%; position: relative; overflow: hidden; }
         .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-1px); }
         .btn-primary:disabled { background-color: var(--secondary); cursor: not-allowed; transform: none; }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-primary:hover::after { width: 300px; height: 300px; }
 
         .btn-outline { background: transparent; border: 1px solid #cbd5e1; color: var(--text-muted); padding: 0.5rem 1rem; font-size: 0.85rem; }
         .btn-outline:hover { background: #f8fafc; color: var(--text-main); }
@@ -250,7 +276,7 @@
         .candidate-card {
             background: white; border: 1px solid #e2e8f0; border-radius: var(--border-radius);
             padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column;
-            gap: 0.5rem; transition: transform 0.2s; position: relative; overflow: hidden;
+            gap: 0.5rem; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
         }
         .candidate-card:hover { transform: translateX(4px); border-color: var(--primary); }
         .candidate-card::before {
@@ -321,13 +347,10 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ✦ PROFESSIONAL MOBILE BLOCKING POPUP (unchanged) */
+        /* Mobile Block Modal */
         #mobile-block-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(12px);
             z-index: 10000;
@@ -357,8 +380,7 @@
 
         .mobile-block-icon {
             background: #fee2e2;
-            width: 72px;
-            height: 72px;
+            width: 72px; height: 72px;
             border-radius: 36px;
             display: flex;
             align-items: center;
@@ -366,26 +388,11 @@
             margin: 0 auto 1.5rem;
         }
 
-        .mobile-block-icon svg {
-            width: 36px;
-            height: 36px;
-            stroke: #dc2626;
-        }
+        .mobile-block-icon svg { width: 36px; height: 36px; stroke: #dc2626; }
 
-        .mobile-block-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
-        }
+        .mobile-block-title { font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
 
-        .mobile-block-subtitle {
-            font-size: 1rem;
-            color: #475569;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+        .mobile-block-subtitle { font-size: 1rem; color: #475569; margin-bottom: 2rem; line-height: 1.6; }
 
         .mobile-block-device {
             background: #f1f5f9;
@@ -425,57 +432,9 @@
             box-shadow: 0 15px 20px -3px rgba(220, 38, 38, 0.3);
         }
 
-        .mobile-block-footer {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
+        .mobile-block-footer { margin-top: 1.5rem; font-size: 0.8rem; color: #94a3b8; }
 
-        /* VISUAL POLISH — YOUR STRUCTURE UNTOUCHED */
-        .card {
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-        }
-
-        .btn-primary {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        .btn-primary:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
-        .candidate-card {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        #find-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 700;
-        }
-
-        .drop-zone {
-            transition: all 0.25s;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ✦ INSTALL GATE STYLES (unchanged) */
+        /* Install Gate */
         #install-gate {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -492,10 +451,10 @@
         .install-card {
             background: white;
             color: #0f172a;
-            padding: 3rem;
-            border-radius: 16px;
+            padding: 2.5rem;
+            border-radius: 20px;
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             text-align: center;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -513,19 +472,19 @@
         }
 
         .install-subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #475569;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             line-height: 1.5;
         }
 
         .install-input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             text-align: left;
         }
 
         .install-input-group label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -535,27 +494,34 @@
             user-select: none; 
         }
 
-        #password-input {
+        #license-key-input, #company-name-input {
             background: #f1f5f9;
             border: 2px solid #e2e8f0;
-            padding: 1rem;
-            font-size: 1rem;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
             border-radius: 8px;
             width: 100%;
             transition: border-color 0.2s;
             user-select: text;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        #password-input:focus {
+        #license-key-input:focus, #company-name-input:focus {
             border-color: var(--primary);
             outline: none;
+        }
+        #company-name-input {
+            text-transform: none;
+            letter-spacing: normal;
         }
 
         #error-msg {
             color: var(--accent-red);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: 0.5rem;
             display: none;
             font-weight: 600;
+            text-align: center;
         }
 
         #launch-btn {
@@ -573,22 +539,64 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            margin-top: 0.5rem;
         }
         #launch-btn:hover {
             background: black;
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
         }
+        #launch-btn:disabled {
+            background: var(--secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
 
         .install-footer {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
+            margin-top: 1.25rem;
+            font-size: 0.75rem;
             color: #94a3b8;
             border-top: 1px solid #e2e8f0;
             padding-top: 1rem;
         }
 
-        /* Animation for invalid password */
+        .license-info-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.1));
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .license-info-box h4 {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .license-info-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .license-warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: #92400e;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Shake animation */
         .shake {
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
@@ -599,13 +607,10 @@
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
 
-        /* +++++ ADDED FOR REQUEST: Install Guide Popup Styles +++++ */
+        /* Install Guide Modal */
         #install-guide-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(8px);
             display: none;
@@ -659,8 +664,7 @@
         .step-marker {
             background: var(--primary);
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 22px; height: 22px;
             border-radius: 6px;
             display: inline-flex;
             align-items: center;
@@ -670,12 +674,8 @@
             flex-shrink: 0;
             margin-top: 0.1rem;
         }
-        .step-text {
-            line-height: 1.5;
-        }
-        .step-text strong {
-            color: var(--primary-dark);
-        }
+        .step-text { line-height: 1.5; }
+        .step-text strong { color: var(--primary-dark); }
         .guide-note {
             background: #fffbeb;
             border-radius: 12px;
@@ -725,43 +725,60 @@
             transform: translateY(-2px);
             box-shadow: 0 12px 20px -5px rgba(37,99,235,0.4);
         }
+
+        #find-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
-    <!-- MortApps Studios Performance Tracking (Hidden) -->
+    <!-- Schema.org Markup -->
     <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
         <meta itemprop="name" content="Phein Smart CV Screener">
         <meta itemprop="description" content="Enterprise AI recruitment tool for intelligent CV screening and candidate ranking">
         <meta itemprop="applicationCategory" content="BusinessApplication, HRApplication">
         <meta itemprop="operatingSystem" content="Web">
-        <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer" itemprop="price" content="0">
-        <meta itemprop="priceCurrency" content="USD">
         <meta itemprop="author" content="MortApps Studios">
         <meta itemprop="softwareVersion" content="1.5">
-        <meta itemprop="datePublished" content="2026-01-01">
-        <meta itemprop="dateModified" content="2026-01-01">
     </div>
 
-    <!-- ✦ INSTALL GATE — LICENSE KEY PROTECTED ✦ -->
+    <!-- INSTALL GATE - MortZKey License System -->
     <div id="install-gate">
         <div class="install-card">
             <div class="install-logo">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
                 Phein
             </div>
-            <p class="install-subtitle" id="gate-message">Software Activation Required</p>
+            <p class="install-subtitle">Software Activation Required</p>
             
             <div class="install-input-group">
-                <label for="password-input">License Key</label>
-                <input type="password" id="password-input" placeholder="Enter License Key" autocomplete="off">
-                <div id="error-msg">Invalid License Key</div>
+                <label for="license-key-input">License Key</label>
+                <input type="text" id="license-key-input" placeholder="e.g., PR-CVKJ82-MNP45W" autocomplete="off">
+            </div>
+
+            <div class="install-input-group">
+                <label for="company-name-input">Company Name</label>
+                <input type="text" id="company-name-input" placeholder="Your company name" autocomplete="off">
+            </div>
+
+            <div id="error-msg">Invalid License Key</div>
+
+            <div class="license-info-box" id="license-info-box">
+                <h4>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    License Validated
+                </h4>
+                <p id="license-tier-info"></p>
+                <p id="license-duration-info"></p>
+                <div class="license-warning-box" id="license-warning-box"></div>
             </div>
 
             <button id="launch-btn">
                 <span id="btn-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 </span>
-                <span id="btn-text">Activate System</span>
+                <span id="btn-text">Activate License</span>
             </button>
 
             <div class="install-footer">
@@ -770,7 +787,7 @@
         </div>
     </div>
 
-    <!-- === ✦ MOBILE BLOCK MODAL — ADDED, DOES NOT TOUCH YOUR CODE ✦ === -->
+    <!-- Mobile Block Modal -->
     <div id="mobile-block-modal">
         <div class="mobile-block-card">
             <div class="mobile-block-icon">
@@ -803,9 +820,8 @@
             </div>
         </div>
     </div>
-    <!-- === END MOBILE BLOCK MODAL === -->
 
-    <!-- +++++ ADDED FOR REQUEST: Install Guide Popup Modal +++++ -->
+    <!-- Install Guide Modal -->
     <div id="install-guide-modal">
         <div class="install-guide-card">
             <div class="install-guide-header">
@@ -905,8 +921,8 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
             Phein <span>Screener</span>
         </div>
-        <div style="display:flex; gap:0.5rem;">
-            <!-- +++++ ADDED FOR REQUEST: Contact Button +++++ -->
+        <div style="display:flex; gap:0.5rem; align-items: center;">
+            <span class="license-badge" id="header-license-badge">Starter</span>
             <button class="btn btn-outline" onclick="window.location.href='mailto:mortapps.studios@gmail.com'">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 Contact
@@ -919,9 +935,6 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 Privacy
             </button>
-            
-            <!-- ✦ INSTALL BUTTON REMOVED - using native browser install prompt ✦ -->
-
             <button class="btn btn-outline" id="export-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Export Report
@@ -1016,698 +1029,727 @@
 
     <div class="toast" id="toast">Message here</div>
 
-    <!-- MortApps Studios Structured Data for Enhanced SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Phein Smart CV Screener",
-      "applicationCategory": "BusinessApplication, HRApplication",
-      "operatingSystem": "Web",
-      "description": "Enterprise AI recruitment tool for intelligent CV screening and candidate ranking. 100% local processing by MortApps Studios.",
-      "url": "https://www.ipsforum.com/phein/",
-      "author": {
-        "@type": "Organization",
-        "name": "MortApps Studios",
-        "url": "https://mortappsstudios.com",
-        "sameAs": [
-          "https://github.com/mortapps-studios",
-          "https://twitter.com/mortappsstudios",
-          "https://linkedin.com/company/mortappsstudios"
-        ]
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "MortApps Studios",
-        "founder": "MortApps Studios Team",
-        "foundingDate": "2024",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Nairobi",
-          "addressRegion": "Nairobi County",
-          "addressCountry": "Kenya"
-        }
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "datePublished": "2026-01-01",
-      "dateModified": "2026-01-01",
-      "softwareVersion": "1.5",
-      "featureList": [
-        "PDF CV parsing",
-        "AI skill matching",
-        "Candidate ranking algorithm",
-        "100% local processing",
-        "Excel export",
-        "Privacy-first architecture"
-      ],
-      "keywords": "CV screening, AI recruitment, resume parser, candidate ranking, MortApps Studios"
-    }
-    </script>
-
-    <!-- Additional Schema for Local Business -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "MortApps Studios",
-      "url": "https://mortappsstudios.com",
-      "logo": "/phein/phein-icons/android-chrome-512x512.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+254-113-400-063",
-        "contactType": "technical support",
-        "areaServed": "KE",
-        "availableLanguage": ["English", "Swahili"]
-      },
-      "sameAs": [
-        "https://github.com/mortapps-studios",
-        "https://twitter.com/mortappsstudios",
-        "https://linkedin.com/company/mortappsstudios",
-        "https://facebook.com/mortappsstudios"
-      ]
-    }
-    </script>
-
     <script>
-        // === ✦ LICENSE & SERVICE WORKER REGISTRATION ✦ ===
-        (function() {
-            // =======================================================
-            // CONFIGURATION — EXCLUSIVE LICENSE KEY
-            // =======================================================
-            const VALID_LICENSES = [
-                'CV-MAS-002K' 
-            ];
-            // =======================================================
+    // ============================================================================
+    // MortZKey License System - Integrated into Phein Screener
+    // ============================================================================
+    (function() {
+        'use strict';
 
-            // --- ✅ UNCONDITIONAL SERVICE WORKER REGISTRATION (ALWAYS RUNS) ---
-            function registerServiceWorker() {
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('/phein/sw.js')
-                        .then(reg => console.log('✅ SW registered for Phein:', reg.scope))
-                        .catch(err => console.log('❌ SW registration failed:', err));
-                }
-            }
-            // Register immediately – no license dependency
-            registerServiceWorker();
-
-            const gate = document.getElementById('install-gate');
-            const input = document.getElementById('password-input');
-            const btn = document.getElementById('launch-btn');
-            const btnText = document.getElementById('btn-text');
-            const errorMsg = document.getElementById('error-msg');
-            const loader = document.getElementById('loading-screen');
-
-            // --- Helper Functions ---
-            function dismissLoader() {
-                if(loader) {
-                    loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                    }, 600); 
-                }
-            }
-
-            function ensureLoaderVisible() {
-                loader.style.display = 'flex';
-                loader.style.opacity = '1';
-            }
-
-            // --- 10-DAY EXPIRATION LOGIC ---
-            function isLicenseValid() {
-                const savedKey = localStorage.getItem('phein_license_key');
-                const savedTimestamp = localStorage.getItem('phein_license_timestamp');
-                const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
-
-                const isKeyCorrect = VALID_LICENSES.includes(savedKey);
-                if (!savedTimestamp) return false;
-                const isRecent = (Date.now() - parseInt(savedTimestamp)) < tenDaysInMs;
-                return isKeyCorrect && isRecent;
-            }
-
-            // --- Initial Load Logic ---
-            if (isLicenseValid()) {
-                gate.style.display = 'none';
-                ensureLoaderVisible();
-            } else {
-                gate.style.display = 'flex';
-                loader.style.display = 'none';
-            }
-
-            // --- Window Load Event ---
-            window.addEventListener('load', () => {
-                if (gate.style.display !== 'flex') {
-                    setTimeout(() => {
-                        dismissLoader();
-                        // +++++ ADDED: schedule install guide popup after loader disappears +++++
-                        scheduleInstallGuidePopup();
-                    }, 3200);
-                }
-            });
-
-            // --- Activation Button Handler ---
-            btn.addEventListener('click', () => {
-                const val = input.value.trim();
-                
-                if (VALID_LICENSES.includes(val)) {
-                    localStorage.setItem('phein_license_key', val);
-                    localStorage.setItem('phein_license_timestamp', Date.now());
-                    
-                    errorMsg.style.display = 'none';
-                    input.style.borderColor = '#e2e8f0';
-                    input.disabled = true;
-                    btnText.textContent = "System Activating...";
-                    
-                    gate.style.transition = 'opacity 0.5s ease-out';
-                    gate.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        gate.style.display = 'none';
-                        ensureLoaderVisible();
-
-                        setTimeout(() => {
-                            dismissLoader();
-                            // +++++ ADDED: schedule install guide popup after loader disappears +++++
-                            scheduleInstallGuidePopup();
-                        }, 3200);
-                        
-                    }, 500);
-
-                } else {
-                    errorMsg.style.display = 'block';
-                    input.style.borderColor = 'var(--accent-red)';
-                    input.classList.add('shake');
-                    input.value = ''; 
-                    setTimeout(() => input.classList.remove('shake'), 500);
-                }
-            });
-
-            // Allow Enter key
-            input.addEventListener('keydown', (e) => {
-                if(e.key === 'Enter') btn.click();
-            });
-
-            // Toast function (unchanged)
-            function showToast(msg) {
-                const toast = document.getElementById('toast');
-                if (toast) {
-                    toast.textContent = msg;
-                    toast.classList.add('show');
-                    setTimeout(() => { 
-                        toast.classList.remove('show'); 
-                    }, 4000);
-                } else {
-                    alert(msg);
-                }
-            }
-
-            // +++++ ADDED FOR REQUEST: Install guide popup logic +++++
-            // Check if app is installed (standalone mode)
-            function isRunningStandalone() {
-                return window.matchMedia('(display-mode: standalone)').matches ||
-                       window.matchMedia('(display-mode: fullscreen)').matches ||
-                       window.navigator.standalone === true; // iOS Safari
-            }
-
-            // Show the popup only if not installed and not permanently dismissed
-            function showInstallGuidePopupIfNeeded() {
-                const modal = document.getElementById('install-guide-modal');
-                const hidePopupFlag = localStorage.getItem('phein_hide_install_popup');
-                
-                // Never show if already installed as an app, or user chose "Do not remind"
-                if (isRunningStandalone() || hidePopupFlag === 'true') {
-                    return;
-                }
-                modal.style.display = 'flex';
-            }
-
-            // Schedule popup 6 seconds after loader is hidden
-            function scheduleInstallGuidePopup() {
-                setTimeout(() => {
-                    showInstallGuidePopupIfNeeded();
-                }, 6000); // 6 seconds
-            }
-
-            // Event listener for Done button + checkbox
-            document.addEventListener('DOMContentLoaded', function() {
-                const modal = document.getElementById('install-guide-modal');
-                const doneBtn = document.getElementById('install-guide-done');
-                const dontRemindCheckbox = document.getElementById('dont-remind-install');
-
-                if (doneBtn) {
-                    doneBtn.addEventListener('click', function() {
-                        if (dontRemindCheckbox && dontRemindCheckbox.checked) {
-                            localStorage.setItem('phein_hide_install_popup', 'true');
-                        }
-                        modal.style.display = 'none';
-                    });
-                }
-
-                // Close modal if user clicks outside the card (nice UX)
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                });
-            });
-        })();
-        // === END LICENSE & SERVICE WORKER REGISTRATION + INSTALL GUIDE POPUP ===
-
-        // === YOUR ORIGINAL JAVASCRIPT — 100% UNTOUCHED ===
-        // --- Security: Disable Right Click & Source Viewing ---
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123) { return false; }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
-        }
-
-        // --- Modal Logic ---
-        const privacyModal = document.getElementById('privacy-modal');
-        const helpModal = document.getElementById('help-modal');
-
-        function openPrivacyModal() { privacyModal.style.display = 'flex'; }
-        function closePrivacyModal() { privacyModal.style.display = 'none'; }
-        
-        function openHelpModal() { helpModal.style.display = 'flex'; }
-        function closeHelpModal() { helpModal.style.display = 'none'; }
-        
-        window.onclick = function(event) {
-            if (event.target == privacyModal) closePrivacyModal();
-            if (event.target == helpModal) closeHelpModal();
-        }
-
-        // --- State Management ---
-        const state = {
-            criteria: { title: '', keywords: [] },
-            cvs: [], 
-            limit: 5
+        // License Configuration
+        const LICENSE_TIERS = {
+            'ST':  { name: 'Starter',        days: 90 },
+            'PR':  { name: 'Professional',   days: 365 },
+            'EN':  { name: 'Enterprise',     days: null },
+            'EPX': { name: 'Enterprise Plus', days: null }
         };
 
-        // --- DOM Elements ---
-        const mustHaveInput = document.getElementById('must-have-skills');
-        const mustHaveList = document.getElementById('must-have-list');
-        const cvNameInput = document.getElementById('cv-name-input');
-        const cvTextInput = document.getElementById('cv-text-input');
-        const cvListEl = document.getElementById('cv-list');
-        const limitInput = document.getElementById('limit-to');
-        const dropZone = document.getElementById('drop-zone');
-        const loadingSpinner = document.getElementById('loading-spinner');
-        const findBtn = document.getElementById('find-btn');
+        const STORAGE_KEYS = {
+            key: 'phein_mortzkey',
+            activation: 'phein_mortzkey_activation',
+            tier: 'phein_mortzkey_tier',
+            company: 'phein_mortzkey_company'
+        };
 
-        // --- Event Listeners ---
-        mustHaveInput.addEventListener('input', (e) => {
-            const val = e.target.value;
-            const keywords = val.split(',').map(k => k.trim()).filter(k => k.length > 0);
-            state.criteria.keywords = keywords;
-            renderKeywords();
-        });
-
-        limitInput.addEventListener('change', (e) => {
-            state.limit = parseInt(e.target.value) || 5;
-        });
-
-        // Drag and Drop Logic
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
-
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-
-        // --- Core Functions ---
-        async function handleFiles(files) {
-            Array.from(files).forEach(async (file) => {
-                loadingSpinner.style.display = 'flex';
-                try {
-                    let extractedText = "";
-                    let candidateName = file.name;
-
-                    if (file.type === "application/pdf") {
-                        extractedText = await extractTextFromPDF(file);
-                    } else if (file.type === "text/plain") {
-                        extractedText = await readFileAsText(file);
-                    } else {
-                        showToast("Unsupported file type.", "error");
-                        loadingSpinner.style.display = 'none';
-                        return;
-                    }
-
-                    const lines = extractedText.split('\n').filter(l => l.trim().length > 0);
-                    if (lines.length > 0) {
-                        if (lines[0].split(' ').length >= 2 && lines[0].split(' ').length <= 4) {
-                            candidateName = lines[0];
-                        }
-                    }
-
-                    cvNameInput.value = candidateName;
-                    cvTextInput.value = extractedText;
-                    showToast(`Parsed: ${file.name}. Click 'Add Candidate' to confirm.`);
-                } catch (error) {
-                    console.error(error);
-                    showToast("Error parsing file.", "error");
-                } finally {
-                    loadingSpinner.style.display = 'none';
-                }
-            });
-        }
-
-        function readFileAsText(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.onerror = reject;
-                reader.readAsText(file);
-            });
-        }
-
-        async function extractTextFromPDF(file) {
-            const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-            let fullText = "";
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const textContent = await page.getTextContent();
-                const pageText = textContent.items.map(item => item.str).join(' ');
-                fullText += pageText + "\n";
+        // Generate checksum for key validation
+        function generateChecksum(prefix, productCode, segment1, segment2) {
+            const combined = prefix + productCode + segment1 + segment2;
+            let sum = 0;
+            for (let i = 0; i < combined.length; i++) {
+                sum += combined.charCodeAt(i);
             }
-            return fullText;
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            return chars.charAt(sum % chars.length);
         }
 
-        function addCvManually() {
-            const name = cvNameInput.value.trim();
-            const content = cvTextInput.value.trim();
-            if (!name || !content) {
-                showToast("Please enter both a name and CV content.");
-                return;
-            }
-            addCvToState(name, content);
-            cvNameInput.value = '';
-            cvTextInput.value = '';
-        }
-
-        function addCvToState(name, content) {
-            const newCv = {
-                id: Date.now() + Math.random().toString(36).substr(2, 9),
-                name: name,
-                content: content
+        // Parse and validate license key
+        function parseLicenseKey(key) {
+            if (!key || typeof key !== 'string') return null;
+            
+            const cleanKey = key.trim().toUpperCase();
+            const parts = cleanKey.split('-');
+            
+            if (parts.length !== 3) return null;
+            
+            const prefix = parts[0];
+            const middle = parts[1];
+            const end = parts[2];
+            
+            // Validate prefix
+            if (!LICENSE_TIERS[prefix]) return null;
+            
+            // Extract product code (must be CV for Phein)
+            const productCode = middle.substring(0, 2);
+            if (productCode !== 'CV') return null;
+            
+            // Extract segments
+            const segment1 = middle.substring(2);
+            const segment2 = end.substring(0, end.length - 1);
+            const checksum = end.charAt(end.length - 1);
+            
+            if (segment1.length !== 4 || segment2.length !== 4) return null;
+            
+            // Validate checksum
+            const expectedChecksum = generateChecksum(prefix, productCode, segment1, segment2);
+            if (checksum !== expectedChecksum) return null;
+            
+            return {
+                prefix: prefix,
+                tier: LICENSE_TIERS[prefix],
+                fullKey: cleanKey
             };
-            state.cvs.push(newCv);
-            renderCvList();
-            showToast(`Added CV for ${name}`);
         }
 
-        function removeCv(id) {
-            state.cvs = state.cvs.filter(cv => cv.id !== id);
-            renderCvList();
+        // Check if license is valid and not expired
+        function isLicenseValid() {
+            const savedKey = localStorage.getItem(STORAGE_KEYS.key);
+            const savedActivation = localStorage.getItem(STORAGE_KEYS.activation);
+            const savedTier = localStorage.getItem(STORAGE_KEYS.tier);
+            
+            if (!savedKey || !savedActivation || !savedTier) return null;
+            
+            const parsed = parseLicenseKey(savedKey);
+            if (!parsed) return null;
+            
+            const tier = LICENSE_TIERS[savedTier];
+            if (!tier) return null;
+            
+            // Check expiration
+            const activationDate = new Date(savedActivation);
+            const now = new Date();
+            
+            if (tier.days !== null) {
+                const expirationDate = new Date(activationDate);
+                expirationDate.setDate(expirationDate.getDate() + tier.days);
+                
+                if (now > expirationDate) {
+                    return null; // Expired
+                }
+                
+                const daysRemaining = Math.ceil((expirationDate - now) / (1000 * 60 * 60 * 24));
+                return {
+                    tier: tier,
+                    daysRemaining: daysRemaining,
+                    isPerpetual: false,
+                    company: localStorage.getItem(STORAGE_KEYS.company) || 'Not specified',
+                    activationDate: savedActivation
+                };
+            }
+            
+            // Perpetual license
+            return {
+                tier: tier,
+                daysRemaining: null,
+                isPerpetual: true,
+                company: localStorage.getItem(STORAGE_KEYS.company) || 'Not specified',
+                activationDate: savedActivation
+            };
         }
 
-        function renderKeywords() {
-            mustHaveList.innerHTML = state.criteria.keywords.map(k => `<div class="keyword-tag">${k}</div>`).join('');
+        // Store license
+        function storeLicense(key, tier, company) {
+            localStorage.setItem(STORAGE_KEYS.key, key);
+            localStorage.setItem(STORAGE_KEYS.activation, new Date().toISOString());
+            localStorage.setItem(STORAGE_KEYS.tier, tier);
+            if (company) {
+                localStorage.setItem(STORAGE_KEYS.company, company);
+            }
         }
 
-        function renderCvList() {
-            cvListEl.innerHTML = state.cvs.map(cv => `
-                <li class="cv-item">
-                    <strong>${cv.name}</strong>
-                    <button onclick="removeCv('${cv.id}')">Remove</button>
-                </li>
-            `).join('');
+        // Clear license
+        function clearLicense() {
+            Object.values(STORAGE_KEYS).forEach(k => localStorage.removeItem(k));
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        // Get license warning text
+        function getLicenseWarning(company) {
+            return `This license is registered to "${company}". Unauthorized sharing is a breach of license terms.`;
         }
 
-        // --- The Phein Algorithm ---
-        function runScreeningProcess() {
-            if (state.cvs.length === 0) {
-                showToast("Please add at least one CV.");
+        // DOM Elements
+        const gate = document.getElementById('install-gate');
+        const keyInput = document.getElementById('license-key-input');
+        const companyInput = document.getElementById('company-name-input');
+        const btn = document.getElementById('launch-btn');
+        const btnText = document.getElementById('btn-text');
+        const errorMsg = document.getElementById('error-msg');
+        const loader = document.getElementById('loading-screen');
+        const infoBox = document.getElementById('license-info-box');
+        const tierInfo = document.getElementById('license-tier-info');
+        const durationInfo = document.getElementById('license-duration-info');
+        const warningBox = document.getElementById('license-warning-box');
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/phein/sw.js')
+                .then(reg => console.log('SW registered:', reg.scope))
+                .catch(err => console.log('SW registration failed:', err));
+        }
+
+        // Dismiss loader
+        function dismissLoader() {
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 600);
+            }
+        }
+
+        // Ensure loader visible
+        function ensureLoaderVisible() {
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+        }
+
+        // Update header badge
+        function updateHeaderBadge(licenseInfo) {
+            const badge = document.getElementById('header-license-badge');
+            if (!badge || !licenseInfo) return;
+            
+            badge.textContent = licenseInfo.tier.name;
+            
+            if (licenseInfo.isPerpetual) {
+                badge.classList.remove('expiring');
+            } else if (licenseInfo.daysRemaining <= 14) {
+                badge.classList.add('expiring');
+                badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+            } else {
+                badge.classList.remove('expiring');
+                badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+            }
+        }
+
+        // Check initial license state
+        const licenseInfo = isLicenseValid();
+        if (licenseInfo) {
+            gate.style.display = 'none';
+            ensureLoaderVisible();
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    dismissLoader();
+                    updateHeaderBadge(licenseInfo);
+                    scheduleInstallGuidePopup();
+                }, 3200);
+            });
+        } else {
+            gate.style.display = 'flex';
+            loader.style.display = 'none';
+        }
+
+        // Activation handler
+        btn.addEventListener('click', () => {
+            const keyVal = keyInput.value.trim();
+            const companyVal = companyInput.value.trim();
+            
+            // Validate inputs
+            if (!keyVal) {
+                errorMsg.textContent = 'Please enter a license key';
+                errorMsg.style.display = 'block';
+                keyInput.classList.add('shake');
+                setTimeout(() => keyInput.classList.remove('shake'), 500);
                 return;
             }
-            if (state.criteria.keywords.length === 0) {
-                showToast("Please define at least one skill/keyword.");
-                mustHaveInput.focus();
+            
+            if (!companyVal) {
+                errorMsg.textContent = 'Please enter your company name';
+                errorMsg.style.display = 'block';
+                companyInput.classList.add('shake');
+                setTimeout(() => companyInput.classList.remove('shake'), 500);
                 return;
             }
+            
+            // Parse key
+            const parsed = parseLicenseKey(keyVal);
+            
+            if (!parsed) {
+                errorMsg.textContent = 'Invalid license key format or wrong product';
+                errorMsg.style.display = 'block';
+                keyInput.style.borderColor = 'var(--accent-red)';
+                keyInput.classList.add('shake');
+                keyInput.value = '';
+                setTimeout(() => keyInput.classList.remove('shake'), 500);
+                return;
+            }
+            
+            // Valid key - show info
+            errorMsg.style.display = 'none';
+            keyInput.style.borderColor = 'var(--accent-green)';
+            
+            tierInfo.textContent = `Tier: ${parsed.tier.name}`;
+            durationInfo.textContent = parsed.tier.days 
+                ? `Duration: ${parsed.tier.days} days from activation`
+                : 'Duration: Perpetual (never expires)';
+            warningBox.textContent = getLicenseWarning(companyVal);
+            infoBox.style.display = 'block';
+            
+            btnText.textContent = 'Activating...';
+            btn.disabled = true;
+            
+            // Store and proceed
+            setTimeout(() => {
+                storeLicense(parsed.fullKey, parsed.prefix, companyVal);
+                
+                gate.style.transition = 'opacity 0.5s ease-out';
+                gate.style.opacity = '0';
+                
+                setTimeout(() => {
+                    gate.style.display = 'none';
+                    ensureLoaderVisible();
+                    
+                    setTimeout(() => {
+                        dismissLoader();
+                        const info = isLicenseValid();
+                        updateHeaderBadge(info);
+                        scheduleInstallGuidePopup();
+                    }, 3200);
+                }, 500);
+            }, 1000);
+        });
 
-            findBtn.innerHTML = 'Analyzing...';
-            findBtn.disabled = true;
-            findBtn.style.backgroundColor = 'var(--secondary)';
+        // Enter key support
+        keyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
+        companyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
+
+        // Install guide popup
+        function isRunningStandalone() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                   window.matchMedia('(display-mode: fullscreen)').matches ||
+                   window.navigator.standalone === true;
+        }
+
+        function scheduleInstallGuidePopup() {
+            const hideFlag = localStorage.getItem('phein_hide_install_popup');
+            if (isRunningStandalone() || hideFlag === 'true') return;
+            
+            setTimeout(() => {
+                document.getElementById('install-guide-modal').style.display = 'flex';
+            }, 6000);
+        }
+
+        // Install guide done button
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('install-guide-modal');
+            const doneBtn = document.getElementById('install-guide-done');
+            const checkbox = document.getElementById('dont-remind-install');
+
+            if (doneBtn) {
+                doneBtn.addEventListener('click', function() {
+                    if (checkbox && checkbox.checked) {
+                        localStorage.setItem('phein_hide_install_popup', 'true');
+                    }
+                    modal.style.display = 'none';
+                });
+            }
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+        });
+
+    })();
+    // === END MortZKey License System ===
+
+    // === ORIGINAL APPLICATION JAVASCRIPT ===
+    
+    // Security: Disable Right Click & Source Viewing
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+    }
+
+    // Modal Logic
+    const privacyModal = document.getElementById('privacy-modal');
+    const helpModal = document.getElementById('help-modal');
+
+    function openPrivacyModal() { privacyModal.style.display = 'flex'; }
+    function closePrivacyModal() { privacyModal.style.display = 'none'; }
+    
+    function openHelpModal() { helpModal.style.display = 'flex'; }
+    function closeHelpModal() { helpModal.style.display = 'none'; }
+    
+    window.onclick = function(event) {
+        if (event.target == privacyModal) closePrivacyModal();
+        if (event.target == helpModal) closeHelpModal();
+    }
+
+    // State Management
+    const state = {
+        criteria: { title: '', keywords: [] },
+        cvs: [], 
+        limit: 5
+    };
+
+    // DOM Elements
+    const mustHaveInput = document.getElementById('must-have-skills');
+    const mustHaveList = document.getElementById('must-have-list');
+    const cvNameInput = document.getElementById('cv-name-input');
+    const cvTextInput = document.getElementById('cv-text-input');
+    const cvListEl = document.getElementById('cv-list');
+    const limitInput = document.getElementById('limit-to');
+    const dropZone = document.getElementById('drop-zone');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const findBtn = document.getElementById('find-btn');
+
+    // Event Listeners
+    mustHaveInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        const keywords = val.split(',').map(k => k.trim()).filter(k => k.length > 0);
+        state.criteria.keywords = keywords;
+        renderKeywords();
+    });
+
+    limitInput.addEventListener('change', (e) => {
+        state.limit = parseInt(e.target.value) || 5;
+    });
+
+    // Drag and Drop Logic
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        handleFiles(files);
+    });
+
+    // Core Functions
+    async function handleFiles(files) {
+        Array.from(files).forEach(async (file) => {
+            loadingSpinner.style.display = 'flex';
+            try {
+                let extractedText = "";
+                let candidateName = file.name;
+
+                if (file.type === "application/pdf") {
+                    extractedText = await extractTextFromPDF(file);
+                } else if (file.type === "text/plain") {
+                    extractedText = await readFileAsText(file);
+                } else {
+                    showToast("Unsupported file type.", "error");
+                    loadingSpinner.style.display = 'none';
+                    return;
+                }
+
+                const lines = extractedText.split('\n').filter(l => l.trim().length > 0);
+                if (lines.length > 0) {
+                    if (lines[0].split(' ').length >= 2 && lines[0].split(' ').length <= 4) {
+                        candidateName = lines[0];
+                    }
+                }
+
+                cvNameInput.value = candidateName;
+                cvTextInput.value = extractedText;
+                showToast(`Parsed: ${file.name}. Click 'Add Candidate' to confirm.`);
+            } catch (error) {
+                console.error(error);
+                showToast("Error parsing file.", "error");
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    }
+
+    function readFileAsText(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.onerror = reject;
+            reader.readAsText(file);
+        });
+    }
+
+    async function extractTextFromPDF(file) {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        let fullText = "";
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items.map(item => item.str).join(' ');
+            fullText += pageText + "\n";
+        }
+        return fullText;
+    }
+
+    function addCvManually() {
+        const name = cvNameInput.value.trim();
+        const content = cvTextInput.value.trim();
+        if (!name || !content) {
+            showToast("Please enter both a name and CV content.");
+            return;
+        }
+        addCvToState(name, content);
+        cvNameInput.value = '';
+        cvTextInput.value = '';
+    }
+
+    function addCvToState(name, content) {
+        const newCv = {
+            id: Date.now() + Math.random().toString(36).substr(2, 9),
+            name: name,
+            content: content
+        };
+        state.cvs.push(newCv);
+        renderCvList();
+        showToast(`Added CV for ${name}`);
+    }
+
+    function removeCv(id) {
+        state.cvs = state.cvs.filter(cv => cv.id !== id);
+        renderCvList();
+    }
+
+    function renderKeywords() {
+        mustHaveList.innerHTML = state.criteria.keywords.map(k => `<div class="keyword-tag">${k}</div>`).join('');
+    }
+
+    function renderCvList() {
+        cvListEl.innerHTML = state.cvs.map(cv => `
+            <li class="cv-item">
+                <strong>${cv.name}</strong>
+                <button onclick="removeCv('${cv.id}')">Remove</button>
+            </li>
+        `).join('');
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 3000);
+    }
+
+    // The Phein Algorithm
+    function runScreeningProcess() {
+        if (state.cvs.length === 0) {
+            showToast("Please add at least one CV.");
+            return;
+        }
+        if (state.criteria.keywords.length === 0) {
+            showToast("Please define at least one skill/keyword.");
+            mustHaveInput.focus();
+            return;
+        }
+
+        findBtn.innerHTML = 'Analyzing...';
+        findBtn.disabled = true;
+        findBtn.style.backgroundColor = 'var(--secondary)';
+
+        setTimeout(() => {
+            const results = state.cvs.map(cv => calculateScore(cv));
+            results.sort((a, b) => b.score - a.score);
+            const topCandidates = results.slice(0, state.limit);
+            
+            renderResults(topCandidates);
+
+            findBtn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Candidates Found
+            `;
+            findBtn.style.backgroundColor = 'var(--accent-green)';
+            findBtn.disabled = false;
 
             setTimeout(() => {
-                const results = state.cvs.map(cv => calculateScore(cv));
-                results.sort((a, b) => b.score - a.score);
-                const topCandidates = results.slice(0, state.limit);
-                
-                renderResults(topCandidates);
-
                 findBtn.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    Candidates Found
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Find Top Candidates
                 `;
-                findBtn.style.backgroundColor = 'var(--accent-green)';
-                findBtn.disabled = false;
+                findBtn.style.backgroundColor = 'var(--text-main)';
+            }, 3000);
 
-                setTimeout(() => {
-                    findBtn.innerHTML = `
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        Find Top Candidates
-                    `;
-                    findBtn.style.backgroundColor = 'var(--text-main)';
-                }, 3000);
+        }, 800);
+    }
 
-            }, 800);
+    function calculateScore(cv) {
+        const textLower = cv.content.toLowerCase();
+        const keywords = state.criteria.keywords.map(k => k.toLowerCase());
+        let matches = [];
+        let score = 0;
+
+        keywords.forEach(kw => {
+            const regex = new RegExp(`\\b${kw}\\b`, 'i');
+            const found = regex.test(textLower);
+            if (found) {
+                score += 10;
+                matches.push(kw);
+            }
+        });
+
+        const expPattern = /(\d+|\w+)\s+years?\s+(of)?\s?(experience)?/gi;
+        const expMatches = cv.content.match(expPattern);
+        let experienceBonus = 0;
+        if (expMatches) {
+            experienceBonus = Math.min(expMatches.length * 2, 20); 
         }
 
-        function calculateScore(cv) {
-            const textLower = cv.content.toLowerCase();
-            const keywords = state.criteria.keywords.map(k => k.toLowerCase());
-            let matches = [];
-            let score = 0;
+        score += experienceBonus;
 
-            keywords.forEach(kw => {
-                const regex = new RegExp(`\\b${kw}\\b`, 'i');
-                const found = regex.test(textLower);
-                if (found) {
-                    score += 10;
-                    matches.push(kw);
-                }
-            });
+        return {
+            id: cv.id,
+            name: cv.name,
+            score: score,
+            matches: matches,
+            totalKeywords: keywords.length,
+            expBonus: experienceBonus
+        };
+    }
 
-            const expPattern = /(\d+|\w+)\s+years?\s+(of)?\s?(experience)?/gi;
-            const expMatches = cv.content.match(expPattern);
-            let experienceBonus = 0;
-            if (expMatches) {
-                experienceBonus = Math.min(expMatches.length * 2, 20); 
-            }
+    function renderResults(candidates) {
+        const container = document.getElementById('results-container');
+        const output = document.getElementById('candidates-output');
+        const emptyState = document.getElementById('empty-state');
 
-            score += experienceBonus;
+        emptyState.style.display = 'none';
+        container.style.display = 'block';
 
-            return {
-                id: cv.id,
-                name: cv.name,
-                score: score,
-                matches: matches,
-                totalKeywords: keywords.length,
-                expBonus: experienceBonus
-            };
+        if (candidates.length === 0) {
+            output.innerHTML = '<p style="text-align:center; color:var(--text-muted)">No candidates matched your criteria.</p>';
+            return;
         }
 
-        function renderResults(candidates) {
-            const container = document.getElementById('results-container');
-            const output = document.getElementById('candidates-output');
-            const emptyState = document.getElementById('empty-state');
+        output.innerHTML = candidates.map((c, index) => {
+            const rankClass = index < 3 ? `rank-${index + 1}` : '';
+            const missingCount = c.totalKeywords - c.matches.length;
 
-            emptyState.style.display = 'none';
-            container.style.display = 'block';
-
-            if (candidates.length === 0) {
-                output.innerHTML = '<p style="text-align:center; color:var(--text-muted)">No candidates matched your criteria.</p>';
-                return;
-            }
-
-            output.innerHTML = candidates.map((c, index) => {
-                const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                const missingCount = c.totalKeywords - c.matches.length;
-
-                return `
-                <div class="candidate-card ${rankClass}">
-                    <div class="candidate-header">
-                        <div>
-                            <div class="candidate-name">#${index + 1} ${c.name}</div>
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">
-                                ${c.matches.length}/${c.totalKeywords} skills matched
-                                ${c.expBonus > 0 ? ` • +Experience bonus` : ''}
-                            </div>
+            return `
+            <div class="candidate-card ${rankClass}">
+                <div class="candidate-header">
+                    <div>
+                        <div class="candidate-name">#${index + 1} ${c.name}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">
+                            ${c.matches.length}/${c.totalKeywords} skills matched
+                            ${c.expBonus > 0 ? ` • +Experience bonus` : ''}
                         </div>
-                        <div class="candidate-score">${c.score} pts</div>
                     </div>
-                    
-                    <div class="match-details">
-                        <span>Matched Skills:</span>
-                        ${c.matches.length > 0 
-                            ? c.matches.map(m => `<span class="match-pill">${capitalize(m)}</span>`).join('') 
-                            : '<span>None</span>'}
-                        
-                        ${missingCount > 0 
-                            ? `<span>Missing: <span class="missing-pill">${missingCount} skills</span></span>` 
-                            : ''}
-                    </div>
+                    <div class="candidate-score">${c.score} pts</div>
                 </div>
-                `;
-            }).join('');
+                
+                <div class="match-details">
+                    <span>Matched Skills:</span>
+                    ${c.matches.length > 0 
+                        ? c.matches.map(m => `<span class="match-pill">${capitalize(m)}</span>`).join('') 
+                        : '<span>None</span>'}
+                    
+                    ${missingCount > 0 
+                        ? `<span>Missing: <span class="missing-pill">${missingCount} skills</span></span>` 
+                        : ''}
+                </div>
+            </div>
+            `;
+        }).join('');
 
-            if(window.innerWidth < 768) {
-                document.getElementById('results-panel').scrollIntoView({behavior: 'smooth'});
-            }
+        if(window.innerWidth < 768) {
+            document.getElementById('results-panel').scrollIntoView({behavior: 'smooth'});
         }
+    }
 
-        function capitalize(s) {
-            return s.charAt(0).toUpperCase() + s.slice(1);
+    function capitalize(s) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    // Export to CSV
+    const exportBtn = document.getElementById('export-btn');
+    exportBtn.addEventListener('click', () => {
+        if (state.cvs.length === 0) {
+            showToast("No data to export.");
+            return;
         }
-
-        // --- Export to CSV ---
-        const exportBtn = document.getElementById('export-btn');
-        exportBtn.addEventListener('click', () => {
-            if (state.cvs.length === 0) {
-                showToast("No data to export.");
-                return;
-            }
-            const criteria = state.criteria.keywords.map(k => k.toLowerCase());
-            let scoredData = state.cvs.map(cv => {
-                const textLower = cv.content.toLowerCase();
-                let score = 0;
-                let matchedSkills = [];
-                criteria.forEach(kw => {
-                    const regex = new RegExp(`\\b${kw}\\b`, 'i');
-                    if (regex.test(textLower)) {
-                        score += 10;
-                        matchedSkills.push(kw);
-                    }
-                });
-                return { name: cv.name, score: score, skills: matchedSkills.join(', ') };
+        const criteria = state.criteria.keywords.map(k => k.toLowerCase());
+        let scoredData = state.cvs.map(cv => {
+            const textLower = cv.content.toLowerCase();
+            let score = 0;
+            let matchedSkills = [];
+            criteria.forEach(kw => {
+                const regex = new RegExp(`\\b${kw}\\b`, 'i');
+                if (regex.test(textLower)) {
+                    score += 10;
+                    matchedSkills.push(kw);
+                }
             });
-
-            scoredData.sort((a, b) => b.score - a.score);
-
-            const headers = ['Rank', 'Candidate Name', 'Score (Points)', 'Matched Skills'];
-            const csvRows = [headers.join(',')];
-
-            scoredData.forEach((row, index) => {
-                const values = [
-                    index + 1,
-                    `"${row.name.replace(/"/g, '""')}"`,
-                    row.score,
-                    `"${row.skills}"`
-                ];
-                csvRows.push(values.join(','));
-            });
-
-            const csvString = csvRows.join('\n');
-            const blob = new Blob([csvString], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.setAttribute('hidden', '');
-            a.setAttribute('href', url);
-            a.setAttribute('download', 'Phein_Top_Candidates.csv');
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            
-            showToast("Report downloaded to Excel!");
+            return { name: cv.name, score: score, skills: matchedSkills.join(', ') };
         });
 
-        // === ✦ MOBILE BLOCK SCRIPT (unchanged) ===
-        (function() {
-            'use strict';
-            
-            const mobileModal = document.getElementById('mobile-block-modal');
-            const exitBtn = document.getElementById('mobile-exit-btn');
-            
-            function isMobileDevice() {
-                const isScreenSmall = window.innerWidth <= 1024;
-                const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-                const ua = navigator.userAgent.toLowerCase();
-                const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|windows phone|opera mini|iemobile|mobile/i.test(ua);
-                const isTablet = /ipad|tablet|kindle|silk|playbook|(android(?!.*mobile))/i.test(ua);
-                return (isScreenSmall && hasTouch) || isMobileUA || isTablet;
-            }
+        scoredData.sort((a, b) => b.score - a.score);
 
-            function blockIfMobile() {
-                if (isMobileDevice()) {
-                    mobileModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.position = 'fixed';
-                    document.body.style.width = '100%';
-                } else {
-                    mobileModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                    document.body.style.position = '';
-                }
-            }
+        const headers = ['Rank', 'Candidate Name', 'Score (Points)', 'Matched Skills'];
+        const csvRows = [headers.join(',')];
 
-            exitBtn.addEventListener('click', function() {
-                const exitConfirm = confirm('Phein Screener is designed exclusively for desktop workstations.\n\nPlease access this application from a PC or laptop.');
-                if (exitConfirm) {
-                    window.close();
-                    document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#0f172a;color:white;"><h1 style="margin-bottom:1rem;">PC Only</h1><p>Please return on a desktop computer.</p><button onclick="history.back()" style="margin-top:2rem;padding:0.75rem 2rem;background:#2563eb;color:white;border:none;border-radius:8px;">Go Back</button></div>';
-                }
-            });
+        scoredData.forEach((row, index) => {
+            const values = [
+                index + 1,
+                `"${row.name.replace(/"/g, '""')}"`,
+                row.score,
+                `"${row.skills}"`
+            ];
+            csvRows.push(values.join(','));
+        });
 
-            window.addEventListener('resize', blockIfMobile);
-            window.addEventListener('orientationchange', function() { setTimeout(blockIfMobile, 50); });
-            window.addEventListener('fullscreenchange', blockIfMobile);
-            window.addEventListener('webkitfullscreenchange', blockIfMobile);
-            window.addEventListener('load', blockIfMobile);
-            blockIfMobile();
-        })();
-
-        // === END OF ADDITIONS ===
+        const csvString = csvRows.join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('hidden', '');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'Phein_Top_Candidates.csv');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
         
-        // MortApps Studios Performance Monitoring
-        window.addEventListener('load', function() {
-            var perfData = window.performance.timing;
-            var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-            
-            console.log('MortApps Studios Performance Metrics:');
-            console.log('Page Load Time:', pageLoadTime + 'ms');
-            console.log('Application: Phein Smart CV Screener v1.5');
-            console.log('Developer: MortApps Studios Nairobi');
-            console.log('Website: https://www.ipsforum.com/phein/');
+        showToast("Report downloaded to Excel!");
+    });
+
+    // Mobile Block Script
+    (function() {
+        const mobileModal = document.getElementById('mobile-block-modal');
+        const exitBtn = document.getElementById('mobile-exit-btn');
+        
+        function isMobileDevice() {
+            const isScreenSmall = window.innerWidth <= 1024;
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const ua = navigator.userAgent.toLowerCase();
+            const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|windows phone|opera mini|iemobile|mobile/i.test(ua);
+            const isTablet = /ipad|tablet|kindle|silk|playbook|(android(?!.*mobile))/i.test(ua);
+            return (isScreenSmall && hasTouch) || isMobileUA || isTablet;
+        }
+
+        function blockIfMobile() {
+            if (isMobileDevice()) {
+                mobileModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+            } else {
+                mobileModal.style.display = 'none';
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+            }
+        }
+
+        exitBtn.addEventListener('click', function() {
+            const exitConfirm = confirm('Phein Screener is designed exclusively for desktop workstations.\n\nPlease access this application from a PC or laptop.');
+            if (exitConfirm) {
+                window.close();
+                document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#0f172a;color:white;"><h1 style="margin-bottom:1rem;">PC Only</h1><p>Please return on a desktop computer.</p><button onclick="history.back()" style="margin-top:2rem;padding:0.75rem 2rem;background:#2563eb;color:white;border:none;border-radius:8px;">Go Back</button></div>';
+            }
         });
+
+        window.addEventListener('resize', blockIfMobile);
+        window.addEventListener('orientationchange', function() { setTimeout(blockIfMobile, 50); });
+        window.addEventListener('fullscreenchange', blockIfMobile);
+        window.addEventListener('webkitfullscreenchange', blockIfMobile);
+        window.addEventListener('load', blockIfMobile);
+        blockIfMobile();
+    })();
     </script>
-    
-    <!-- MortApps Studios Performance Analytics (Hidden) -->
-    <div style="display: none;">
-        <script>
-        (function() {
-            var msTracker = document.createElement('script');
-            msTracker.src = 'https://tracking.mortappsstudios.com/v1/phein.js';
-            msTracker.async = true;
-            msTracker.setAttribute('data-site-id', 'PHEIN_SCREENER_2026');
-            msTracker.setAttribute('data-version', '1.5');
-            document.head.appendChild(msTracker);
-        })();
-        </script>
-    </div>
 </body>
 </html>
-
