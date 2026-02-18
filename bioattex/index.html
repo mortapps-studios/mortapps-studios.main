@@ -78,7 +78,7 @@
             padding: 1.5rem;
         }
         .license-card {
-            background: white; width: 100%; max-width: 400px;
+            background: white; width: 100%; max-width: 420px;
             border-radius: 16px; padding: 2rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
@@ -97,21 +97,26 @@
             gap: 0.5rem;
         }
         .license-logo svg { width: 36px; height: 36px; }
-        .license-sub { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .license-sub { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 0.9rem; }
         
         .license-input {
             width: 100%; 
-            padding: 1rem; 
-            margin-bottom: 1rem; 
+            padding: 0.9rem; 
+            margin-bottom: 0.75rem; 
             border: 2px solid var(--border);
             border-radius: 8px; 
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-align: center; 
-            letter-spacing: 3px; 
+            letter-spacing: 2px; 
             transition: border-color 0.3s ease;
+            text-transform: uppercase;
         }
         .license-input:focus { border-color: var(--primary); outline: none; }
         .license-input.error { border-color: var(--danger); animation: shake 0.5s ease; }
+        .license-input.company-input {
+            letter-spacing: normal;
+            text-transform: none;
+        }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         
         .btn-launch {
@@ -124,11 +129,46 @@
         .btn-launch:active { transform: translateY(0); }
         .btn-launch:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
-        .license-footer { margin-top: 1.5rem; font-size: 0.8rem; color: #64748b; }
+        .license-footer { margin-top: 1.25rem; font-size: 0.8rem; color: #64748b; }
         .license-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
         
+        .license-info-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 0.75rem;
+            display: none;
+            text-align: left;
+        }
+        .license-info-box h4 {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .license-info-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        
+        .license-warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #92400e;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
         .license-expiry-notice {
-            margin-top: 1rem;
+            margin-top: 0.75rem;
             padding: 0.75rem;
             background: #fef3c7;
             border: 1px solid #fcd34d;
@@ -245,7 +285,6 @@
             content: ''; flex: 1; height: 1px; background: var(--border);
         }
         
-        /* Install Instructions Box */
         .install-instructions {
             background: #f8fafc;
             border-radius: 12px;
@@ -314,6 +353,19 @@
         }
         .brand { font-size: 1.3rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 0.4rem; }
         .brand svg { width: 28px; height: 28px; flex-shrink: 0; }
+        
+        .license-badge {
+            background: linear-gradient(135deg, var(--accent), #2563eb);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .license-badge.expiring {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
         
         .nav-group { display: flex; gap: 0.4rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .nav-btn {
@@ -532,29 +584,39 @@
             .install-popup { padding: 1.5rem; }
             .install-popup h3 { font-size: 1.15rem; }
             .install-btn { padding: 0.8rem 1rem; font-size: 0.9rem; }
+            .license-card { padding: 1.5rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- LICENSE SCREEN -->
+    <!-- LICENSE SCREEN - MortZKey System -->
     <div id="license-screen">
         <div class="license-card">
             <div class="license-logo">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/></svg>
                 Bioattex
             </div>
-            <div class="license-sub">Enterprise Edition</div>
-            <input type="password" id="license-key" class="license-input" placeholder="Enter License Key" autocomplete="off" maxlength="20">
+            <div class="license-sub">Software Activation Required</div>
+            <input type="text" id="license-key" class="license-input" placeholder="License Key (e.g., PR-BKXY78-MN90P)" autocomplete="off" maxlength="20">
+            <input type="text" id="company-name" class="license-input company-input" placeholder="Company Name" autocomplete="off">
+            <div id="license-error" style="color:var(--danger); font-size:0.85rem; min-height:1.2em; margin-bottom:0.5rem;"></div>
+            
+            <div class="license-info-box" id="license-info-box">
+                <h4>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    License Validated
+                </h4>
+                <p id="license-tier-info"></p>
+                <p id="license-duration-info"></p>
+                <div class="license-warning-box" id="license-warning-box"></div>
+            </div>
+            
             <button id="btn-verify-license" type="button" class="btn-launch">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Verify License
+                Activate License
             </button>
-            <div id="license-error" style="color:var(--danger); font-size:0.85rem; min-height:1.2em; margin-top:0.75rem;"></div>
-            <div id="license-expiry-notice" class="license-expiry-notice" style="display:none;">
-                <strong>License Expired!</strong><br>
-                Please enter a valid license key to continue.
-            </div>
+            
             <div class="license-footer">Powered by <a href="https://mortappsstudios.com" target="_blank">MortApps Studios</a></div>
         </div>
     </div>
@@ -582,7 +644,6 @@
                 </button>
             </div>
             
-            <!-- Desktop Install Instructions (hidden by default) -->
             <div id="desktop-instructions" class="install-instructions" style="display:none;">
                 <h4>🖥️ Install Bioattex App</h4>
                 <ol>
@@ -593,7 +654,6 @@
                 <div class="done-text">✅ Done! Bioattex will now launch like a native application.</div>
             </div>
             
-            <!-- iOS Install Instructions (hidden by default) -->
             <div id="ios-instructions" class="install-instructions" style="display:none;">
                 <h4>📱 Install on iOS:</h4>
                 <ol>
@@ -636,6 +696,7 @@
             <span>Bioattex</span>
         </div>
         <nav class="nav-group" id="main-nav">
+            <span class="license-badge" id="header-license-badge">Starter</span>
             <button class="nav-btn active" data-screen="home">Home</button>
             <button class="nav-btn hidden" id="nav-records" data-screen="records">Records</button>
             <button class="nav-btn" id="nav-admin" data-screen="admin-login">Admin</button>
@@ -650,7 +711,6 @@
                 <span>Failure to check in will be recorded as unexcused absence.</span>
             </div>
             
-            <!-- Registration Mode Banner -->
             <div class="registration-mode-overlay" id="registration-banner">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                 <span>REGISTRATION MODE - Capturing Face Data</span>
@@ -698,7 +758,6 @@
                 </div>
                 
                 <div class="settings-grid">
-                    <!-- Settings -->
                     <div class="settings-box">
                         <h3>Settings</h3>
                         <div class="input-group">
@@ -712,7 +771,6 @@
                         <button id="btn-save-settings" class="btn btn-primary btn-lg">Save Settings</button>
                     </div>
                     
-                    <!-- Data Management -->
                     <div class="settings-box">
                         <h3>Data Management</h3>
                         <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
@@ -723,7 +781,6 @@
                         <button id="btn-clear-all-data" class="btn btn-danger btn-lg">Clear All Data</button>
                     </div>
                     
-                    <!-- Registration -->
                     <div class="settings-box">
                         <h3>Register Staff</h3>
                         <div class="input-group">
@@ -737,7 +794,6 @@
                         <p id="reg-status" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--accent); min-height: 1.2em;"></p>
                     </div>
                     
-                    <!-- Contact Support -->
                     <div class="settings-box">
                         <h3>Need Help?</h3>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Contact our support team for assistance with Bioattex.</p>
@@ -833,16 +889,13 @@
     <script>
         // =====================================================
         // BIOATTEX - PROFESSIONAL BIOMETRIC ATTENDANCE SYSTEM
-        // Version 2.2 - Bug Fixes: Registration Flow & Password
+        // Version 2.3 - MortZKey License Integration
         // =====================================================
 
         'use strict';
 
         // --- CONSTANTS ---
-        const VALID_LICENSES = ['BK-04K-3M'];
-        const LICENSE_STORAGE_KEY = 'bioattex_license_data_v2';
         const DB_KEY = 'bioattex_db_v2';
-        const LICENSE_VALIDITY_DAYS = 10;
         const INSTALL_DISMISSED_KEY = 'bioattex_install_dismissed';
 
         // --- UTILITY FUNCTIONS ---
@@ -1003,7 +1056,6 @@
                 const iosInstructions = document.getElementById('ios-instructions');
                 const desktopInstructions = document.getElementById('desktop-instructions');
                 
-                // Hide both instruction sets initially
                 iosInstructions.style.display = 'none';
                 desktopInstructions.style.display = 'none';
                 
@@ -1027,7 +1079,6 @@
                 iosInstructions.style.display = 'none';
                 desktopInstructions.style.display = 'block';
                 
-                // Try to trigger PWA install if available
                 if (this.canInstall()) {
                     this.install();
                 }
@@ -1041,7 +1092,6 @@
                     iosInstructions.style.display = 'block';
                     desktopInstructions.style.display = 'none';
                 } else {
-                    // Android - try native install
                     iosInstructions.style.display = 'none';
                     desktopInstructions.style.display = 'none';
                     
@@ -1054,105 +1104,194 @@
             }
         };
 
-        // --- LICENSE MODULE ---
+        // =====================================================
+        // MortZKey License System
+        // =====================================================
         const licenseSystem = {
+            STORAGE_KEYS: {
+                key: 'bioattex_mortzkey',
+                activation: 'bioattex_mortzkey_activation',
+                tier: 'bioattex_mortzkey_tier',
+                company: 'bioattex_mortzkey_company'
+            },
+            
+            TIERS: {
+                'ST':  { name: 'Starter',        days: 90 },
+                'PR':  { name: 'Professional',   days: 365 },
+                'EN':  { name: 'Enterprise',     days: null },
+                'EPX': { name: 'Enterprise Plus', days: null }
+            },
+
             init: function() {
                 const licenseScreen = document.getElementById('license-screen');
-                const licenseData = this.getStoredLicense();
+                const licenseInfo = this.isLicenseValid();
                 
-                if (licenseData && this.isLicenseValid(licenseData)) {
+                if (licenseInfo) {
                     licenseScreen.style.display = 'none';
-                    this.bootSystem();
+                    this.bootSystem(licenseInfo);
                 } else {
-                    if (licenseData && !this.isLicenseValid(licenseData)) {
-                        document.getElementById('license-expiry-notice').style.display = 'block';
-                        this.clearLicense();
-                    }
                     licenseScreen.style.display = 'flex';
                 }
             },
 
-            getStoredLicense: function() {
-                try {
-                    const data = localStorage.getItem(LICENSE_STORAGE_KEY);
-                    return data ? JSON.parse(data) : null;
-                } catch (e) {
-                    return null;
+            generateChecksum: function(prefix, productCode, segment1, segment2) {
+                const combined = prefix + productCode + segment1 + segment2;
+                let sum = 0;
+                for (let i = 0; i < combined.length; i++) {
+                    sum += combined.charCodeAt(i);
                 }
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                return chars.charAt(sum % chars.length);
             },
 
-            isLicenseValid: function(licenseData) {
-                if (!licenseData || !licenseData.key || !licenseData.timestamp) {
-                    return false;
-                }
+            parseKey: function(key) {
+                if (!key || typeof key !== 'string') return null;
                 
-                if (!VALID_LICENSES.includes(licenseData.key)) {
-                    return false;
-                }
+                const cleanKey = key.trim().toUpperCase();
+                const parts = cleanKey.split('-');
                 
-                const activatedTime = licenseData.timestamp;
-                const currentTime = Date.now();
-                const daysPassed = (currentTime - activatedTime) / (1000 * 60 * 60 * 24);
+                if (parts.length !== 3) return null;
                 
-                return daysPassed < LICENSE_VALIDITY_DAYS;
+                const prefix = parts[0];
+                const middle = parts[1];
+                const end = parts[2];
+                
+                if (!this.TIERS[prefix]) return null;
+                
+                const productCode = middle.substring(0, 2);
+                if (productCode !== 'BK') return null;
+                
+                const segment1 = middle.substring(2);
+                const segment2 = end.substring(0, end.length - 1);
+                const checksum = end.charAt(end.length - 1);
+                
+                if (segment1.length !== 4 || segment2.length !== 4) return null;
+                
+                const expectedChecksum = this.generateChecksum(prefix, productCode, segment1, segment2);
+                if (checksum !== expectedChecksum) return null;
+                
+                return {
+                    prefix: prefix,
+                    tier: this.TIERS[prefix],
+                    fullKey: cleanKey
+                };
             },
 
-            getDaysRemaining: function() {
-                const licenseData = this.getStoredLicense();
-                if (!licenseData) return 0;
+            isLicenseValid: function() {
+                const savedKey = localStorage.getItem(this.STORAGE_KEYS.key);
+                const savedActivation = localStorage.getItem(this.STORAGE_KEYS.activation);
+                const savedTier = localStorage.getItem(this.STORAGE_KEYS.tier);
+                const savedCompany = localStorage.getItem(this.STORAGE_KEYS.company);
                 
-                const activatedTime = licenseData.timestamp;
-                const currentTime = Date.now();
-                const daysPassed = (currentTime - activatedTime) / (1000 * 60 * 60 * 24);
+                if (!savedKey || !savedActivation || !savedTier) return null;
                 
-                return Math.max(0, Math.ceil(LICENSE_VALIDITY_DAYS - daysPassed));
+                const parsed = this.parseKey(savedKey);
+                if (!parsed) return null;
+                
+                const tier = this.TIERS[savedTier];
+                if (!tier) return null;
+                
+                const activationDate = new Date(savedActivation);
+                const now = new Date();
+                
+                if (tier.days !== null) {
+                    const expirationDate = new Date(activationDate);
+                    expirationDate.setDate(expirationDate.getDate() + tier.days);
+                    
+                    if (now > expirationDate) return null;
+                    
+                    const daysRemaining = Math.ceil((expirationDate - now) / (1000 * 60 * 60 * 24));
+                    return {
+                        tier: tier,
+                        daysRemaining: daysRemaining,
+                        isPerpetual: false,
+                        company: savedCompany || 'Not specified',
+                        activationDate: savedActivation
+                    };
+                }
+                
+                return {
+                    tier: tier,
+                    daysRemaining: null,
+                    isPerpetual: true,
+                    company: savedCompany || 'Not specified',
+                    activationDate: savedActivation
+                };
+            },
+
+            storeLicense: function(key, tier, company) {
+                localStorage.setItem(this.STORAGE_KEYS.key, key);
+                localStorage.setItem(this.STORAGE_KEYS.activation, new Date().toISOString());
+                localStorage.setItem(this.STORAGE_KEYS.tier, tier);
+                if (company) {
+                    localStorage.setItem(this.STORAGE_KEYS.company, company);
+                }
             },
 
             verify: function() {
-                const input = document.getElementById('license-key');
+                const keyInput = document.getElementById('license-key');
+                const companyInput = document.getElementById('company-name');
                 const errorDiv = document.getElementById('license-error');
+                const infoBox = document.getElementById('license-info-box');
+                const tierInfo = document.getElementById('license-tier-info');
+                const durationInfo = document.getElementById('license-duration-info');
+                const warningBox = document.getElementById('license-warning-box');
                 const verifyBtn = document.getElementById('btn-verify-license');
                 
-                if (!input || !input.value.trim()) {
-                    errorDiv.textContent = 'Please enter a license key.';
-                    input.classList.add('error');
-                    setTimeout(() => input.classList.remove('error'), 500);
+                const keyValue = keyInput.value.trim();
+                const companyValue = companyInput.value.trim();
+                
+                if (!keyValue) {
+                    errorDiv.textContent = 'Please enter a license key';
+                    keyInput.classList.add('error');
+                    setTimeout(() => keyInput.classList.remove('error'), 500);
                     return;
                 }
-
-                const keyValue = input.value.trim().toUpperCase();
+                
+                if (!companyValue) {
+                    errorDiv.textContent = 'Please enter your company name';
+                    companyInput.classList.add('error');
+                    setTimeout(() => companyInput.classList.remove('error'), 500);
+                    return;
+                }
                 
                 verifyBtn.disabled = true;
                 verifyBtn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0 auto;"></div>';
-
+                
                 setTimeout(() => {
-                    if (VALID_LICENSES.includes(keyValue)) {
-                        const licenseData = {
-                            key: keyValue,
-                            timestamp: Date.now()
-                        };
-                        localStorage.setItem(LICENSE_STORAGE_KEY, JSON.stringify(licenseData));
-                        
-                        input.value = '';
+                    const parsed = this.parseKey(keyValue);
+                    
+                    if (parsed) {
                         errorDiv.textContent = '';
+                        keyInput.style.borderColor = 'var(--success)';
                         
-                        this.bootSystem(true);
+                        tierInfo.textContent = `Tier: ${parsed.tier.name}`;
+                        durationInfo.textContent = parsed.tier.days 
+                            ? `Duration: ${parsed.tier.days} days from activation`
+                            : 'Duration: Perpetual (never expires)';
+                        warningBox.textContent = `This license is registered to "${companyValue}". Unauthorized sharing is a breach of license terms.`;
+                        infoBox.style.display = 'block';
+                        
+                        verifyBtn.innerHTML = 'Activating...';
+                        
+                        setTimeout(() => {
+                            this.storeLicense(parsed.fullKey, parsed.prefix, companyValue);
+                            this.bootSystem(this.isLicenseValid(), true);
+                        }, 1000);
                     } else {
-                        errorDiv.textContent = 'Invalid license key. Please try again.';
-                        input.classList.add('error');
-                        setTimeout(() => input.classList.remove('error'), 500);
+                        errorDiv.textContent = 'Invalid license key or wrong product (BioAttex requires BK- prefix)';
+                        keyInput.classList.add('error');
+                        keyInput.style.borderColor = 'var(--danger)';
+                        setTimeout(() => keyInput.classList.remove('error'), 500);
+                        keyInput.value = '';
                         
                         verifyBtn.disabled = false;
-                        verifyBtn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Verify License';
+                        verifyBtn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Activate License';
                     }
                 }, 500);
             },
 
-            clearLicense: function() {
-                localStorage.removeItem(LICENSE_STORAGE_KEY);
-            },
-
-            bootSystem: function(showInstallPrompt) {
+            bootSystem: function(licenseInfo, showInstallPrompt) {
                 const licenseScreen = document.getElementById('license-screen');
                 const loadingScreen = document.getElementById('loading-screen');
                 const loadingStatus = document.getElementById('loading-status');
@@ -1178,6 +1317,7 @@
                     loadingStatus.textContent = 'Preparing interface...';
                     
                     admin.renderEmpList();
+                    this.updateHeaderBadge(licenseInfo);
                     
                     setTimeout(() => {
                         loadingScreen.style.opacity = '0';
@@ -1186,11 +1326,6 @@
                             document.getElementById('main-header').style.display = 'flex';
                             document.getElementById('main-content').style.display = 'flex';
                             document.getElementById('main-footer').style.display = 'block';
-                            
-                            const daysLeft = this.getDaysRemaining();
-                            if (daysLeft <= 3) {
-                                utils.showToast(`License expires in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}. Renew soon!`);
-                            }
                             
                             if (showInstallPrompt) {
                                 setTimeout(() => {
@@ -1209,6 +1344,7 @@
                             document.getElementById('main-header').style.display = 'flex';
                             document.getElementById('main-content').style.display = 'flex';
                             document.getElementById('main-footer').style.display = 'block';
+                            this.updateHeaderBadge(licenseInfo);
                             
                             if (showInstallPrompt) {
                                 setTimeout(() => {
@@ -1218,6 +1354,23 @@
                         }, 500);
                     }, 1000);
                 });
+            },
+            
+            updateHeaderBadge: function(licenseInfo) {
+                const badge = document.getElementById('header-license-badge');
+                if (!badge || !licenseInfo) return;
+                
+                badge.textContent = licenseInfo.tier.name;
+                
+                if (licenseInfo.isPerpetual) {
+                    badge.classList.remove('expiring');
+                } else if (licenseInfo.daysRemaining <= 14) {
+                    badge.classList.add('expiring');
+                    badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                } else {
+                    badge.classList.remove('expiring');
+                    badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                }
             }
         };
 
@@ -1292,9 +1445,7 @@
                         
                         this.lastDetection = detections.length > 0 ? detections[0] : null;
                     }
-                } catch (e) {
-                    // Silent fail
-                }
+                } catch (e) {}
                 
                 requestAnimationFrame(() => this.detectionLoop());
             },
@@ -1421,7 +1572,6 @@
                     btn.textContent = 'Camera Active';
                     btn.style.backgroundColor = '#ef4444';
                     
-                    // Only enable scan button if NOT in registration mode
                     if (!admin.isRegistering) {
                         scanBtn.disabled = false;
                     }
@@ -1473,7 +1623,6 @@
             isScanning: false,
 
             initiateScan: async function() {
-                // CRITICAL: Do NOT trigger check-in if we're in registration mode
                 if (admin.isRegistering) {
                     console.log('Registration mode active - scan blocked');
                     return;
@@ -1666,11 +1815,9 @@
                 this.tempName = '';
                 this.tempId = '';
                 
-                // Hide registration banner
                 const banner = document.getElementById('registration-banner');
                 if (banner) banner.classList.remove('show');
                 
-                // Show warning box again
                 const warningBox = document.getElementById('warning-box');
                 if (warningBox) warningBox.style.display = 'flex';
                 
@@ -1683,7 +1830,6 @@
                 const saveBtn = document.getElementById('btn-reg-save');
                 if (saveBtn) saveBtn.disabled = true;
                 
-                // Re-enable scan button if camera is on
                 const scanBtn = document.getElementById('btn-scan');
                 if (scanBtn && camera.stream) {
                     scanBtn.disabled = false;
@@ -1704,7 +1850,6 @@
                 const pinInput = document.getElementById('new-pin');
                 const timeInput = document.getElementById('late-threshold');
                 
-                // Password can be letters, numbers, or both - minimum 4 characters
                 if (pinInput.value && pinInput.value.length >= 4) {
                     db.data.pin = pinInput.value;
                     pinInput.value = '';
@@ -1778,15 +1923,12 @@
                 this.tempId = id;
                 this.tempDescriptors = [];
                 
-                // Show registration banner
                 const banner = document.getElementById('registration-banner');
                 if (banner) banner.classList.add('show');
                 
-                // Hide warning box during registration
                 const warningBox = document.getElementById('warning-box');
                 if (warningBox) warningBox.style.display = 'none';
                 
-                // Disable scan button during registration
                 const scanBtn = document.getElementById('btn-scan');
                 if (scanBtn) scanBtn.disabled = true;
                 
@@ -1794,7 +1936,6 @@
                 
                 if (!camera.stream) {
                     camera.start().then(() => {
-                        // After camera starts, disable scan button again (camera.start enables it)
                         setTimeout(() => {
                             if (this.isRegistering && scanBtn) {
                                 scanBtn.disabled = true;
@@ -1811,7 +1952,6 @@
             },
 
             captureLoop: function() {
-                // Only continue if still in registration mode
                 if (!this.isRegistering) return;
                 
                 const statusMsg = document.getElementById('status-msg');
@@ -1823,14 +1963,11 @@
                         statusMsg.textContent = `Capturing... ${this.tempDescriptors.length}/3`;
                         setTimeout(() => this.captureLoop(), 800);
                     } else {
-                        // Done capturing - return to dashboard
                         this.isRegistering = false;
                         
-                        // Hide registration banner
                         const banner = document.getElementById('registration-banner');
                         if (banner) banner.classList.remove('show');
                         
-                        // Show warning box again
                         const warningBox = document.getElementById('warning-box');
                         if (warningBox) warningBox.style.display = 'flex';
                         
@@ -2031,7 +2168,6 @@
             },
 
             bindEvents: function() {
-                // Navigation
                 document.querySelectorAll('.nav-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const screen = btn.getAttribute('data-screen');
@@ -2039,25 +2175,17 @@
                     });
                 });
                 
-                // Camera
                 document.getElementById('btn-cam-toggle').addEventListener('click', () => camera.toggle());
-                
-                // Scan
                 document.getElementById('btn-scan').addEventListener('click', () => scanner.initiateScan());
-                
-                // Refresh
                 document.getElementById('btn-refresh').addEventListener('click', () => this.refreshSystem());
                 
-                // Admin login - Enter key support
                 document.getElementById('btn-admin-login').addEventListener('click', () => admin.login());
                 document.getElementById('pin-input').addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') admin.login();
                 });
                 
-                // Back to home
                 document.getElementById('back-to-home').addEventListener('click', () => this.nav('home'));
                 
-                // Admin actions
                 document.getElementById('btn-station-mode').addEventListener('click', () => admin.toggleStationMode());
                 document.getElementById('btn-admin-logout').addEventListener('click', () => admin.logout());
                 document.getElementById('btn-save-settings').addEventListener('click', () => admin.saveSettings());
@@ -2069,7 +2197,6 @@
                     admin.importBackup(this);
                 });
                 
-                // Clear all data
                 document.getElementById('btn-clear-all-data').addEventListener('click', () => {
                     document.getElementById('modal-clear-data').style.display = 'flex';
                 });
@@ -2083,11 +2210,9 @@
                     utils.showToast('All data cleared');
                 });
                 
-                // Registration
                 document.getElementById('btn-reg-face').addEventListener('click', () => admin.startFaceRegistration());
                 document.getElementById('btn-reg-save').addEventListener('click', () => admin.completeRegistration());
                 
-                // Employee table
                 document.querySelector('#emp-table tbody').addEventListener('click', (e) => {
                     if (e.target.tagName === 'BUTTON') {
                         const empId = e.target.getAttribute('data-emp-id');
@@ -2095,17 +2220,14 @@
                     }
                 });
                 
-                // Records
                 document.getElementById('btn-clear-records').addEventListener('click', () => records.confirmDelete());
                 document.getElementById('btn-cancel-delete').addEventListener('click', () => records.closeDeleteModal());
                 document.getElementById('btn-confirm-delete').addEventListener('click', () => records.executeDelete());
                 document.getElementById('btn-download-pdf').addEventListener('click', () => records.downloadPDF());
                 
-                // Verification modal
                 document.getElementById('btn-cancel-verify').addEventListener('click', () => scanner.cancelVerify());
                 document.getElementById('btn-confirm-identity').addEventListener('click', () => scanner.confirmIdentity());
                 
-                // Install popup buttons
                 document.getElementById('btn-install-desktop').addEventListener('click', () => {
                     installManager.showDesktopInstructions();
                 });
@@ -2164,7 +2286,7 @@
         };
 
         // =====================================================
-        // SERVICE WORKER REGISTRATION - UNCONDITIONAL
+        // SERVICE WORKER REGISTRATION
         // =====================================================
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
@@ -2192,24 +2314,20 @@
 
         // --- INITIALIZATION ---
         window.addEventListener('DOMContentLoaded', () => {
-            // License verification
             document.getElementById('btn-verify-license').addEventListener('click', () => {
                 licenseSystem.verify();
             });
             
             document.getElementById('license-key').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    licenseSystem.verify();
-                }
+                if (e.key === 'Enter') licenseSystem.verify();
             });
             
-            // Initialize install manager
+            document.getElementById('company-name').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') licenseSystem.verify();
+            });
+            
             installManager.init();
-            
-            // Init app
             app.init();
-            
-            // Start license check
             licenseSystem.init();
         });
     </script>
