@@ -1,11 +1,11 @@
 // ============================================================================
 // Phein Screener – Production Service Worker
-// Version: phein-v1
+// Version: phein-v1-mortzkey
 // Cache strategy: Cache-first with network fallback & background refresh
 // Auto‑update: skipWaiting() + clients.claim() – immediate activation
 // ============================================================================
 
-const CACHE_NAME = 'phein-v1';
+const CACHE_NAME = 'phein-v1-mortzkey';
 
 // Assets to precache – all essential for offline use
 const PRECACHE_ASSETS = [
@@ -24,7 +24,7 @@ const PRECACHE_ASSETS = [
 
 // ---------- INSTALL ----------
 self.addEventListener('install', event => {
-  console.log('[SW] Installing Phein v1');
+  console.log('[SW] Installing Phein v1 (MortZKey)');
   // Precache all essential assets
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -35,7 +35,7 @@ self.addEventListener('install', event => {
 
 // ---------- ACTIVATE ----------
 self.addEventListener('activate', event => {
-  console.log('[SW] Activating Phein v1');
+  console.log('[SW] Activating Phein v1 (MortZKey)');
   // Clean up old caches (keep only current cache)
   event.waitUntil(
     caches.keys()
