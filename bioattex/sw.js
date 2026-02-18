@@ -1,18 +1,12 @@
 /**
- * Bioattex Service Worker - Auto-Update Version
- * Version: 2.2
- * 
- * HOW TO DEPLOY UPDATES:
- * 1. Make changes to your app files
- * 2. Increment CACHE_VERSION below (e.g., 'v2.2' -> 'v2.3')
- * 3. Upload all files to server
- * 4. Users will automatically get the update on next page load
+ * Bioattex Service Worker - MortZKey Version
+ * Version: 2.3-mortzkey
  * 
  * IMPORTANT: Server must serve this file with:
  * Cache-Control: no-cache, no-store, must-revalidate
  */
 
-const CACHE_VERSION = 'bioattex-v2.2';
+const CACHE_VERSION = 'bioattex-v2.3-mortzkey';
 const STATIC_CACHE = CACHE_VERSION + '-static';
 const DYNAMIC_CACHE = CACHE_VERSION + '-dynamic';
 
@@ -54,14 +48,12 @@ self.addEventListener('install', (event) => {
     
     event.waitUntil(
         Promise.all([
-            // Pre-cache static assets
             caches.open(STATIC_CACHE).then((cache) => {
                 console.log('[SW] Pre-caching static assets');
                 return cache.addAll(PRE_CACHE_ASSETS).catch(err => {
                     console.log('[SW] Some static assets failed to cache:', err);
                 });
             }),
-            // Pre-cache CDN assets
             caches.open(DYNAMIC_CACHE).then((cache) => {
                 console.log('[SW] Pre-caching CDN assets');
                 return Promise.all(
@@ -79,7 +71,6 @@ self.addEventListener('install', (event) => {
                 );
             })
         ]).then(() => {
-            // FORCE IMMEDIATE ACTIVATION - No waiting
             console.log('[SW] Skip waiting - forcing activation');
             return self.skipWaiting();
         })
@@ -94,11 +85,9 @@ self.addEventListener('activate', (event) => {
     
     event.waitUntil(
         Promise.all([
-            // Delete ALL old caches
             caches.keys().then((cacheNames) => {
                 return Promise.all(
                     cacheNames.map((cacheName) => {
-                        // Delete any cache that doesn't match current version
                         if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
                             console.log('[SW] Deleting old cache:', cacheName);
                             return caches.delete(cacheName);
@@ -106,7 +95,6 @@ self.addEventListener('activate', (event) => {
                     })
                 );
             }),
-            // TAKE CONTROL OF ALL CLIENTS IMMEDIATELY
             self.clients.claim().then(() => {
                 console.log('[SW] Claimed all clients');
             })
@@ -123,22 +111,14 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
     
-    // Skip non-GET requests
-    if (request.method !== 'GET') {
-        return;
-    }
+    if (request.method !== 'GET') return;
+    if (!url.protocol.startsWith('http')) return;
     
-    // Skip chrome-extension and other non-http(s) requests
-    if (!url.protocol.startsWith('http')) {
-        return;
-    }
-    
-    // For navigation requests (HTML pages) - Network first, then cache
+    // For navigation requests (HTML pages) - Network first
     if (request.mode === 'navigate') {
         event.respondWith(
             fetch(request)
                 .then((response) => {
-                    // Clone and cache the response
                     const responseClone = response.clone();
                     caches.open(STATIC_CACHE).then((cache) => {
                         cache.put(request, responseClone);
@@ -154,13 +134,11 @@ self.addEventListener('fetch', (event) => {
         return;
     }
     
-    // For face-api models and CDN - Cache first, background refresh
+    // For face-api models and CDN - Cache first
     if (url.href.includes('face-api') || url.href.includes('cdn.jsdelivr') || url.href.includes('cdnjs.cloudflare')) {
         event.respondWith(
             caches.match(request).then((cachedResponse) => {
-                // Return cached version immediately
                 if (cachedResponse) {
-                    // Fetch fresh version in background for next time
                     fetch(request)
                         .then(response => {
                             if (response.ok) {
@@ -170,11 +148,9 @@ self.addEventListener('fetch', (event) => {
                             }
                         })
                         .catch(() => {});
-                    
                     return cachedResponse;
                 }
                 
-                // Not cached, fetch from network
                 return fetch(request)
                     .then((response) => {
                         if (response.ok) {
@@ -190,12 +166,10 @@ self.addEventListener('fetch', (event) => {
         return;
     }
     
-    // For other requests - Cache-first strategy with background refresh
+    // For other requests - Cache-first strategy
     event.respondWith(
         caches.match(request).then((cachedResponse) => {
-            // Return cached response if available
             if (cachedResponse) {
-                // Refresh cache in background
                 fetch(request)
                     .then(response => {
                         if (response.ok) {
@@ -205,14 +179,11 @@ self.addEventListener('fetch', (event) => {
                         }
                     })
                     .catch(() => {});
-                
                 return cachedResponse;
             }
             
-            // Not in cache, fetch from network
             return fetch(request)
                 .then((response) => {
-                    // Cache successful responses
                     if (response.ok) {
                         const responseClone = response.clone();
                         caches.open(DYNAMIC_CACHE).then((cache) => {
@@ -222,29 +193,22 @@ self.addEventListener('fetch', (event) => {
                     return response;
                 })
                 .catch(() => {
-                    // Return offline fallback for images
                     if (request.destination === 'image') {
                         return new Response(
                             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="#f1f5f9" width="100" height="100"/><text x="50" y="55" text-anchor="middle" fill="#64748b" font-size="10">Offline</text></svg>',
                             { headers: { 'Content-Type': 'image/svg+xml' } }
                         );
                     }
-                    
-                    return new Response('Offline', {
-                        status: 503,
-                        statusText: 'Service Unavailable'
-                    });
+                    return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
                 });
         })
     );
 });
 
 // =====================================================
-// MESSAGE HANDLER - For manual cache clearing
+// MESSAGE HANDLER
 // =====================================================
 self.addEventListener('message', (event) => {
-    console.log('[SW] Message received:', event.data);
-    
     if (event.data === 'skipWaiting') {
         self.skipWaiting();
     }
@@ -255,40 +219,9 @@ self.addEventListener('message', (event) => {
                 return Promise.all(
                     cacheNames.map((cacheName) => caches.delete(cacheName))
                 );
-            }).then(() => {
-                // Notify the client
-                self.clients.matchAll().then(clients => {
-                    clients.forEach(client => {
-                        client.postMessage('cacheCleared');
-                    });
-                });
             })
         );
     }
-});
-
-// =====================================================
-// PUSH NOTIFICATIONS (Future feature)
-// =====================================================
-self.addEventListener('push', (event) => {
-    const options = {
-        body: event.data ? event.data.text() : 'Bioattex notification',
-        icon: './bioattex-icons/android-chrome-192x192.png',
-        badge: './bioattex-icons/favicon-32x32.png',
-        vibrate: [100, 50, 100],
-        data: { dateOfArrival: Date.now() }
-    };
-    
-    event.waitUntil(
-        self.registration.showNotification('Bioattex', options)
-    );
-});
-
-self.addEventListener('notificationclick', (event) => {
-    event.notification.close();
-    event.waitUntil(
-        clients.openWindow('./index.html')
-    );
 });
 
 console.log('[SW] Service Worker loaded - Version:', CACHE_VERSION);
