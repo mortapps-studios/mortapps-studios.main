@@ -87,7 +87,7 @@
       overflow-x: hidden;
     }
     
-    /* Background Mesh */
+    /* Background Mesh - OPTIMIZED WITH GPU ACCELERATION */
     .bg-mesh {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -96,12 +96,19 @@
       background-image: 
         radial-gradient(at 40% 20%, rgba(37, 99, 235, 0.06) 0px, transparent 50%),
         radial-gradient(at 0% 100%, rgba(37, 99, 235, 0.05) 0px, transparent 50%);
+      /* Performance Optimization */
+      transform: translateZ(0);
+      will-change: transform;
     }
     
+    /* Noise Texture Overlay - OPTIMIZED WITH GPU ACCELERATION */
     .bg-noise {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.03;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      /* Performance Optimization */
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     /* Typography */
@@ -222,7 +229,13 @@
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.05);
     }
 
-    /* Header */
+    /* Header - Optimized */
+    header {
+      /* GPU acceleration for sticky header with backdrop-filter */
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
     .nav-link {
       position: relative;
       color: var(--muted);
@@ -346,11 +359,11 @@
         <div class="grid md:grid-cols-12 gap-8 items-center">
           <div class="md:col-span-4">
             <div class="w-20 h-20 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center mb-6 shadow-sm">
-              <img src="mas-icons/phein-logo.png" alt="Phein Logo" class="w-12 h-12 object-contain">
+              <!-- Lazy Load Optimization for Product Image -->
+              <img src="mas-icons/phein-logo.png" alt="Phein Logo" class="w-12 h-12 object-contain" loading="lazy" decoding="async">
             </div>
             <h2 class="heading-lg text-secondary mb-3">Phein Screener</h2>
             <div class="flex flex-wrap gap-2 mb-4">
-              <!-- Added PC Only Tag Here -->
               <span class="license-badge" style="background-color: #e0e7ff; color: #3730a3;">PC Only</span>
               <span class="license-badge">No Cloud</span>
               <span class="license-badge">Zero Data Leakage</span>
@@ -419,7 +432,8 @@
           
           <div class="md:col-span-4 order-1 md:order-2">
             <div class="w-20 h-20 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center mb-6 shadow-sm">
-              <img src="mas-icons/bioattex-logo.png" alt="BioAttex Logo" class="w-12 h-12 object-contain">
+              <!-- Lazy Load Optimization -->
+              <img src="mas-icons/bioattex-logo.png" alt="BioAttex Logo" class="w-12 h-12 object-contain" loading="lazy" decoding="async">
             </div>
             <h2 class="heading-lg text-secondary mb-3">BioAttex</h2>
             <div class="flex flex-wrap gap-2 mb-4">
@@ -447,7 +461,8 @@
         <div class="grid md:grid-cols-12 gap-8 items-center">
           <div class="md:col-span-4">
             <div class="w-20 h-20 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6 shadow-sm">
-              <img src="mas-icons/opticore-logo.png" alt="Opticore Logo" class="w-12 h-12 object-contain">
+              <!-- Lazy Load Optimization -->
+              <img src="mas-icons/opticore-logo.png" alt="Opticore Logo" class="w-12 h-12 object-contain" loading="lazy" decoding="async">
             </div>
             <h2 class="heading-lg text-secondary mb-3">Opticore Vipro</h2>
             <div class="flex flex-wrap gap-2 mb-4">
@@ -600,5 +615,3 @@
 </body>
 
 </html>
-
-
