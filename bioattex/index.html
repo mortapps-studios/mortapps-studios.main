@@ -1168,13 +1168,42 @@
                 'EPX': { name: 'Enterprise Plus', days: null }
             },
 
-            init: function() {
+            init: async function() {
                 const licenseScreen = document.getElementById('license-screen');
-                const licenseInfo = this.isLicenseValid();
+                const savedKey = localStorage.getItem(this.STORAGE_KEYS.key);
                 
-                if (licenseInfo) {
+                if (savedKey) {
+                    // Show loading while we check license status with server
                     licenseScreen.style.display = 'none';
-                    this.bootSystem(licenseInfo);
+                    const loadingScreen = document.getElementById('loading-screen');
+                    loadingScreen.style.display = 'flex';
+                    
+                    // Call server to get real license status
+                    const status = await this.checkLicenseStatus(savedKey);
+                    
+                    if (status.success) {
+                        // License valid - boot with real data
+                        const licenseInfo = {
+                            tier: { name: status.tier_name },
+                            daysRemaining: status.days_remaining,
+                            isPerpetual: status.is_perpetual,
+                            company: status.company
+                        };
+                        this.bootSystem(licenseInfo, false);
+                    } else {
+                        // License invalid/expired - show license screen
+                        loadingScreen.style.display = 'none';
+                        licenseScreen.style.display = 'flex';
+                        
+                        if (status.error === 'EXPIRED') {
+                            document.getElementById('license-error').textContent = 'Your license has expired. Please renew to continue.';
+                        } else if (status.error === 'NOT_ACTIVATED') {
+                            localStorage.removeItem(this.STORAGE_KEYS.key);
+                            localStorage.removeItem(this.STORAGE_KEYS.company);
+                        } else {
+                            document.getElementById('license-error').textContent = status.message || 'License validation failed.';
+                        }
+                    }
                 } else {
                     licenseScreen.style.display = 'flex';
                 }
@@ -1361,18 +1390,19 @@
                 const loadingScreen = document.getElementById('loading-screen');
                 const loadingStatus = document.getElementById('loading-status');
                 
-                licenseScreen.style.opacity = '0';
-                licenseScreen.style.transition = 'opacity 0.3s ease';
-                
-                setTimeout(() => {
-                    licenseScreen.style.display = 'none';
-                    loadingScreen.style.display = 'flex';
-                    loadingScreen.style.opacity = '0';
+                // Hide license screen if visible
+                if (licenseScreen.style.display !== 'none') {
+                    licenseScreen.style.opacity = '0';
+                    licenseScreen.style.transition = 'opacity 0.3s ease';
                     
                     setTimeout(() => {
-                        loadingScreen.style.opacity = '1';
-                    }, 10);
-                }, 300);
+                        licenseScreen.style.display = 'none';
+                    }, 300);
+                }
+                
+                // Ensure loading screen is visible
+                loadingScreen.style.display = 'flex';
+                loadingScreen.style.opacity = '1';
 
                 loadingStatus.textContent = 'Loading database...';
                 db.init();
