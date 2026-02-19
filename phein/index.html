@@ -184,6 +184,10 @@
             background: linear-gradient(135deg, #f59e0b, #d97706);
         }
 
+        .license-badge.expired {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
         /* Main Layout */
         main {
             flex: 1;
@@ -293,6 +297,48 @@
         .match-details { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 1rem; flex-wrap: wrap; }
         .match-pill { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; }
         .missing-pill { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 4px; }
+
+        /* Contact Info Styles */
+        .contact-info {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .contact-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        .contact-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .contact-value {
+            color: var(--text-main);
+            font-weight: 600;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+        }
+        .contact-value a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
 
         /* Modals */
         .modal-overlay {
@@ -730,6 +776,39 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 700;
         }
+
+        /* Connection Status */
+        .connection-status {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+        .status-dot.offline {
+            background: #ef4444;
+        }
+        .status-dot.connecting {
+            background: #f59e0b;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -740,10 +819,10 @@
         <meta itemprop="applicationCategory" content="BusinessApplication, HRApplication">
         <meta itemprop="operatingSystem" content="Web">
         <meta itemprop="author" content="MortApps Studios">
-        <meta itemprop="softwareVersion" content="1.5">
+        <meta itemprop="softwareVersion" content="2.0">
     </div>
 
-    <!-- INSTALL GATE - MortZKey License System -->
+    <!-- INSTALL GATE - Backend License System -->
     <div id="install-gate">
         <div class="install-card">
             <div class="install-logo">
@@ -875,9 +954,8 @@
         <div class="modal-content">
             <h2 style="border:none; margin-bottom:1.5rem;">Data Privacy & Security</h2>
             <p style="margin-bottom:1.5rem; color:var(--text-muted);">
-                Phein operates entirely within your browser. We do not use external servers to process your data. 
-                Once you close application, all extracted text and candidate information is permanently deleted from your browser's memory. 
-                Your candidate data never leaves your computer.
+                Phein operates entirely within your browser. We do not use external servers to process your CV data. 
+                Your candidate data never leaves your computer. The license server only validates your software activation.
             </p>
             <button class="btn btn-primary" onclick="closePrivacyModal()" style="margin-top:1rem;">I Understand</button>
         </div>
@@ -922,7 +1000,7 @@
             Phein <span>Screener</span>
         </div>
         <div style="display:flex; gap:0.5rem; align-items: center;">
-            <span class="license-badge" id="header-license-badge">Starter</span>
+            <span class="license-badge" id="header-license-badge">Unlicensed</span>
             <button class="btn btn-outline" onclick="window.location.href='mailto:mortapps.studios@gmail.com'">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 Contact
@@ -1028,142 +1106,68 @@
     </footer>
 
     <div class="toast" id="toast">Message here</div>
+    
+    <!-- Connection Status -->
+    <div class="connection-status" id="connection-status">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Connected</span>
+    </div>
 
     <script>
     // ============================================================================
-    // MortZKey License System - Integrated into Phein Screener
+    // Phein Backend License System - v2.0
+    // YOUR LICENSE SERVER URL:
     // ============================================================================
+
+    const API_BASE_URL = 'https://phein-license-server-q63l.vercel.app';
+
+    // ============================================================================
+
     (function() {
         'use strict';
 
-        // License Configuration
-        const LICENSE_TIERS = {
-            'ST':  { name: 'Starter',        days: 90 },
-            'PR':  { name: 'Professional',   days: 365 },
-            'EN':  { name: 'Enterprise',     days: null },
-            'EPX': { name: 'Enterprise Plus', days: null }
-        };
-
         const STORAGE_KEYS = {
-            key: 'phein_mortzkey',
-            activation: 'phein_mortzkey_activation',
-            tier: 'phein_mortzkey_tier',
-            company: 'phein_mortzkey_company'
+            key: 'phein_license_key',
+            fingerprint: 'phein_device_fingerprint',
+            company: 'phein_company_name'
         };
 
-        // Generate checksum for key validation
-        function generateChecksum(prefix, productCode, segment1, segment2) {
-            const combined = prefix + productCode + segment1 + segment2;
-            let sum = 0;
-            for (let i = 0; i < combined.length; i++) {
-                sum += combined.charCodeAt(i);
-            }
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            return chars.charAt(sum % chars.length);
-        }
-
-        // Parse and validate license key
-        function parseLicenseKey(key) {
-            if (!key || typeof key !== 'string') return null;
+        // Device Fingerprinting
+        function generateDeviceFingerprint() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top';
+            ctx.font = '14px Arial';
+            ctx.fillText('fingerprint', 2, 2);
             
-            const cleanKey = key.trim().toUpperCase();
-            const parts = cleanKey.split('-');
+            const components = [
+                navigator.userAgent,
+                navigator.language,
+                navigator.hardwareConcurrency || '',
+                screen.width + 'x' + screen.height,
+                screen.colorDepth || '',
+                new Date().getTimezoneOffset(),
+                canvas.toDataURL()
+            ];
             
-            if (parts.length !== 3) return null;
-            
-            const prefix = parts[0];
-            const middle = parts[1];
-            const end = parts[2];
-            
-            // Validate prefix
-            if (!LICENSE_TIERS[prefix]) return null;
-            
-            // Extract product code (must be CV for Phein)
-            const productCode = middle.substring(0, 2);
-            if (productCode !== 'CV') return null;
-            
-            // Extract segments
-            const segment1 = middle.substring(2);
-            const segment2 = end.substring(0, end.length - 1);
-            const checksum = end.charAt(end.length - 1);
-            
-            if (segment1.length !== 4 || segment2.length !== 4) return null;
-            
-            // Validate checksum
-            const expectedChecksum = generateChecksum(prefix, productCode, segment1, segment2);
-            if (checksum !== expectedChecksum) return null;
-            
-            return {
-                prefix: prefix,
-                tier: LICENSE_TIERS[prefix],
-                fullKey: cleanKey
-            };
-        }
-
-        // Check if license is valid and not expired
-        function isLicenseValid() {
-            const savedKey = localStorage.getItem(STORAGE_KEYS.key);
-            const savedActivation = localStorage.getItem(STORAGE_KEYS.activation);
-            const savedTier = localStorage.getItem(STORAGE_KEYS.tier);
-            
-            if (!savedKey || !savedActivation || !savedTier) return null;
-            
-            const parsed = parseLicenseKey(savedKey);
-            if (!parsed) return null;
-            
-            const tier = LICENSE_TIERS[savedTier];
-            if (!tier) return null;
-            
-            // Check expiration
-            const activationDate = new Date(savedActivation);
-            const now = new Date();
-            
-            if (tier.days !== null) {
-                const expirationDate = new Date(activationDate);
-                expirationDate.setDate(expirationDate.getDate() + tier.days);
-                
-                if (now > expirationDate) {
-                    return null; // Expired
-                }
-                
-                const daysRemaining = Math.ceil((expirationDate - now) / (1000 * 60 * 60 * 24));
-                return {
-                    tier: tier,
-                    daysRemaining: daysRemaining,
-                    isPerpetual: false,
-                    company: localStorage.getItem(STORAGE_KEYS.company) || 'Not specified',
-                    activationDate: savedActivation
-                };
+            let fingerprint = components.join('|');
+            let hash = 0;
+            for (let i = 0; i < fingerprint.length; i++) {
+                const char = fingerprint.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
             }
             
-            // Perpetual license
-            return {
-                tier: tier,
-                daysRemaining: null,
-                isPerpetual: true,
-                company: localStorage.getItem(STORAGE_KEYS.company) || 'Not specified',
-                activationDate: savedActivation
-            };
+            return 'DEV-' + Math.abs(hash).toString(36).toUpperCase();
         }
 
-        // Store license
-        function storeLicense(key, tier, company) {
-            localStorage.setItem(STORAGE_KEYS.key, key);
-            localStorage.setItem(STORAGE_KEYS.activation, new Date().toISOString());
-            localStorage.setItem(STORAGE_KEYS.tier, tier);
-            if (company) {
-                localStorage.setItem(STORAGE_KEYS.company, company);
+        function getDeviceFingerprint() {
+            let fingerprint = localStorage.getItem(STORAGE_KEYS.fingerprint);
+            if (!fingerprint) {
+                fingerprint = generateDeviceFingerprint();
+                localStorage.setItem(STORAGE_KEYS.fingerprint, fingerprint);
             }
-        }
-
-        // Clear license
-        function clearLicense() {
-            Object.values(STORAGE_KEYS).forEach(k => localStorage.removeItem(k));
-        }
-
-        // Get license warning text
-        function getLicenseWarning(company) {
-            return `This license is registered to "${company}". Unauthorized sharing is a breach of license terms.`;
+            return fingerprint;
         }
 
         // DOM Elements
@@ -1179,14 +1183,7 @@
         const durationInfo = document.getElementById('license-duration-info');
         const warningBox = document.getElementById('license-warning-box');
 
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/phein/sw.js')
-                .then(reg => console.log('SW registered:', reg.scope))
-                .catch(err => console.log('SW registration failed:', err));
-        }
-
-        // Dismiss loader
+        // UI Helpers
         function dismissLoader() {
             if (loader) {
                 loader.style.opacity = '0';
@@ -1194,122 +1191,206 @@
             }
         }
 
-        // Ensure loader visible
         function ensureLoaderVisible() {
             loader.style.display = 'flex';
             loader.style.opacity = '1';
         }
 
-        // Update header badge
         function updateHeaderBadge(licenseInfo) {
             const badge = document.getElementById('header-license-badge');
             if (!badge || !licenseInfo) return;
             
-            badge.textContent = licenseInfo.tier.name;
-            
-            if (licenseInfo.isPerpetual) {
+            if (licenseInfo.is_perpetual) {
+                badge.textContent = licenseInfo.tier_name;
+                badge.classList.remove('expiring', 'expired');
+            } else if (licenseInfo.days_remaining <= 0) {
+                badge.textContent = 'Expired';
+                badge.classList.add('expired');
                 badge.classList.remove('expiring');
-            } else if (licenseInfo.daysRemaining <= 14) {
+            } else if (licenseInfo.days_remaining <= 14) {
+                badge.textContent = `${licenseInfo.tier_name} - ${licenseInfo.days_remaining}d`;
                 badge.classList.add('expiring');
-                badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                badge.classList.remove('expired');
             } else {
-                badge.classList.remove('expiring');
-                badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                badge.textContent = `${licenseInfo.tier_name} - ${licenseInfo.days_remaining}d`;
+                badge.classList.remove('expiring', 'expired');
             }
         }
 
-        // Check initial license state
-        const licenseInfo = isLicenseValid();
-        if (licenseInfo) {
-            gate.style.display = 'none';
-            ensureLoaderVisible();
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    dismissLoader();
-                    updateHeaderBadge(licenseInfo);
-                    scheduleInstallGuidePopup();
-                }, 3200);
-            });
-        } else {
-            gate.style.display = 'flex';
-            loader.style.display = 'none';
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            keyInput.style.borderColor = 'var(--accent-red)';
+            keyInput.classList.add('shake');
+            setTimeout(() => keyInput.classList.remove('shake'), 500);
         }
 
-        // Activation handler
-        btn.addEventListener('click', () => {
+        function showSuccess(data) {
+            errorMsg.style.display = 'none';
+            keyInput.style.borderColor = 'var(--accent-green)';
+            
+            tierInfo.textContent = `Tier: ${data.tier_name}`;
+            durationInfo.textContent = data.is_perpetual 
+                ? 'Duration: Perpetual (never expires)'
+                : `Duration: ${data.days_remaining} days remaining`;
+            warningBox.textContent = `Licensed to "${data.company}". This key is bound to this device.`;
+            infoBox.style.display = 'block';
+        }
+
+        // API Calls
+        async function validateLicense(licenseKey, companyName) {
+            const fingerprint = getDeviceFingerprint();
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/validate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        licenseKey: licenseKey,
+                        deviceFingerprint: fingerprint,
+                        companyName: companyName
+                    })
+                });
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Validation error:', error);
+                return {
+                    success: false,
+                    error: 'NETWORK_ERROR',
+                    message: 'Unable to connect to license server. Please check your internet connection.'
+                };
+            }
+        }
+
+        async function checkLicenseStatus(licenseKey) {
+            const fingerprint = getDeviceFingerprint();
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/check`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        licenseKey: licenseKey,
+                        deviceFingerprint: fingerprint
+                    })
+                });
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Check error:', error);
+                return {
+                    success: false,
+                    error: 'NETWORK_ERROR',
+                    message: 'Unable to verify license status.'
+                };
+            }
+        }
+
+        // Initialization
+        async function initializeLicense() {
+            const savedKey = localStorage.getItem(STORAGE_KEYS.key);
+            
+            if (!savedKey) {
+                gate.style.display = 'flex';
+                loader.style.display = 'none';
+                return;
+            }
+
+            const status = await checkLicenseStatus(savedKey);
+            
+            if (status.success) {
+                gate.style.display = 'none';
+                ensureLoaderVisible();
+                
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        dismissLoader();
+                        updateHeaderBadge(status);
+                        scheduleInstallGuidePopup();
+                    }, 3200);
+                });
+            } else {
+                gate.style.display = 'flex';
+                loader.style.display = 'none';
+                
+                if (status.error === 'EXPIRED') {
+                    showError('Your license has expired. Please renew to continue using Phein.');
+                } else if (status.error === 'NOT_ACTIVATED') {
+                    localStorage.removeItem(STORAGE_KEYS.key);
+                    localStorage.removeItem(STORAGE_KEYS.company);
+                } else {
+                    showError(status.message || 'License validation failed.');
+                }
+            }
+        }
+
+        initializeLicense();
+
+        // Activation Handler
+        btn.addEventListener('click', async () => {
             const keyVal = keyInput.value.trim();
             const companyVal = companyInput.value.trim();
             
-            // Validate inputs
             if (!keyVal) {
-                errorMsg.textContent = 'Please enter a license key';
-                errorMsg.style.display = 'block';
-                keyInput.classList.add('shake');
-                setTimeout(() => keyInput.classList.remove('shake'), 500);
+                showError('Please enter a license key');
                 return;
             }
             
             if (!companyVal) {
-                errorMsg.textContent = 'Please enter your company name';
-                errorMsg.style.display = 'block';
-                companyInput.classList.add('shake');
-                setTimeout(() => companyInput.classList.remove('shake'), 500);
+                showError('Please enter your company name');
                 return;
             }
             
-            // Parse key
-            const parsed = parseLicenseKey(keyVal);
-            
-            if (!parsed) {
-                errorMsg.textContent = 'Invalid license key format or wrong product';
-                errorMsg.style.display = 'block';
-                keyInput.style.borderColor = 'var(--accent-red)';
-                keyInput.classList.add('shake');
-                keyInput.value = '';
-                setTimeout(() => keyInput.classList.remove('shake'), 500);
-                return;
-            }
-            
-            // Valid key - show info
-            errorMsg.style.display = 'none';
-            keyInput.style.borderColor = 'var(--accent-green)';
-            
-            tierInfo.textContent = `Tier: ${parsed.tier.name}`;
-            durationInfo.textContent = parsed.tier.days 
-                ? `Duration: ${parsed.tier.days} days from activation`
-                : 'Duration: Perpetual (never expires)';
-            warningBox.textContent = getLicenseWarning(companyVal);
-            infoBox.style.display = 'block';
-            
-            btnText.textContent = 'Activating...';
+            btnText.textContent = 'Validating...';
             btn.disabled = true;
             
-            // Store and proceed
-            setTimeout(() => {
-                storeLicense(parsed.fullKey, parsed.prefix, companyVal);
+            const result = await validateLicense(keyVal, companyVal);
+            
+            if (result.success) {
+                showSuccess(result);
+                btnText.textContent = 'Activating...';
                 
-                gate.style.transition = 'opacity 0.5s ease-out';
-                gate.style.opacity = '0';
+                localStorage.setItem(STORAGE_KEYS.key, keyVal.toUpperCase());
+                localStorage.setItem(STORAGE_KEYS.company, companyVal);
                 
                 setTimeout(() => {
-                    gate.style.display = 'none';
-                    ensureLoaderVisible();
+                    gate.style.transition = 'opacity 0.5s ease-out';
+                    gate.style.opacity = '0';
                     
                     setTimeout(() => {
-                        dismissLoader();
-                        const info = isLicenseValid();
-                        updateHeaderBadge(info);
-                        scheduleInstallGuidePopup();
-                    }, 3200);
-                }, 500);
-            }, 1000);
+                        gate.style.display = 'none';
+                        ensureLoaderVisible();
+                        
+                        setTimeout(() => {
+                            dismissLoader();
+                            updateHeaderBadge(result);
+                            scheduleInstallGuidePopup();
+                        }, 3200);
+                    }, 500);
+                }, 1000);
+            } else {
+                btnText.textContent = 'Activate License';
+                btn.disabled = false;
+                
+                if (result.error === 'MAX_ACTIVATIONS') {
+                    showError('This license key has already been used on another device.');
+                } else if (result.error === 'EXPIRED') {
+                    showError('This license has expired.');
+                } else if (result.error === 'INVALID_KEY') {
+                    showError('Invalid license key. Please check and try again.');
+                } else if (result.error === 'NETWORK_ERROR') {
+                    showError('Connection error. Please check your internet and try again.');
+                } else {
+                    showError(result.message || 'License validation failed.');
+                }
+            }
         });
 
-        // Enter key support
         keyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
         companyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
 
-        // Install guide popup
+        // Install Guide Popup
         function isRunningStandalone() {
             return window.matchMedia('(display-mode: standalone)').matches ||
                    window.matchMedia('(display-mode: fullscreen)').matches ||
@@ -1325,7 +1406,6 @@
             }, 6000);
         }
 
-        // Install guide done button
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('install-guide-modal');
             const doneBtn = document.getElementById('install-guide-done');
@@ -1346,11 +1426,10 @@
         });
 
     })();
-    // === END MortZKey License System ===
+    // === END License System ===
 
     // === ORIGINAL APPLICATION JAVASCRIPT ===
     
-    // Security: Disable Right Click & Source Viewing
     document.addEventListener('contextmenu', event => event.preventDefault());
     
     document.onkeydown = function(e) {
@@ -1421,6 +1500,98 @@
         const files = e.dataTransfer.files;
         handleFiles(files);
     });
+
+    // Contact Extraction Functions
+    function extractEmail(text) {
+        if (!text || typeof text !== 'string') return null;
+        
+        const emailPatterns = [
+            /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi,
+            /[a-zA-Z0-9._%+-]+\s*@\s*[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi
+        ];
+        
+        for (const pattern of emailPatterns) {
+            const matches = text.match(pattern);
+            if (matches && matches.length > 0) {
+                let email = matches[0].replace(/\s+/g, '').toLowerCase();
+                
+                if (email.includes('@') && email.includes('.') && email.length > 5) {
+                    const excludePatterns = [
+                        /example\.com$/i, /test\.com$/i, /sample\.com$/i,
+                        /dummy\.com$/i, /yourdomain\.com$/i, /email\.com$/i
+                    ];
+                    
+                    let isValid = true;
+                    for (const exclude of excludePatterns) {
+                        if (exclude.test(email)) { isValid = false; break; }
+                    }
+                    
+                    if (isValid) return email;
+                }
+            }
+        }
+        return null;
+    }
+
+    function extractPhone(text) {
+        if (!text || typeof text !== 'string') return null;
+        
+        const phonePatterns = [
+            /\+(\d{1,4})[\s\-\.]?(\d{2,4})[\s\-\.]?(\d{3,4})[\s\-\.]?(\d{3,4})/g,
+            /\b(0[17][0-9]{1})[\s\-\.]?(\d{3})[\s\-\.]?(\d{3,4})\b/g,
+            /\(?(\d{3})\)?[\s\-\.]?(\d{3})[\s\-\.]?(\d{4})\b/g,
+            /\b(\d{10,15})\b/g
+        ];
+        
+        const phoneKeywords = ['phone', 'mobile', 'cell', 'tel', 'telephone', 'contact', 'call', 'mobile no', 'phone no'];
+        const textLower = text.toLowerCase();
+        
+        for (const keyword of phoneKeywords) {
+            const keywordIndex = textLower.indexOf(keyword);
+            if (keywordIndex !== -1) {
+                const start = Math.max(0, keywordIndex - 10);
+                const end = Math.min(text.length, keywordIndex + 50);
+                const surroundingText = text.substring(start, end);
+                
+                for (const pattern of phonePatterns) {
+                    const matches = surroundingText.match(pattern);
+                    if (matches && matches.length > 0) {
+                        const cleaned = cleanPhoneNumber(matches[0]);
+                        if (cleaned && isValidPhoneNumber(cleaned)) return cleaned;
+                    }
+                }
+            }
+        }
+        
+        for (const pattern of phonePatterns) {
+            const matches = text.match(pattern);
+            if (matches && matches.length > 0) {
+                for (const match of matches) {
+                    const cleaned = cleanPhoneNumber(match);
+                    if (cleaned && isValidPhoneNumber(cleaned)) return cleaned;
+                }
+            }
+        }
+        return null;
+    }
+
+    function cleanPhoneNumber(phone) {
+        if (!phone) return null;
+        let cleaned = phone.toString().trim();
+        const hasPlus = cleaned.startsWith('+');
+        cleaned = cleaned.replace(/[^\d]/g, '');
+        if (hasPlus && cleaned.length > 0) cleaned = '+' + cleaned;
+        const digitsOnly = cleaned.replace('+', '');
+        if (digitsOnly.length < 9 || digitsOnly.length > 15) return null;
+        return cleaned;
+    }
+
+    function isValidPhoneNumber(phone) {
+        if (!phone) return false;
+        const digitsOnly = phone.replace('+', '');
+        if (digitsOnly.length < 9 || digitsOnly.length > 15) return false;
+        return true;
+    }
 
     // Core Functions
     async function handleFiles(files) {
@@ -1494,11 +1665,7 @@
     }
 
     function addCvToState(name, content) {
-        const newCv = {
-            id: Date.now() + Math.random().toString(36).substr(2, 9),
-            name: name,
-            content: content
-        };
+        const newCv = { id: Date.now() + Math.random().toString(36).substr(2, 9), name: name, content: content };
         state.cvs.push(newCv);
         renderCvList();
         showToast(`Added CV for ${name}`);
@@ -1529,17 +1696,9 @@
         setTimeout(() => { toast.classList.remove('show'); }, 3000);
     }
 
-    // The Phein Algorithm
     function runScreeningProcess() {
-        if (state.cvs.length === 0) {
-            showToast("Please add at least one CV.");
-            return;
-        }
-        if (state.criteria.keywords.length === 0) {
-            showToast("Please define at least one skill/keyword.");
-            mustHaveInput.focus();
-            return;
-        }
+        if (state.cvs.length === 0) { showToast("Please add at least one CV."); return; }
+        if (state.criteria.keywords.length === 0) { showToast("Please define at least one skill/keyword."); mustHaveInput.focus(); return; }
 
         findBtn.innerHTML = 'Analyzing...';
         findBtn.disabled = true;
@@ -1552,21 +1711,14 @@
             
             renderResults(topCandidates);
 
-            findBtn.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                Candidates Found
-            `;
+            findBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Candidates Found`;
             findBtn.style.backgroundColor = 'var(--accent-green)';
             findBtn.disabled = false;
 
             setTimeout(() => {
-                findBtn.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    Find Top Candidates
-                `;
+                findBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Find Top Candidates`;
                 findBtn.style.backgroundColor = 'var(--text-main)';
             }, 3000);
-
         }, 800);
     }
 
@@ -1578,30 +1730,18 @@
 
         keywords.forEach(kw => {
             const regex = new RegExp(`\\b${kw}\\b`, 'i');
-            const found = regex.test(textLower);
-            if (found) {
-                score += 10;
-                matches.push(kw);
-            }
+            if (regex.test(textLower)) { score += 10; matches.push(kw); }
         });
 
         const expPattern = /(\d+|\w+)\s+years?\s+(of)?\s?(experience)?/gi;
         const expMatches = cv.content.match(expPattern);
-        let experienceBonus = 0;
-        if (expMatches) {
-            experienceBonus = Math.min(expMatches.length * 2, 20); 
-        }
-
+        let experienceBonus = expMatches ? Math.min(expMatches.length * 2, 20) : 0;
         score += experienceBonus;
 
-        return {
-            id: cv.id,
-            name: cv.name,
-            score: score,
-            matches: matches,
-            totalKeywords: keywords.length,
-            expBonus: experienceBonus
-        };
+        const email = extractEmail(cv.content);
+        const phone = extractPhone(cv.content);
+
+        return { id: cv.id, name: cv.name, score: score, matches: matches, totalKeywords: keywords.length, expBonus: experienceBonus, email: email, phone: phone };
     }
 
     function renderResults(candidates) {
@@ -1627,43 +1767,38 @@
                     <div>
                         <div class="candidate-name">#${index + 1} ${c.name}</div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">
-                            ${c.matches.length}/${c.totalKeywords} skills matched
-                            ${c.expBonus > 0 ? ` • +Experience bonus` : ''}
+                            ${c.matches.length}/${c.totalKeywords} skills matched${c.expBonus > 0 ? ` • +Experience bonus` : ''}
                         </div>
                     </div>
                     <div class="candidate-score">${c.score} pts</div>
                 </div>
-                
                 <div class="match-details">
                     <span>Matched Skills:</span>
-                    ${c.matches.length > 0 
-                        ? c.matches.map(m => `<span class="match-pill">${capitalize(m)}</span>`).join('') 
-                        : '<span>None</span>'}
-                    
-                    ${missingCount > 0 
-                        ? `<span>Missing: <span class="missing-pill">${missingCount} skills</span></span>` 
-                        : ''}
+                    ${c.matches.length > 0 ? c.matches.map(m => `<span class="match-pill">${m.charAt(0).toUpperCase() + m.slice(1)}</span>`).join('') : '<span>None</span>'}
+                    ${missingCount > 0 ? `<span>Missing: <span class="missing-pill">${missingCount} skills</span></span>` : ''}
                 </div>
-            </div>
-            `;
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span class="contact-label">Email:</span>
+                        <span class="contact-value">${c.email ? `<a href="mailto:${c.email}">${c.email}</a>` : '<span style="color:var(--text-muted)">Not found</span>'}</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span class="contact-label">Phone:</span>
+                        <span class="contact-value">${c.phone ? `<a href="tel:${c.phone}">${c.phone}</a>` : '<span style="color:var(--text-muted)">Not found</span>'}</span>
+                    </div>
+                </div>
+            </div>`;
         }).join('');
 
-        if(window.innerWidth < 768) {
-            document.getElementById('results-panel').scrollIntoView({behavior: 'smooth'});
-        }
-    }
-
-    function capitalize(s) {
-        return s.charAt(0).toUpperCase() + s.slice(1);
+        if(window.innerWidth < 768) document.getElementById('results-panel').scrollIntoView({behavior: 'smooth'});
     }
 
     // Export to CSV
     const exportBtn = document.getElementById('export-btn');
     exportBtn.addEventListener('click', () => {
-        if (state.cvs.length === 0) {
-            showToast("No data to export.");
-            return;
-        }
+        if (state.cvs.length === 0) { showToast("No data to export."); return; }
         const criteria = state.criteria.keywords.map(k => k.toLowerCase());
         let scoredData = state.cvs.map(cv => {
             const textLower = cv.content.toLowerCase();
@@ -1671,40 +1806,25 @@
             let matchedSkills = [];
             criteria.forEach(kw => {
                 const regex = new RegExp(`\\b${kw}\\b`, 'i');
-                if (regex.test(textLower)) {
-                    score += 10;
-                    matchedSkills.push(kw);
-                }
+                if (regex.test(textLower)) { score += 10; matchedSkills.push(kw); }
             });
-            return { name: cv.name, score: score, skills: matchedSkills.join(', ') };
+            return { name: cv.name, score: score, skills: matchedSkills.join(', '), email: extractEmail(cv.content) || 'Not found', phone: extractPhone(cv.content) || 'Not found' };
         });
 
         scoredData.sort((a, b) => b.score - a.score);
-
-        const headers = ['Rank', 'Candidate Name', 'Score (Points)', 'Matched Skills'];
+        const headers = ['Rank', 'Candidate Name', 'Email', 'Phone', 'Score (Points)', 'Matched Skills'];
         const csvRows = [headers.join(',')];
 
         scoredData.forEach((row, index) => {
-            const values = [
-                index + 1,
-                `"${row.name.replace(/"/g, '""')}"`,
-                row.score,
-                `"${row.skills}"`
-            ];
-            csvRows.push(values.join(','));
+            csvRows.push([index + 1, `"${row.name.replace(/"/g, '""')}"`, `"${row.email}"`, `"${row.phone}"`, row.score, `"${row.skills}"`].join(','));
         });
 
         const csvString = csvRows.join('\n');
         const blob = new Blob([csvString], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.setAttribute('hidden', '');
-        a.setAttribute('href', url);
-        a.setAttribute('download', 'Phein_Top_Candidates.csv');
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
+        a.setAttribute('hidden', ''); a.setAttribute('href', url); a.setAttribute('download', 'Phein_Top_Candidates.csv');
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         showToast("Report downloaded to Excel!");
     });
 
