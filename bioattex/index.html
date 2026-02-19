@@ -10,9 +10,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="bioattex-icons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="bioattex-icons/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="bioattex-icons/apple-touch-icon.png">
-    <link rel="manifest" href="bioattex-icons/site.webmanifest">
-    
-    <!-- PWA MANIFEST -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -366,6 +363,9 @@
         .license-badge.expiring {
             background: linear-gradient(135deg, #f59e0b, #d97706);
         }
+        .license-badge.expired {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
         
         .nav-group { display: flex; gap: 0.4rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .nav-btn {
@@ -572,6 +572,39 @@
         }
         #toast.show { transform: translateX(-50%) translateY(0); }
         
+        /* Connection Status */
+        .connection-status {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+        .status-dot.offline {
+            background: #ef4444;
+        }
+        .status-dot.connecting {
+            background: #f59e0b;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
         @media (max-width: 600px) {
             .brand span { display: none; }
             .panel { padding: 1rem; }
@@ -585,12 +618,13 @@
             .install-popup h3 { font-size: 1.15rem; }
             .install-btn { padding: 0.8rem 1rem; font-size: 0.9rem; }
             .license-card { padding: 1.5rem; }
+            .connection-status { display: none; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- LICENSE SCREEN - MortZKey System -->
+    <!-- LICENSE SCREEN - Backend License System -->
     <div id="license-screen">
         <div class="license-card">
             <div class="license-logo">
@@ -696,7 +730,7 @@
             <span>Bioattex</span>
         </div>
         <nav class="nav-group" id="main-nav">
-            <span class="license-badge" id="header-license-badge">Starter</span>
+            <span class="license-badge" id="header-license-badge">Unlicensed</span>
             <button class="nav-btn active" data-screen="home">Home</button>
             <button class="nav-btn hidden" id="nav-records" data-screen="records">Records</button>
             <button class="nav-btn" id="nav-admin" data-screen="admin-login">Admin</button>
@@ -885,14 +919,27 @@
     </div>
     
     <div id="toast"></div>
+    
+    <!-- Connection Status -->
+    <div class="connection-status" id="connection-status">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Connected</span>
+    </div>
 
     <script>
         // =====================================================
         // BIOATTEX - PROFESSIONAL BIOMETRIC ATTENDANCE SYSTEM
-        // Version 2.3 - MortZKey License Integration
+        // Version 3.0 - Backend License Integration
         // =====================================================
 
         'use strict';
+
+        // =====================================================
+        // LICENSE SERVER CONFIGURATION
+        // YOUR VERCEL DEPLOYMENT URL:
+        // =====================================================
+        const API_BASE_URL = 'https://phein-license-server-q63l.vercel.app';
+        // =====================================================
 
         // --- CONSTANTS ---
         const DB_KEY = 'bioattex_db_v2';
@@ -1105,14 +1152,13 @@
         };
 
         // =====================================================
-        // MortZKey License System
+        // BACKEND LICENSE SYSTEM
         // =====================================================
         const licenseSystem = {
             STORAGE_KEYS: {
-                key: 'bioattex_mortzkey',
-                activation: 'bioattex_mortzkey_activation',
-                tier: 'bioattex_mortzkey_tier',
-                company: 'bioattex_mortzkey_company'
+                key: 'bioattex_license_key',
+                fingerprint: 'bioattex_device_fingerprint',
+                company: 'bioattex_company_name'
             },
             
             TIERS: {
@@ -1134,95 +1180,110 @@
                 }
             },
 
-            generateChecksum: function(prefix, productCode, segment1, segment2) {
-                const combined = prefix + productCode + segment1 + segment2;
-                let sum = 0;
-                for (let i = 0; i < combined.length; i++) {
-                    sum += combined.charCodeAt(i);
+            // Generate Device Fingerprint
+            generateDeviceFingerprint: function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = 'top';
+                ctx.font = '14px Arial';
+                ctx.fillText('fingerprint', 2, 2);
+                
+                const components = [
+                    navigator.userAgent,
+                    navigator.language,
+                    navigator.hardwareConcurrency || '',
+                    screen.width + 'x' + screen.height,
+                    screen.colorDepth || '',
+                    new Date().getTimezoneOffset(),
+                    canvas.toDataURL()
+                ];
+                
+                let fingerprint = components.join('|');
+                let hash = 0;
+                for (let i = 0; i < fingerprint.length; i++) {
+                    const char = fingerprint.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
                 }
-                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-                return chars.charAt(sum % chars.length);
+                
+                return 'DEV-' + Math.abs(hash).toString(36).toUpperCase();
             },
 
-            parseKey: function(key) {
-                if (!key || typeof key !== 'string') return null;
+            getDeviceFingerprint: function() {
+                let fingerprint = localStorage.getItem(this.STORAGE_KEYS.fingerprint);
+                if (!fingerprint) {
+                    fingerprint = this.generateDeviceFingerprint();
+                    localStorage.setItem(this.STORAGE_KEYS.fingerprint, fingerprint);
+                }
+                return fingerprint;
+            },
+
+            // API: Validate License
+            async validateLicense(licenseKey, companyName) {
+                const fingerprint = this.getDeviceFingerprint();
                 
-                const cleanKey = key.trim().toUpperCase();
-                const parts = cleanKey.split('-');
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/validate`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            licenseKey: licenseKey,
+                            deviceFingerprint: fingerprint,
+                            companyName: companyName
+                        })
+                    });
+                    
+                    return await response.json();
+                } catch (error) {
+                    console.error('License validation error:', error);
+                    return {
+                        success: false,
+                        error: 'NETWORK_ERROR',
+                        message: 'Unable to connect to license server. Please check your internet connection.'
+                    };
+                }
+            },
+
+            // API: Check License Status
+            async checkLicenseStatus(licenseKey) {
+                const fingerprint = this.getDeviceFingerprint();
                 
-                if (parts.length !== 3) return null;
-                
-                const prefix = parts[0];
-                const middle = parts[1];
-                const end = parts[2];
-                
-                if (!this.TIERS[prefix]) return null;
-                
-                const productCode = middle.substring(0, 2);
-                if (productCode !== 'BK') return null;
-                
-                const segment1 = middle.substring(2);
-                const segment2 = end.substring(0, end.length - 1);
-                const checksum = end.charAt(end.length - 1);
-                
-                if (segment1.length !== 4 || segment2.length !== 4) return null;
-                
-                const expectedChecksum = this.generateChecksum(prefix, productCode, segment1, segment2);
-                if (checksum !== expectedChecksum) return null;
-                
-                return {
-                    prefix: prefix,
-                    tier: this.TIERS[prefix],
-                    fullKey: cleanKey
-                };
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/check`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            licenseKey: licenseKey,
+                            deviceFingerprint: fingerprint
+                        })
+                    });
+                    
+                    return await response.json();
+                } catch (error) {
+                    console.error('License check error:', error);
+                    return {
+                        success: false,
+                        error: 'NETWORK_ERROR',
+                        message: 'Unable to verify license status.'
+                    };
+                }
             },
 
             isLicenseValid: function() {
                 const savedKey = localStorage.getItem(this.STORAGE_KEYS.key);
-                const savedActivation = localStorage.getItem(this.STORAGE_KEYS.activation);
-                const savedTier = localStorage.getItem(this.STORAGE_KEYS.tier);
-                const savedCompany = localStorage.getItem(this.STORAGE_KEYS.company);
                 
-                if (!savedKey || !savedActivation || !savedTier) return null;
+                if (!savedKey) return null;
                 
-                const parsed = this.parseKey(savedKey);
-                if (!parsed) return null;
-                
-                const tier = this.TIERS[savedTier];
-                if (!tier) return null;
-                
-                const activationDate = new Date(savedActivation);
-                const now = new Date();
-                
-                if (tier.days !== null) {
-                    const expirationDate = new Date(activationDate);
-                    expirationDate.setDate(expirationDate.getDate() + tier.days);
-                    
-                    if (now > expirationDate) return null;
-                    
-                    const daysRemaining = Math.ceil((expirationDate - now) / (1000 * 60 * 60 * 24));
-                    return {
-                        tier: tier,
-                        daysRemaining: daysRemaining,
-                        isPerpetual: false,
-                        company: savedCompany || 'Not specified',
-                        activationDate: savedActivation
-                    };
-                }
-                
+                // For now, return a basic object - real validation happens async
+                // This is just for initial UI state
                 return {
-                    tier: tier,
-                    daysRemaining: null,
-                    isPerpetual: true,
-                    company: savedCompany || 'Not specified',
-                    activationDate: savedActivation
+                    key: savedKey,
+                    company: localStorage.getItem(this.STORAGE_KEYS.company) || 'Not specified'
                 };
             },
 
-            storeLicense: function(key, tier, company) {
+            storeLicense: function(key, company) {
                 localStorage.setItem(this.STORAGE_KEYS.key, key);
-                localStorage.setItem(this.STORAGE_KEYS.activation, new Date().toISOString());
-                localStorage.setItem(this.STORAGE_KEYS.tier, tier);
                 if (company) {
                     localStorage.setItem(this.STORAGE_KEYS.company, company);
                 }
@@ -1258,28 +1319,32 @@
                 verifyBtn.disabled = true;
                 verifyBtn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0 auto;"></div>';
                 
-                setTimeout(() => {
-                    const parsed = this.parseKey(keyValue);
-                    
-                    if (parsed) {
+                // Call backend API
+                this.validateLicense(keyValue, companyValue).then(result => {
+                    if (result.success) {
                         errorDiv.textContent = '';
                         keyInput.style.borderColor = 'var(--success)';
                         
-                        tierInfo.textContent = `Tier: ${parsed.tier.name}`;
-                        durationInfo.textContent = parsed.tier.days 
-                            ? `Duration: ${parsed.tier.days} days from activation`
-                            : 'Duration: Perpetual (never expires)';
-                        warningBox.textContent = `This license is registered to "${companyValue}". Unauthorized sharing is a breach of license terms.`;
+                        tierInfo.textContent = `Tier: ${result.tier_name}`;
+                        durationInfo.textContent = result.is_perpetual 
+                            ? 'Duration: Perpetual (never expires)'
+                            : `Duration: ${result.days_remaining} days remaining`;
+                        warningBox.textContent = `Licensed to "${result.company}". This key is bound to this device.`;
                         infoBox.style.display = 'block';
                         
                         verifyBtn.innerHTML = 'Activating...';
                         
                         setTimeout(() => {
-                            this.storeLicense(parsed.fullKey, parsed.prefix, companyValue);
-                            this.bootSystem(this.isLicenseValid(), true);
+                            this.storeLicense(keyValue.toUpperCase(), companyValue);
+                            this.bootSystem({
+                                tier: { name: result.tier_name },
+                                daysRemaining: result.days_remaining,
+                                isPerpetual: result.is_perpetual,
+                                company: result.company
+                            }, true);
                         }, 1000);
                     } else {
-                        errorDiv.textContent = 'Invalid license key or wrong product (BioAttex requires BK- prefix)';
+                        errorDiv.textContent = result.message || 'License validation failed';
                         keyInput.classList.add('error');
                         keyInput.style.borderColor = 'var(--danger)';
                         setTimeout(() => keyInput.classList.remove('error'), 500);
@@ -1288,7 +1353,7 @@
                         verifyBtn.disabled = false;
                         verifyBtn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Activate License';
                     }
-                }, 500);
+                });
             },
 
             bootSystem: function(licenseInfo, showInstallPrompt) {
@@ -1360,16 +1425,25 @@
                 const badge = document.getElementById('header-license-badge');
                 if (!badge || !licenseInfo) return;
                 
-                badge.textContent = licenseInfo.tier.name;
-                
-                if (licenseInfo.isPerpetual) {
-                    badge.classList.remove('expiring');
-                } else if (licenseInfo.daysRemaining <= 14) {
-                    badge.classList.add('expiring');
-                    badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
-                } else {
-                    badge.classList.remove('expiring');
-                    badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                if (licenseInfo.tier) {
+                    badge.textContent = licenseInfo.tier.name;
+                    
+                    if (licenseInfo.isPerpetual) {
+                        badge.classList.remove('expiring', 'expired');
+                    } else if (licenseInfo.daysRemaining !== null) {
+                        if (licenseInfo.daysRemaining <= 0) {
+                            badge.textContent = 'Expired';
+                            badge.classList.add('expired');
+                            badge.classList.remove('expiring');
+                        } else if (licenseInfo.daysRemaining <= 14) {
+                            badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                            badge.classList.add('expiring');
+                            badge.classList.remove('expired');
+                        } else {
+                            badge.textContent = `${licenseInfo.tier.name} - ${licenseInfo.daysRemaining}d`;
+                            badge.classList.remove('expiring', 'expired');
+                        }
+                    }
                 }
             }
         };
